@@ -88,10 +88,10 @@ const Terms = () => {
 
   return (
     <MainLayout>
-      <div className="lg:w-screen  max-w-screen bg-[#eeedf0]  mt-[98px] lg:mt-[130px] lg:px-10 px-5 my-5">
+      <div className="lg:w-screen  max-w-screen bg-[#eeedf0]  mt-[90px] lg:mt-[105px] lg:px-10 px-5 mt-5">
         <div className="">
           <div className="">
-            <h2 className="text-2xl font-bold pt-4 text-left">How it works?</h2>
+            <h2 className="text-2xl font-bold pt-8 text-left">How it works?</h2>
             <div className="flex">
               <ol>
                 {rules.map((rule) => (

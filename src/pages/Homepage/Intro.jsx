@@ -127,9 +127,7 @@ const Introo = () => {
             >
               <HeroSection />
 
-              {showIntroArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.fixtures} />
-              )}
+              
             </div>
             
             <div ref={sectionRefs.fixtures} className=" w-screen max-w-screen">
@@ -178,15 +176,11 @@ const Introo = () => {
                     })}
                 </div>
               </div>
-              {showFixturesArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.quote} />
-              )}
+             
             </div>
             <div ref={sectionRefs.quote} className=" w-screen max-w-screen">
               <Quote />
-              {showQuoteArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.about} />
-              )}
+             
             </div>
             
             <motion.div
@@ -219,9 +213,7 @@ const Introo = () => {
                   overview of how it all works:
                 </p>
               </div>
-              {showAboutArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.howItWorks} />
-              )}
+            
             </motion.div>
             <div
               ref={sectionRefs.howItWorks}
@@ -247,9 +239,7 @@ const Introo = () => {
                   </ol>
                 </div>
               </div>
-              {showHowItWorksArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.leaderboard} />
-              )}
+             
             </div>
             <div
               ref={sectionRefs.leaderboard}

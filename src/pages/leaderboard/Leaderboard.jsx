@@ -156,9 +156,15 @@ const Leaderboard = () => {
           </div>
         </div>
         <div className="container flex flex-col  max-w-3xl px-4 mx-auto sm:px-8">
+        <div className="flex flex-col items-center justify-center mx-auto mt-8">
+              <p className="lg:text-md text-sm text-black font-semibold text-center">
+              To obtain a customized leaderboard, please reach out via email to <span className="text-blue font-bold">predictiveplay.supp@gmail.com</span>
+              </p>
+              
+            </div>
           <div className="py-2 relative w-full">
             <div className="mx-14">
-              <div className="flex flex-row justify-center items-center text-center w-full mb-1 mt-4 sm:mb-0">
+              <div className="flex flex-row justify-center items-center text-center w-full mb-1 mt-2 sm:mb-0">
                 <h2 className="text-2xl uppercase font-bold text-tertiary">
                   Leader Board
                 </h2>
