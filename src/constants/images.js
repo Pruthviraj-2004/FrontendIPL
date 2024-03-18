@@ -16,7 +16,6 @@ import b from "../Assets/b.jpg";
 import c from "../Assets/c.jpg";
 import e from "../Assets/e.jpg";
 import f from "../Assets/f.jpg";
-import i from "../Assets/i.jpg";
 
 import error from "../Assets/3582365.jpg";
 
@@ -33,17 +32,14 @@ import pbks1 from "../Assets/PBKSoutline.png";
 
 import bg1 from '../Assets/961.jpg';
 import bg2 from '../Assets/19007.jpg';
-import trophy from '../Assets/trophy.jpg';
 
 import bg10 from "../Assets/bg10.jpg";
-import bg12 from "../Assets/bg12.jpg";
 import bg13 from "../Assets/bg13.jpg";
 import bg14 from "../Assets/bg14.jpg";
 import bg20 from "../Assets/bg20.jpg";
 import bg22 from "../Assets/bg22.jpg";
 import bg23 from "../Assets/bg23.jpg";
-import bg24 from "../Assets/alessandro-bogliari-oDs_AxeR5g4-unsplash.jpg";
-import bg25 from "../Assets/as.jpg";
+
 import hero10 from "../Assets/hero10.jpg";
 import hero11 from "../Assets/hero11.webp";
 import hero12 from "../Assets/hero12.jpg";
@@ -55,7 +51,7 @@ import hero17 from "../Assets/hero17.jpg";
 import wpl from '../Assets/rcb_wpl.webp'
 const images = {
   wpl,
-  trophy,
+  
   bg1,
   error,
   a,
@@ -63,7 +59,7 @@ const images = {
   c,
   e,
   f,
-  i,
+  
   
   sign,
   pc,
@@ -91,14 +87,11 @@ const images = {
 
   bg2,
   bg10,
-  bg12,
   bg13,
   bg14,
   bg20,
   bg22,
   bg23,
-  bg24,
-  bg25,
   
   hero10,
   hero11,
