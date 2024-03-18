@@ -28,7 +28,7 @@ const LeaderboardForm = () => {
 
   const handleSubmitParticipate = async ({ leaderboardname, password }) => {
     try {
-      const response = await fetch("/ipl2/lb_participation/", {
+      const response = await fetch("https://practicehost1.pythonanywhere.com/ipl2/lb_participation/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,12 +82,7 @@ const LeaderboardForm = () => {
     <MainLayout>
       <div
         className="mt-24 bg-[rgb(237,236,237)] flex flex-col lg:flex-row justify-center items-center lg:h-[600px] h-[750px]"
-        style={{
-          backgroundImage: `url(${images.bg14})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+        
       >
         <ToastContainer />
         <div className="w-[100%] lg:w-[50%] flex justify-center lg:justify-end items-center">

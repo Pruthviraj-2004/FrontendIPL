@@ -7,7 +7,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   return (
     <MainLayout>
-      <div className="container  w-screen mt-24 overflow-hidden h-screen flex justify-center items-center" 
+      <div className="container  w-screen mt-24 overflow-hidden h-[700px] flex justify-center items-center" 
         style={{
           backgroundImage: `url(${images.bg14})`,
           backgroundSize: 'cover',
@@ -15,8 +15,8 @@ const ProfilePage = () => {
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="flex flex-col items-center" >
-          <div className=" w-[90%]">
+        <div className="flex flex-col items-center bg-white h-[90%] w-[80%]" >
+          <div className=" w-[80%] py-8 h-90">
             <p className="text-3xl my-3 blue-text-gradient text-center font-bold">
               Let's get started
             </p>
@@ -31,17 +31,12 @@ const ProfilePage = () => {
           <div className="flex flex-col space-y-3 mt-3" 
             
           >
-            <button
-              onClick={() => navigate("/register")}
-              className="bg-blue w-[100%] text-white hover:opacity-90 py-2 px-24 rounded-md shadow-lg  transition-colors duration-300 "
-            >
-              SIGN IN
-            </button>
+            
             <button
               onClick={() => navigate("/register")}
               className="bg-blue w-[100%] text-white hover:opacity-90 py-2 px-24 rounded-md shadow-lg transition-colors duration-300"
             >
-              SIGN UP
+              Get Started
             </button>
           </div>
         </div>

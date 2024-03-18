@@ -3,7 +3,7 @@ import axios from "axios";
 export const signup = async ({ username, name, email, password1, password2 }) => {
   try {
     const response = await axios.post(
-      "/ipl2/register_user/",
+      "https://practicehost1.pythonanywhere.com/ipl2/register_user/",
       { 
         username: username,
         name: name,
@@ -29,7 +29,7 @@ export const signup = async ({ username, name, email, password1, password2 }) =>
 export const signin = async ({ username, password1 }) => {
   try {
     const response = await axios.post(
-      "/ipl2/login_user/",
+      "https://practicehost1.pythonanywhere.com/ipl2/login_user/",
       { username, password1 }
     );
     return response.data;
@@ -50,7 +50,7 @@ export const signin = async ({ username, password1 }) => {
 export const signout = async ({ username, password1 }) => {
   try {
     const response = await axios.post(
-      "/ipl2/logout_user/"
+      "https://practicehost1.pythonanywhere.com/ipl2/logout_user/"
     );
     return response.data;
   } catch (error) {

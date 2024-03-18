@@ -148,6 +148,10 @@ const rr = {
 
 const news = [
   {
+    img: images.wpl,
+news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Mandhana & Co beat DC in the final by 8 wickets to secure their maiden WPL title" 
+ },
+  {
     img: images.vkfaf,
     news: "The Indian Premier League is scheduled to begin on March 22 at Chennai's Chepauk Stadium, where the reigning champion CSK will play their southern rivals, RCB.",
   },

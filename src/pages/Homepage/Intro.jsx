@@ -128,7 +128,7 @@ const Introo = () => {
               <HeroSection />
 
               {showIntroArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.quote} />
+                <ScrollDownArrow targetRef={sectionRefs.fixtures} />
               )}
             </div>
             
@@ -168,7 +168,7 @@ const Introo = () => {
                         isTodayBeforeMatchTime =
                           currentTime < matchTimeInMinutes;
                       }
-                      console.log(match);
+                    
 
                       if (!isMatchCompleted && !isTodayBeforeMatchTime) {
                         return <Card data={match} />;
@@ -179,13 +179,13 @@ const Introo = () => {
                 </div>
               </div>
               {showFixturesArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.about} />
+                <ScrollDownArrow targetRef={sectionRefs.quote} />
               )}
             </div>
             <div ref={sectionRefs.quote} className=" w-screen max-w-screen">
               <Quote />
               {showQuoteArrow && (
-                <ScrollDownArrow targetRef={sectionRefs.fixtures} />
+                <ScrollDownArrow targetRef={sectionRefs.about} />
               )}
             </div>
             
@@ -280,8 +280,8 @@ const Introo = () => {
                 </p>
               </motion.div>
             </div>
-            <div className="w-screen max-w-screen mx-5">
-              <p className={`${styles.sectionHeadText} mt-5 text-left ml-5`}>News</p>
+            <div className="w-screen max-w-screen lg:mx-0 mx-5">
+              <p className={`${styles.sectionHeadText} mt-5 text-left lg:ml-10`}>News</p>
               <News />
             </div>
           </div>

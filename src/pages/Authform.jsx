@@ -189,15 +189,15 @@ const Authform = () => {
               <div
                 className={`${
                   variant === "LOGIN" ? "lg:h-[60%]" : "lg:h-[100%]"
-                } bg-white w-[100%]   lg:w-[50%] px-8 py-8 my-auto sm:rounded-lg rounded-lg `}
+                } bg-white w-[100%]   lg:w-[50%] px-4 py-8 my-auto sm:rounded-lg rounded-lg `}
               >
                 <div className="flex flex-row justify-evenly mb-4">
                   {variant === "LOGIN" && (
-                    <div className={`  w-[100%] cursor-pointer h-14`}>
+                    <div className={`  w-[100%] cursor-pointer h-18`}>
                       <p className="my-2 text-xl ml-2 font-bold text-left blue-text-gradient">
                         SIGN IN
                       </p>
-                      <p className="lg:my-0 my-2 mb-6 text-md ml-2 font-medium text-left">
+                      <p className="lg:my-0 my-2 mb-2 text-md ml-2 font-medium text-left">
                         Sign in below
                       </p>
                     </div>
@@ -269,7 +269,7 @@ const Authform = () => {
 
                   {variant === "REGISTER" &&
                     errors.password2?.type === "validate" && (
-                      <div className="text-red-500">Passwords do not match</div>
+                      <div className="ml-3 text-sm text-orange-500">Passwords do not match</div>
                     )}
                   <Button disabled={isLoading} fullWidth type="submit">
                     {variant === "LOGIN" ? "SIGN IN" : "REGISTER"}

@@ -22,11 +22,11 @@ const HeroSection = () => {
         className=" absolute top-0 left-0 w-full h-full bg-cover bg-center z-0"
       >
       <div className=" flex flex-col mt-[10%] z-50 items-start mx-5">
-        <h1 className={`${styles.heroHeadText} m-2 sm:mx-20  `}>
+        <h1 className={`${styles.heroHeadText} m-2 mt-[60px] sm:mx-20  `}>
           Predictive Play
         </h1>
         <p
-          className={`text-sm text-justify sm:text-none sm:text-xl z-49 m-0 sm:mx-20  text-[#F8F8FF] sm:mt-0  mt-[40px] font-bold font-md`}
+          className={`text-sm text-justify sm:text-none sm:text-xl z-49 m-0 sm:mx-20 xs:mx-10  text-[#F8F8FF] sm:mt-0  mt-[15px] font-bold font-md`}
         >
           Predict the outcomes of the matches and earn points to climb the
           leaderboard. Compete with other players and showcase your predictive

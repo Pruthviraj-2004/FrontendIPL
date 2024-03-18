@@ -6,7 +6,7 @@ export const getFixtures = async () => {
   };
   try {
     const { data } = await axios.get(
-      "/ipl2/fixtures/",
+      "https://practicehost1.pythonanywhere.com/ipl2/fixtures/",
       config
     );
     return data;
@@ -42,7 +42,7 @@ export const predictMatch = async ({
   };
   try {
     const { data } = await axios.post(
-      `/ipl2/predict1/${match_id}/`,
+      `https://practicehost1.pythonanywhere.com/ipl2/predict1/${match_id}/`,
       body,config
     );
     return data;
@@ -61,10 +61,10 @@ export const predictMatch = async ({
 };
 
 export const getMatchDetails = async (parsedMatchId) => {
-    console.log(parsedMatchId)
+    
     try {
       const { data } = await axios.get(
-        `/ipl2/predict1/${parsedMatchId}/`,
+        `https://practicehost1.pythonanywhere.com//ipl2/predict1/${parsedMatchId}/`,
 
       );
       return data;
@@ -77,7 +77,7 @@ export const getMatchDetails = async (parsedMatchId) => {
   };
 
   export const getMatchDetailss = async (parsedMatchId) => {
-    console.log(parsedMatchId)
+    
     try {
       const { data } = await axios.get(
         `/ipl2/getmatchdetails/${parsedMatchId}/`,
@@ -94,7 +94,7 @@ export const getMatchDetails = async (parsedMatchId) => {
   export const getTodayMatch = async () => {
     try {
       const { data } = await axios.get(
-        `/ipl2/home/`,
+        `https://practicehost1.pythonanywhere.com/ipl2/home/`,
 
       );
       return data;

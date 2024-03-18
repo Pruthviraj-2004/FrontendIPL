@@ -24,7 +24,7 @@ const Headers = () => {
   const dispatch = useDispatch();
   const naVisibilityHandler = () => {
     setNavisible((curState) => {
-      console.log(curState);
+      
       return !curState;
     });
   };
@@ -47,7 +47,7 @@ const Headers = () => {
     },
     onError: (error) => {
       toast.error(error.message);
-      console.log(error);
+      
     },
   });
   const logoutHandler = () => {
@@ -101,16 +101,16 @@ const Headers = () => {
                   : "hidden"
               } mx-auto flex flex-row justify-start items-center rounded-sm px-5 py-1 bg-gray-50 hover:bg-gray-100 text-center`}
             >
-              <div className={`${true ? "block" : "hidden"} mt-1`}>
+              <div className={`${true ? "block" : "hidden"}`}>
                 {item.icon}
               </div>
               <div className=" ">
-                <a
-                  href={`${item.href}`}
+                <button
+                  onClick={()=> navigate(`${item.href}`)}
                   className="cursor-pointer ml-3 text-[16px] text-black font-bold  shadow-none hover:text-indigo-950 lg:hover:text-blue "
                 >
                   {item.name}
-                </a>
+                </button>
               </div>
             </div>
           ) : (
@@ -141,7 +141,7 @@ const Headers = () => {
   };
   return (
     <>
-      <section className="fixed left-0 right-0 top-0 m-0 z-[1000] bg-[#F8F8FF] w-full max-w-screen px-8 py-2 lg:px-8 lg:py-1">
+      <section className="fixed left-0 right-0 top-0 m-0 z-[10000] bg-[#F8F8FF] w-full max-w-screen px-4 py-2 lg:px-8 lg:py-1">
         <header className="container mx-auto my-0 flex items-center justify-between px-5 py-2 sm:px-0">
           <div className="left-0 text-xl flex flex-row justify-center items-center gap-x-5 my-auto">
             <div className=" flex flex-row">
@@ -157,13 +157,13 @@ const Headers = () => {
           <div className="z-50 lg:hidden">
             {naVisible ? (
               <AiOutlineClose
-                className="h-6 w-6"
+                className="h-6 w-6 hover:cursor-pointer"
                 onClick={naVisibilityHandler}
                 color="#000000"
               />
             ) : (
               <IoMenu
-                className="h-6 w-6"
+                className="h-6 w-6 hover:cursor-pointer"
                 onClick={naVisibilityHandler}
                 color="#000000"
               />

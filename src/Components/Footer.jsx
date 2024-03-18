@@ -1,9 +1,9 @@
 import React from "react";
 import { images } from "../constants";
 import SocialMediaShare from "./SocialMediaShare";
-
+import { useNavigate } from "react-router-dom";
 const CTA = () => {
-  console.log(window.location.href);
+  const navigate = useNavigate()
   return (
     <footer class="bottom-0 left-0  bg-[#ffffff] w-screen max-w-screen pt-[1px] pb-8 border-t-[1px] z-[1000] xl:pt-8">
       <div class="max-w-screen-lg px-4 mx-auto text-black xl:max-w-screen-xl sm:px-6 md:px-8 dark:text-gray-300">
@@ -15,16 +15,16 @@ const CTA = () => {
               </p>
               <ul className="flex lg:flex-row flex-col justify-center items-center gap-x-20">
                 <li class="   font-semibold transition-colors duration-200 hover:text-indigo-800 ">
-                  <a href="/board">Leaderboard</a>
+                <button onClick={()=> navigate("/board")}>LeaderBoard</button>
                 </li>
                 <li class="  font-semibold transition-colors duration-200 hover:text-indigo-800 ">
-                  <a href="/register">Register</a>
+                <button onClick={()=> navigate("/register")}>Register</button>
                 </li>
                 <li class=" font-semibold transition-colors duration-200 hover:text-indigo-800">
-                  <a href="/fixtures">Fixtures</a>
+                <button onClick={()=> navigate("/fixtures")}>Fixtures</button>
                 </li>
                 <li class=" font-semibold transition-colors duration-200 hover:text-indigo-800 ">
-                  <a href="/terms">Terms</a>
+                  <button onClick={()=> navigate("/terms")}>Terms</button>
                 </li>
               </ul>
             </div>

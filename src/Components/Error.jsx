@@ -7,7 +7,7 @@ const ErrorMessage = ({ message, setCreateError }) => {
   return (
     
       <div className="fixed flex justify-center item-center inset-0 h-screen z-[1000] bg-black/80">
-      <div className="relative flex flex-col items-center justify-center w-[60%] text-center mx-auto my-auto bg-white h-[80%]">
+      <div className="relative flex flex-col items-center justify-center w-[90%] text-center mx-auto my-auto bg-white h-[80%]">
         <MdClose
           onClick={() => {setCreateError(false); navigate("/")}}
           size={30}
@@ -17,7 +17,7 @@ const ErrorMessage = ({ message, setCreateError }) => {
           src={images.error}
           alt="Error"
           className="mb-4"
-          style={{ maxWidth: "300px" }}
+          style={{ maxWidth: "250px" }}
         />
         <h1 className="text-3xl font-bold mb-2">Oops!.</h1>
         <p className="text-xl text-gray-600">{message}</p>

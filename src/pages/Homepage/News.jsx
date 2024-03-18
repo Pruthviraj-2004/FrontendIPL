@@ -19,7 +19,7 @@ const News = () => {
               <img
                 src={team.img}
                 alt="teams"
-                className="lg:h-[45vh] w-[100vw] h-[35vh] rounded-md mx-auto "
+                className="lg:h-[42vh] w-[100vw] h-[35vh] rounded-md mx-auto "
               />
             </div>
             <div className="py-4 px-4 font-semibold text-black">

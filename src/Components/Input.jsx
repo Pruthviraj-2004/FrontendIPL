@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaLock } from "react-icons/fa";
-import { MdEmail, MdError } from "react-icons/md";
+import { MdEmail, MdError, MdLeaderboard } from "react-icons/md";
 import { findInputError, isFormInvalid } from "../utils/motion";
 import { AnimatePresence } from "framer-motion";
 import { IoPersonSharp } from "react-icons/io5";
@@ -35,8 +35,8 @@ const Input = ({
 
   // Function to validate password length
   const validatePasswordLength = (value) => {
-    if (type === "password" && value.length < 8) {
-      return "Password must be at least 8 characters long";
+    if (type === "password" && value.length < 6) {
+      return "Password must be at least 6 characters long";
     }
     return true;
   };
@@ -65,6 +65,11 @@ const Input = ({
         {type === "password" && (
           <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
             <FaLock color="#3486eb" />
+          </div>
+        )}
+        {label === "Leaderboard Name" && (
+          <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
+            <MdLeaderboard color="#3486eb" />
           </div>
         )}
         <motion.label
@@ -126,7 +131,7 @@ const Input = ({
 const InputError = ({ message }) => {
   return (
     <motion.p
-      className="flex items-center gap-1 px-2 font-semibold text-red-500 bg-red-100 rounded-md"
+      className="flex items-center text-sm gap-1 ml-3 font-semibold text-orange-500 rounded-md"
       {...framer_error}
     >
       <MdError />

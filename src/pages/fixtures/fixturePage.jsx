@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Breadcrumbs from "../../Components/Breadcrumbs";
 import Matches from "./matches";
 import { getFixtures } from "../../services/fixtures";
@@ -6,6 +6,7 @@ import MainLayout from "../../Components/MainLayout";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { images } from "../../constants";
+import Loading from "../../Components/loading";
 const FixturePage = () => {
   const Breadcrumbsdata = [
     {
@@ -34,11 +35,22 @@ const FixturePage = () => {
   const upcomingMatches = data ? data?.upcoming_matches : null;
 
   const pastMatches =data ? data?.past_matches : null;
-  
+  const [loading,setLoading] = useState(true)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer); // Cleanup function to clear the timeout if component unmounts
+  }, []);
 
   return (
     <MainLayout>
-      <section className={`h-full  mt-[75px] overflow-hidden`} 
+      {
+        loading ? (<div className="w-screen h-screen text-center flex justify-center items-center animate-pulse">
+        <Loading/>
+      </div>) : (
+          <section className={`h-full  mt-[75px] overflow-hidden`} 
         style={{
           backgroundImage: `url(${images.bg10})`,//changed to bg25 from bg10
           backgroundSize: 'cover', 
@@ -93,6 +105,8 @@ const FixturePage = () => {
           </div>
         </div>
       </section>
+        )
+      }
     </MainLayout>
   );
 };

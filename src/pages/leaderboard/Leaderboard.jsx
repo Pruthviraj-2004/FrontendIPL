@@ -9,16 +9,17 @@ import { getLeaderBoard, getLeaderBoard2 } from "../../services/leaderboard";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import MainLayout from "../../Components/MainLayout";
-import { images } from "../../constants";
-import Button from "../../Components/Button";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../Components/loading";
 const Leaderboard = () => {
   const userState = useSelector((state) => state.user);
   const [filteredUserList, setFilteredUserList] = useState([]);
   const [lid, setLid] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
-  const [Breadcrumbsdata, setBreadcrumbsdata] = useState([
+  const [loading,setLoading] = useState(true)
+  const Breadcrumbsdata= [
     {
       name: "Home",
       link: "/",
@@ -27,7 +28,7 @@ const Leaderboard = () => {
       name: "Leaderboard",
       link: "/board",
     },
-  ]);
+  ]
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedOption, setSelectedOption] = useState("Global");
 
@@ -122,20 +123,34 @@ const Leaderboard = () => {
 
     setFilteredUserList(filteredUserList);
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer); // Cleanup function to clear the timeout if component unmounts
+  }, []);
   const navigate = useNavigate();
   return (
     <MainLayout>
-      <div className="flex flex-col mt-[100px] min-w-xl overflow-clip sm:h-[200vh] h-auto mb-10" >
+   {loading ? (
+                  <div className="w-screen h-screen text-center flex justify-center items-center animate-pulse">
+                    <Loading/>
+                  </div>
+                ) : (
+      <div className="flex flex-col mt-[85px] min-w-xl overflow-clip sm:h-[200vh] h-auto mb-10" >
+        <Breadcrumbs data={Breadcrumbsdata} activeName="Leaderboard" />
         <div
-          className={`w-full my-0 lg:h-[160px] bg-cover bg-no-repeat border-t-2 md:h-[200px] h-[140px] border-b-2  flex flex-col justify-center items-center`}
+          className={`w-full my-0 lg:h-[160px] bg-cover bg-no-repeat border-t-2 md:h-[200px] h-[110px] border-b-2  flex flex-col justify-center items-center`}
           
         >
+          
           <div className="flex flex-col justify-center items-center">
             <button onClick={() => fetchData()}></button>
             <p className="text-2xl font-bold mt-3 xs:mt-[1px] sm:mt-1 ml-3 lg:text-black lg:text-3xl text-center uppercase">
               Indian Premier League 2024
             </p>
-            <p className="xs:text-sm mx-3 text-xl text-center sm:block hidden  text-[#05b1e6] font-semibold">
+            <p className="xs:text-sm mx-3 text-xl hidden lg:block text-center sm:block   text-blue font-semibold">
               Dive into the pulse-pounding excitement of the IPL!
             </p>
           </div>
@@ -207,11 +222,7 @@ const Leaderboard = () => {
                   </div>
                 </div>
 
-                {isLoading ? (
-                  <div className="w-full py-3 text-center animate-pulse">
-                    Loading ...
-                  </div>
-                ) : (
+                
                   <div className="w-full">
                     {currentPageUserList.map((record, index) => (
                       <div
@@ -228,12 +239,12 @@ const Leaderboard = () => {
                           {selectedOption === "Weekly"
                             ? record.score2
                             : record.score1}
-                          {console.log(record.rank)}
+                          
                         </div>
                       </div>
                     ))}
                   </div>
-                )}
+              
               </div>
               {/* right arrow */}
               <button
@@ -294,6 +305,7 @@ const Leaderboard = () => {
           </div>
         </div>
       </div>
+                )}
     </MainLayout>
   );
 };

@@ -8,9 +8,9 @@ import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import MainLayout from "../../Components/MainLayout";
-import { TbScoreboard } from "react-icons/tb";
-import { RiArrowDropDownLine } from "react-icons/ri";
+
 import { images } from "../../constants";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 
 
 const itemVariants = {
@@ -27,7 +27,16 @@ const UserSubmission = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Default");
-
+  const Breadcrumbsdata = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "User Submissions",
+      link: "/usersubmission",
+    },
+  ]
   const handleItemClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false); // Close the menu after selection, if desired
@@ -100,6 +109,7 @@ const UserSubmission = () => {
           // backgroundRepeat: 'no-repeat' 
         }}
       >
+          <Breadcrumbs data={Breadcrumbsdata} activeName="Leaderboard" />
         <div class="container max-w-6xl px-4 mx-auto sm:px-8">
           <div class="py-8 relative">
             <div class="flex flex-row justify-center items-center text-center w-full mb-1 sm:mb-0">

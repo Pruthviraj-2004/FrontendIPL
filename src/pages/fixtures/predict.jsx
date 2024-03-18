@@ -217,11 +217,11 @@ const PredictMatch = () => {
 
   return (
     <>
-    {popup &&
+    {/* {popup &&
         createPortal(
           <Popup setClose={handleClosePopup} />,
           document.getElementById("error")
-        )}
+        )} */}
         {
           errorss && createPortal(
             <ErrorMessage message="You must be logged in!!" setCreateError={setCreateError}></ErrorMessage>,document.getElementById("error")
@@ -242,23 +242,25 @@ const PredictMatch = () => {
           <div  className="w-full flex justify-center items-center text-2xl mt-[80px] font-semibold ">
             <motion.div
               variants={slideIn("left", "spring", 0.4, 2)}
-              className="flex flex-col justify-end items-center mx-4 gap-x-3 h-40"
+              className="flex flex-col justify-end items-center lg:items-end mx-4  h-40 "
             >
               <img
                 src={teamImages[team_a?.teamname]}
                 alt=""
                 className="w-[150px] h-[150px] my-2"
               />
-              <p className={`text-lg text-[${teamColors[team_a?.teamname]}]`}>
+              <p className={`text-lg text-center w-[144px] h-18 justify-start text-[${teamColors[team_a?.teamname]}]`}>
                 &nbsp;{team_a?.teamname}
               </p>
             </motion.div>
-            <motion.p variants={zoomIn(0.4, 1)} className="text-purple-950">
+           <div className="flex justify-center items-center w-[2%]">
+           <motion.p variants={zoomIn(0.4, 1)} className="text-center text-purple-950">
               &nbsp;vs&nbsp;
             </motion.p>
+           </div>
             <motion.div
               variants={slideIn("right", "spring", 0.4, 2)}
-              className="flex flex-col justify-end items-center mx-4 gap-x-3 h-40"
+              className="flex flex-col justify-end items-center lg:items-start items-center mx-4 gap-x-3 h-40 "
             >
               <img
                 src={teamImages[team_b?.teamname]}
@@ -266,7 +268,7 @@ const PredictMatch = () => {
                 // className={`${team_b?.teamname === 'Royal Challengers Bangalore' ? "w-[50px]" : "w-[110px]"} h-auto my-2`}
                 className="w-[150px] h-[150px] my-2"
               />
-              <p className={`text-lg text-${teamColors[team_b?.teamname]}-600`}>
+              <p className={`text-lg text-center w-[144px] h-18 text-${teamColors[team_b?.teamname]}-600`}>
                 &nbsp;{team_b?.teamname}
               </p>
             </motion.div>
@@ -275,7 +277,7 @@ const PredictMatch = () => {
           {!current? <div className="h-fit flex flex-col justify-center items-center bg-white max-w-4xl w-[430px]  rounded-lg  m-5">
             <motion.p
               variants={zoomIn(0.4, 1.2)}
-              className="text-2xl uppercase font-bold mt-5"
+              className="text-2xl uppercase font-bold mt-10"
             >
               {!completed ? "Make predictions" : "Results"}
             </motion.p>

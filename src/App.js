@@ -18,7 +18,7 @@ function App() {
   const [error, setCreateError] = useState(true);
   const userState = useSelector((state) => state.user);
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
-
+  
   return (
     <div className="App bg-gray-100  w-screen overflow-hidden">
       <BrowserRouter>

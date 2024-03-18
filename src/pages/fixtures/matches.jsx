@@ -52,7 +52,7 @@ const Matches = ({ data, id, status, className }) => {
   return (
     <a
       href={`/fixtures/${id}?status=${data.status}`}
-      className={`overflow-hidden rounded-xl py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${className}`}
+      className={`overflow-hidden rounded-xl py-3 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${className}`}
     >
       <div >
         <div className="flex flex-col justify-center w-full h-[130px] my-7">

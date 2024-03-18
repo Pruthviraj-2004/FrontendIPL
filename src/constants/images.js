@@ -52,8 +52,9 @@ import hero14 from "../Assets/hero14.webp";
 import hero15 from "../Assets/hero15.webp";
 import hero16 from "../Assets/hero16.jpg";
 import hero17 from "../Assets/hero17.jpg";
-
+import wpl from '../Assets/rcb_wpl.webp'
 const images = {
+  wpl,
   trophy,
   bg1,
   error,

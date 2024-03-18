@@ -8,7 +8,7 @@ export const getLeaderBoard = async ({selected_leaderboard}) => {
     // console.log(user)
     const { data } = await axios.get(
     //   "http://localhost:8000/ipl2/leaderboard2/",
-    "/ipl2/leaderboard2/",
+    "https://practicehost1.pythonanywhere.com/ipl2/leaderboard2/",
       config,{selected_leaderboard}
     );
     return data;
@@ -28,7 +28,7 @@ export const getLeaderBoard2 = async ({selected_leaderboard}) => {
       // console.log(user)
       const { data } = await axios.get(
       //   "http://localhost:8000/ipl2/leaderboard1/",
-      `/ipl2/leaderboard2?selected_leaderboard=${selected_leaderboard}`,
+      `https://practicehost1.pythonanywhere.com/ipl2/leaderboard2?selected_leaderboard=${selected_leaderboard}`,
         config
       );
       return data;
@@ -47,7 +47,7 @@ export const getUserSubmission = async ({username}) => {
       },
     };
     try {
-      const { data } = await axios.get(`/ipl2/user_submissions/${username}/`, config);
+      const { data } = await axios.get(`https://practicehost1.pythonanywhere.com/ipl2/user_submissions/${username}/`, config);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message)

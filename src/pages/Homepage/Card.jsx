@@ -2,6 +2,7 @@ import React from "react";
 import { teams } from "../../constants";
 import { images } from "../../constants";
 import { FaLocationDot } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 const Card = ({ data }) => {
   const teamImages = {
     "Chennai Super Kings": images.csk1,
@@ -15,7 +16,7 @@ const Card = ({ data }) => {
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,
   };
-
+  const navigate = useNavigate()
   const teamA = data.teamA;
   const teamB = data.teamB;
   const teamAImage = teamImages[teamA.teamname];
@@ -82,12 +83,12 @@ const Card = ({ data }) => {
             <p>{formatTime(data.matchtime)}</p>
           </div>
         </div>
-        <a
-          href={`/fixtures/${data.matchID}`}
+        <button
+         onClick={()=> navigate(`/fixtures/${data.matchID}`)}
           className="w-[50%] mx-auto my-2 bg-black font-semibold hover:bg-blue-900 rounded-md text-white text-center py-1"
         >
           Make prediction
-        </a>
+        </button>
       </div>
     </div>
   );
