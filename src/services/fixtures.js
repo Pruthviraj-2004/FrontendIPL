@@ -64,7 +64,7 @@ export const getMatchDetails = async (parsedMatchId) => {
     
     try {
       const { data } = await axios.get(
-        `https://practicehost1.pythonanywhere.com//ipl2/predict1/${parsedMatchId}/`,
+        `https://practicehost1.pythonanywhere.com/ipl2/predict1/${parsedMatchId}/`,
 
       );
       return data;
