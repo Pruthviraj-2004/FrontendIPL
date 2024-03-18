@@ -52,7 +52,7 @@ const FixturePage = () => {
       </div>) : (
           <section className={`h-full  mt-[75px] overflow-hidden`} 
         style={{
-          backgroundImage: `url(${images.bg10})`,//changed to bg25 from bg10
+          backgroundImage: `url(${images.bg10})`,
           backgroundSize: 'cover', 
           backgroundPosition: 'center', 
           backgroundRepeat: 'no-repeat' 

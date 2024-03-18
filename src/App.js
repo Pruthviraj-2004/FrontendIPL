@@ -9,13 +9,12 @@ import UserSubmission from "./pages/leaderboard/UserSubmission";
 import Authform from "./pages/Authform";
 import LeaderboardForm from "./pages/leaderboard/BoardParticipate";
 import Intro from "./pages/Homepage/Intro";
-import ErrorMessage from "./Components/Error";
 import { useSelector } from "react-redux";
 import AboutUsPage from "./pages/AboutUs";
 import Terms from "./pages/Terms";
 
 function App() {
-  const [error, setCreateError] = useState(true);
+  
   const userState = useSelector((state) => state.user);
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
   
@@ -37,18 +36,7 @@ function App() {
           )}
           <Route exact path="/aboutus" element={<AboutUsPage />} />
           <Route exact path="/terms" element={<Terms />}></Route>
-
-          {error && (
-            <Route
-              path="*"
-              element={
-                <ErrorMessage
-                  message="Oops! The page you're looking for doesn't exist."
-                  setCreateError={setCreateError}
-                />
-              }
-            />
-          )}
+        
         </Routes>
       </BrowserRouter>
     </div>

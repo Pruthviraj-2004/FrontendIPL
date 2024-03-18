@@ -80,7 +80,7 @@ export const getMatchDetails = async (parsedMatchId) => {
     
     try {
       const { data } = await axios.get(
-        `/ipl2/getmatchdetails/${parsedMatchId}/`,
+        `https://practicehost1.pythonanywhere.com/ipl2/getmatchdetails/${parsedMatchId}/`,
 
       );
       return data;

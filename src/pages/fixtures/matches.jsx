@@ -1,9 +1,9 @@
 import React from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import { images } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
 const Matches = ({ data, id, status, className }) => {
-  
   const teamImages = {
     "Chennai Super Kings": images.csk1,
     "Delhi Capitals": images.dc1,
@@ -46,16 +46,11 @@ const Matches = ({ data, id, status, className }) => {
 
     return `${formattedHours}:${minutes.padStart(2, "0")} ${period} IST`;
   };
- 
- 
-
+  const navigate = useNavigate();
   return (
-    <a
-      href={`/fixtures/${id}?status=${data.status}`}
-      className={`overflow-hidden rounded-xl py-3 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${className}`}
-    >
-      <div >
-        <div className="flex flex-col justify-center w-full h-[130px] my-7">
+    
+      <div onClick={() => navigate(`/fixtures/${id}?status=${data.status}`)} className={`overflow-hidden rounded-xl py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${className}`}>
+        <div className="flex flex-col justify-center w-full h-[110px] my-7">
           <p className="flex flex-row justify-start items-start gap-x-3 top-0 mb-2 ml-3 text-[#0818A8]">
             <span className="mt-1">
               <FaLocationDot size={15} />
@@ -92,7 +87,7 @@ const Matches = ({ data, id, status, className }) => {
         </button>  */}
         </div>
       </div>
-    </a>
+  
   );
 };
 
