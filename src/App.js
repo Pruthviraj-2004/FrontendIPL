@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { useMediaQuery } from "@react-hook/media-query";
 import Leaderboard from "./pages/leaderboard/Leaderboard";
 import ProfilePage from "./pages/ProfilePage";
@@ -12,6 +12,7 @@ import Intro from "./pages/Homepage/Intro";
 import { useSelector } from "react-redux";
 import AboutUsPage from "./pages/AboutUs";
 import Terms from "./pages/Terms";
+// import {,Routes,Route,Link} from 'react-router-dom';
 
 function App() {
   
@@ -20,7 +21,7 @@ function App() {
   
   return (
     <div className="App bg-gray-100  w-screen overflow-hidden">
-      <BrowserRouter>
+      <HashRouter basename='/'>
         <Routes>
           <Route exact path="/" element={<Intro />} />
           <Route exact path="/register" element={<Authform />} />
@@ -38,7 +39,7 @@ function App() {
           <Route exact path="/terms" element={<Terms />}></Route>
         
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

@@ -450,17 +450,17 @@ const PredictMatch = () => {
                 </p>
               )}
 
-              <div className="flex flex-row my-auto">
-                {!completed && (
-                  <button
-                    type="submit"
-                    disabled={isLoading1}
-                    className="bg-[#29349e] hover:bg-[#10185c] flex mt-10 text-white font-semibold py-2 px-4 rounded-md mx-auto items-center"
-                  >
-                    {isLoading ? "Adding..." : "Predict"}
-                  </button>
-                )}
-              </div>
+                    <div className="flex flex-row my-auto">
+                    {!completed && (
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="bg-[#29349e] hover:bg-[#10185c] cursor-pointer disabled:cursor-not-allowed disabled:opacity-20 flex mt-10 text-white font-semibold py-2 px-4 rounded-md mx-auto items-center"
+                      >
+                        {isLoading ? "Adding..." : "Predict"}
+                      </button>
+                    )}
+                  </div>
             </form>
           </div> : <div></div>}
           <div className="mt-5 flex flex-col gap-y-4 ">
