@@ -6,16 +6,18 @@ import { getTodayMatch } from "../../services/fixtures";
 import React, { useEffect, useRef } from "react";
 import { MdLeaderboard } from "react-icons/md";
 import MainLayout from "../../Components/MainLayout";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { images } from "../../constants";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-
+import { createPortal } from "react-dom";
 import ScrollDownArrow from "../../Components/ScrollDown";
 import HeroSection from "./Hero";
 import News from "./News";
 import Card from './Card'
 import Quote from "./Quote";
+import Popup from "../../Components/Popup";
 
 const textss = [
   { index: 1, title: "Browse the upcoming matches and make your predictions." },
@@ -38,9 +40,25 @@ const Introo = () => {
     queryKey: ["todaymatch"],
   });
 
-  useEffect(()=> {
-    refetch()
-  },[isLoading])
+  useEffect(() => {
+    // Check if the message has already been displayed
+    const hasDisplayedMessage = localStorage.getItem('hasDisplayedMessage');
+
+    if (!hasDisplayedMessage) {
+      // Display the toast message
+      setTimeout(() => {
+        setPopup(true);
+      }, 1000);
+  
+      // Set a flag in localStorage indicating that the message has been displayed
+      localStorage.setItem('hasDisplayedMessage', true);
+    }
+
+    // Refetch data
+    refetch();
+  }, [refetch]);
+
+  const [popup,setPopup] = useState(false)
 
   const dataaa = dataa?.matches;
  
@@ -110,10 +128,24 @@ const Introo = () => {
       observer.disconnect();
     };
   }, []);
+  useEffect(() => {
+    // Simulate loading for 2 seconds
+   
+  }, []);
+  const handleClosePopup = () => {
+    setPopup(false);
+  };
+
 
   return (
     <>
+    {popup &&
+        createPortal(
+          <Popup setClose={setPopup} />,
+          document.getElementById("popup")
+        )}
       <MainLayout>
+        
         <section className="h-full w-screen max-w-screen scrollbar-hide">
           <div className={` w-screen max-w-screen  mt-20 flex flex-col  `}>
             <div
@@ -241,6 +273,7 @@ const Introo = () => {
               </div>
              
             </div>
+
             <div
               ref={sectionRefs.leaderboard}
               className="w-screen max-w-screen mx-auto px-5 lg:px-10 my-5"

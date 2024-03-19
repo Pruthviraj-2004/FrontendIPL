@@ -82,8 +82,17 @@ const Leaderboard = () => {
     queryFn: () => getLeaderBoard({ selected_leaderboard: lid }),
     queryKey: ["board"],
     onError: (error) => {
-      toast.error(error.message);
-      console.log(error);
+      toast.error(error.message,{
+        position: "top-center",
+        autoClose: 3000,
+        style: {
+          width: "auto",
+          style: "flex justify-center",
+        },
+        closeButton: false,
+        progress: undefined,
+      });
+      
     },
   });
 
@@ -91,8 +100,17 @@ const Leaderboard = () => {
     queryFn: () => getLeaderBoard2({ selected_leaderboard: lid }),
     queryKey: ["board2"],
     onError: (error) => {
-      toast.error(error.message);
-      console.log(error);
+      toast.error("Failed to load page",{
+        position: "top-center",
+        autoClose: 3000,
+        style: {
+          width: "auto",
+          style: "flex justify-center",
+        },
+        closeButton: false,
+        progress: undefined,
+      });
+      
     },
   });
 

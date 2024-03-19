@@ -76,7 +76,16 @@ const PredictMatch = () => {
     queryFn: () => {
         return getMatchDetails(parsedMatchId);
     },
-    onError: (error) => console.log(error),
+    onError: (error) => toast.error(error.message,{
+      position: "top-center",
+      autoClose: 3000,
+      style: {
+        width: "auto",
+        style: "flex justify-center",
+      },
+      closeButton: false,
+      progress: undefined,
+    }),
     queryKey: ["match", parsedMatchId],
   });
   
@@ -116,7 +125,7 @@ const PredictMatch = () => {
    setCurrent(true)
   }
   
-  const { mutate } = useMutation({
+  const { mutate,isLoading } = useMutation({
     mutationFn: ({
       predicted_winner_team,
       predicted_player_of_the_match,
@@ -135,9 +144,10 @@ const PredictMatch = () => {
       });
     },
     onSuccess: (data) => {
+     
       toast.success("Prediction successfull!", {
         position: "top-center",
-        autoClose: 1000,
+        autoClose: 3000,
         style: {
           width: "auto",
           style: "flex justify-center",
@@ -145,13 +155,13 @@ const PredictMatch = () => {
         closeButton: false,
         progress: undefined,
       })
-      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       
     },
     onError: (error) => {
       toast.error(error.message, {
         position: "top-center",
-        autoClose: 1000,
+        autoClose: 3000,
         style: {
           width: "auto",
           style: "flex justify-center",
@@ -189,7 +199,7 @@ const PredictMatch = () => {
     } catch (error) {
       toast.error(errors.message, {
         position: "top-center",
-        autoClose: 1000,
+        autoClose: 3000,
         style: {
           width: "auto",
           display: "flex", // Changed 'style' object key from 'style' to 'display'
@@ -447,7 +457,7 @@ const PredictMatch = () => {
                     disabled={isLoading1}
                     className="bg-[#29349e] hover:bg-[#10185c] flex mt-10 text-white font-semibold py-2 px-4 rounded-md mx-auto items-center"
                   >
-                    {isLoading1 ? "Adding..." : "Predict"}
+                    {isLoading ? "Adding..." : "Predict"}
                   </button>
                 )}
               </div>

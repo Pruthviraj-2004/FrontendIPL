@@ -4,7 +4,8 @@ import Matches from "./matches";
 import { getFixtures } from "../../services/fixtures";
 import MainLayout from "../../Components/MainLayout";
 import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { images } from "../../constants";
 import Loading from "../../Components/loading";
 const FixturePage = () => {
@@ -22,20 +23,31 @@ const FixturePage = () => {
     queryFn: () => getFixtures({}),
     queryKey: ["board"],
     onError: (error) => {
-      toast.error(error.message);
-      console.log(error);
+      toast.error(error.message,{
+        position: "top-center",
+        autoClose: 1500,
+        style: {
+          width: "auto",
+          style: "flex justify-center",
+        },
+        closeButton: false,
+        progress: undefined,
+      });
+     
     },
   });
+  const [loading,setLoading] = useState(true)
   useEffect(() => {
+   
     refetch();
-  }, []);
+  }, [loading]);
   
   
 
   const upcomingMatches = data ? data?.upcoming_matches : null;
 
   const pastMatches =data ? data?.past_matches : null;
-  const [loading,setLoading] = useState(true)
+ 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -58,6 +70,7 @@ const FixturePage = () => {
           backgroundRepeat: 'no-repeat' 
         }}
       >
+        <ToastContainer/>
         
         <div className="container mx-auto py-3" >
         <Breadcrumbs data={Breadcrumbsdata} activeName="Fixtures" />

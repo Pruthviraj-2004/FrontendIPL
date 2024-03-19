@@ -30,7 +30,7 @@ const Authform = () => {
     onSuccess: (data) => {
       toast.success("Registration successfull!!", {
         position: "top-center",
-        autoClose: 1000,
+        autoClose: 3000,
         style: {
           width: "auto",
           style: "flex justify-center",
@@ -44,7 +44,7 @@ const Authform = () => {
     onError: (error) => {
       toast.error(error.message, {
         position: "top-center",
-        autoClose: 1000,
+        autoClose: 3000,
         style: {
           width: "auto",
           display: "flex",
@@ -77,7 +77,7 @@ const Authform = () => {
     onError: (error) => {
       toast.error(error.message, {
         position: "top-center",
-        autoClose: 1000,
+        autoClose: 3000,
         style: {
           width: "auto",
           display: "flex",

@@ -55,8 +55,17 @@ const UserSubmission = () => {
       getUserSubmission({ username: userState?.userInfo?.user?.username }),
     queryKey: ["usersubmissions"],
     onError: (error) => {
-      toast.error(error.message);
-      console.log(error);
+      toast.error("Failed to load page",{
+        position: "top-center",
+        autoClose: 3000,
+        style: {
+          width: "auto",
+          style: "flex justify-center",
+        },
+        closeButton: false,
+        progress: undefined,
+      });
+      
     },
   });
 

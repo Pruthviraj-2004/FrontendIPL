@@ -44,7 +44,7 @@ const LeaderboardForm = () => {
         // Redirect or perform any action upon successful submission
         toast.success("Leaderboard joined!", {
           position: "top-center",
-          autoClose: 1000,
+          autoClose: 3000,
           style: {
             width: "auto",
             style: "flex justify-center",
@@ -58,7 +58,7 @@ const LeaderboardForm = () => {
 
         toast.error(responseData.error, {
           position: "top-center",
-          autoClose: 1500,
+          autoClose: 3000,
           style: {
             width: "auto",
             style: "flex justify-center",
