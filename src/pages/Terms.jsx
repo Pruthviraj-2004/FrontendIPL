@@ -3,68 +3,77 @@ import MainLayout from "../Components/MainLayout";
 
 const Terms = () => {
   const rules = [
-    { id: 1, text: "Make Predictions on Time" },
-    { id: 2, text: "Update your Players after the Player list releases" },
+    { id: 1, text: "Make Predictions on Time." },
+    { id: 2, text: "Update your Players after the Player list releases." },
     {
       id: 3,
-      text: "Points are updated after the announcement of Player of the Match",
+      text: "Points are updated after the announcement of Player of the Match.",
     },
     {
       id: 4,
-      text: "Predict all the fields i.e Winner Team, Player of the Match, Most Runs Scorer and Most Wicket Taker",
+      text: "Predict all the fields i.e Winner Team, Player of the Match, Most Runs Scorer and Most Wicket Taker.",
     },
-    // {
-    //   id: 5,
-    //   text: "Respect other users and maintain sportsmanship while participating",
-    // },
-    { id: 5, text: "Only one account per user is allowed" },
 
-    { id: 6, text: "Do not share your account credentials with anyone else" },
+    { id: 5, text: "Only one account per user is allowed." },
+
+    { id: 6, text: "Keep an eye on your submissions in Profile Page." },
   ];
 
   const additionalRules = [
-    { id: 7, text: "Do not share your account credentials with anyone else" },
+    { id: 1, text: "The Global Leaderboard reward is given to the winners of the entire tournament, up until the final match." },
+    { id: 2, text: "1st Prize - Rs.2500 worth Amazon Gift Vochor" },
+    { id: 3, text: "2nd Prize - Rs.1500 worth Amazon Gift Vochor" },
+    { id: 4, text: "3rd Prize - Rs.1000 worth Amazon Gift Vochor" },
+  
+    { id: 5, text: "The Weekly Leaderboard reward is granted for every set of 9 matches, with a reward available after each set." },
+    { id: 6, text: "1st Prize - Rs.200 worth Amazon Gift Vochor" },
   ];
 
+  const disclaimer = [
+    { id:1, text: "This is a Fantasy Game! " },
+  ]
+
   const terms = [
-    { id: 1, text: "Give valid Details to get rewards" },
-    { id: 2, text: "Make valid Submissions" },
+    { id: 1, text: "Give valid Details to get rewards." },
+    { id: 2, text: "Make valid Submission.s" },
     {
       id: 3,
-      text: "By participating, you agree to abide by the rules and decisions of the administrators",
+      text: "By participating, you agree to abide by the rules and decisions of the administrators.",
     },
     {
       id: 4,
-      text: "The website reserves the right to modify the rules, terms, and conditions at any time without prior notice",
+      text: "The website reserves the right to modify the rules, terms, and conditions at any time without prior notice.",
     },
     {
       id: 5,
-      text: "Users are responsible for keeping their account information secure and confidential",
+      text: "Users are responsible for keeping their account information secure and confidential.",
     },
     {
       id: 6,
-      text: "The website is not responsible for any technical issues or disruptions that may affect user participation or results",
+      text: "The website is not responsible for any technical issues or disruptions that may affect user participation or results.",
     },
+    { id: 7, text: "Only one account per user is allowed." },
     {
       id: 8,
-      text: "Users must provide accurate and truthful information during registration",
+      text: "Users must provide accurate and truthful information during registration.",
     },
     {
       id: 9,
-      text: "The website reserves the right to disqualify any participant found to be violating the rules or terms",
+      text: "The website reserves the right to disqualify any participant found to be violating the rules or terms.",
     },
     {
       id: 10,
-      text: "Prizes and rewards are non-transferable and may not be exchanged for cash or other alternatives",
+      text: "Prizes and rewards are non-transferable and may not be exchanged for cash or other alternatives.",
     },
     {
       id: 11,
-      text: "The website may use user-generated content for promotional purposes with proper attribution",
+      text: "The website may use user-generated content for promotional purposes with proper attribution.",
     },
     {
       id: 12,
-      text: "Rewards are given only to Tournament and Weekly Winners",
+      text: "Rewards are given only to Tournament and Weekly Winners.",
     },
+    { id: 13, text: "Do not share your account credentials with anyone else." },
   ];
 
   const benefits = [
@@ -110,26 +119,6 @@ const Terms = () => {
             </div>
           </div>
 
-          {/* <div className="mt-5">
-            <h2 className="text-2xl font-bold text-left">Additional Rules:</h2>
-            <div className="flex">
-              <ol>
-                {additionalRules.map((rule) => (
-                  <li key={rule.id} className="text-left text-lg my-4">
-                    <p className="flex flex-row justify-start">
-                      <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
-                        {rule.id}.&nbsp;&nbsp;
-                        <span className="font-medium text-black">
-                          {rule.text}
-                        </span>
-                      </p>
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div> */}
-
           <div className="mt-5">
             <h2 className="text-2xl font-bold text-left">
               Terms and Conditions:
@@ -171,6 +160,65 @@ const Terms = () => {
               </ol>
             </div>
           </div>
+
+          <div className="mt-5">
+            <h2 className="text-2xl font-bold text-left">Disclaimer</h2>
+            <div className="flex">
+              <ol>
+                {disclaimer.map((rule) => (
+                  <li key={rule.id} className="text-left text-lg my-4">
+                    <p className="flex flex-row justify-start">
+                      <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                        {rule.id}.&nbsp;&nbsp;
+                        <span className="font-medium text-black">
+                          {rule.text}
+                        </span>
+                      </p>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+
+          {/* Global Leaderboard Winner Reward */}
+          <div>
+            <h3 className="text-xl font-bold mt-4">Global Leaderboard Winner Reward:</h3>
+            <ol>
+              {additionalRules.slice(0, 4).map((rule) => (
+                <li key={rule.id} className="text-left text-lg my-4">
+                  <p className="flex flex-row justify-start">
+                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                      {rule.id}.&nbsp;&nbsp;
+                      <span className="font-medium text-black">
+                        {rule.text}
+                      </span>
+                    </p>
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Weekly Leaderboard Winner Reward */}
+          <div>
+            <h3 className="text-xl font-bold mt-4">Weekly Leaderboard Winner Reward:</h3>
+            <ol>
+              {additionalRules.slice(4, 7).map((rule) => (
+                <li key={rule.id} className="text-left text-lg my-4">
+                  <p className="flex flex-row justify-start">
+                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                      {rule.id}.&nbsp;&nbsp;
+                      <span className="font-medium text-black">
+                        {rule.text}
+                      </span>
+                    </p>
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
         </div>
       </div>
     </MainLayout>
