@@ -11,12 +11,7 @@ import yc from "../Assets/yc.jpg";
 import pc from "../Assets/pc.webp";
 import sign from "../Assets/4957136.jpg";
 
-import a from "../Assets/a.jpg";
-import b from "../Assets/b.jpg";
-import c from "../Assets/c.jpg";
 import e from "../Assets/e.jpg";
-import f from "../Assets/f.jpg";
-
 import error from "../Assets/3582365.jpg";
 
 import rcb1 from "../Assets/RCBoutline.png";
@@ -31,14 +26,13 @@ import gt1 from "../Assets/GToutline.png";
 import pbks1 from "../Assets/PBKSoutline.png";
 
 import bg1 from '../Assets/961.jpg';
-import bg2 from '../Assets/19007.jpg';
 
 import bg10 from "../Assets/bg10.jpg";
-import bg13 from "../Assets/bg13.jpg";
 import bg14 from "../Assets/bg14.jpg";
 import bg20 from "../Assets/bg20.jpg";
 import bg22 from "../Assets/bg22.jpg";
 import bg23 from "../Assets/bg23.jpg";
+import bg24 from "../Assets/bg24.jpg";
 
 import hero10 from "../Assets/hero10.jpg";
 import hero11 from "../Assets/hero11.webp";
@@ -49,18 +43,14 @@ import hero15 from "../Assets/hero15.webp";
 import hero16 from "../Assets/hero16.jpg";
 import hero17 from "../Assets/hero17.jpg";
 import wpl from '../Assets/rcb_wpl.webp'
+
+
+
 const images = {
-  wpl,
-  
+  wpl, 
   bg1,
-  error,
-  a,
-  b,
-  c,
-  e,
-  f,
-  
-  
+  error,  
+  e, 
   sign,
   pc,
   yc,
@@ -85,13 +75,12 @@ const images = {
   rr1,
   csk1,
 
-  bg2,
   bg10,
-  bg13,
   bg14,
   bg20,
   bg22,
   bg23,
+  bg24,
   
   hero10,
   hero11,

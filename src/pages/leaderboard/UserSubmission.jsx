@@ -112,10 +112,10 @@ const UserSubmission = () => {
     <MainLayout>
       <div className="flex flex-col my-auto mx-auto overflow-x-auto mt-[100px]   h-fit" 
         style={{
-          backgroundImage: `url(${images.bg13})`,//changed to bg25 from bg10
-          // backgroundSize: 'cover', 
-          // backgroundPosition: 'center', 
-          // backgroundRepeat: 'no-repeat' 
+          backgroundImage: `url(${images.bg24})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       >
           <Breadcrumbs data={Breadcrumbsdata} activeName="Leaderboard" />
