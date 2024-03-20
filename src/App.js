@@ -37,7 +37,6 @@ function App() {
           )}
           <Route exact path="/aboutus" element={<AboutUsPage />} />
           <Route exact path="/terms" element={<Terms />}></Route>
-        
         </Routes>
       </HashRouter>
     </div>

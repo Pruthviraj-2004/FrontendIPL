@@ -21,12 +21,12 @@ const Terms = () => {
 
   const additionalRules = [
     { id: 1, text: "The Global Leaderboard reward is given to the winners of the entire tournament, up until the final match." },
-    { id: 2, text: "1st Prize - Rs.2500 worth Amazon Gift Vochor" },
-    { id: 3, text: "2nd Prize - Rs.1500 worth Amazon Gift Vochor" },
-    { id: 4, text: "3rd Prize - Rs.1000 worth Amazon Gift Vochor" },
+    { id: 2, text: "1st Prize - Rs.2500 worth Amazon Gift Voucher." },
+    { id: 3, text: "2nd Prize - Rs.1500 worth Amazon Gift Voucher." },
+    { id: 4, text: "3rd Prize - Rs.1000 worth Amazon Gift Voucher." },
   
     { id: 5, text: "The Weekly Leaderboard reward is granted for every set of 9 matches, with a reward available after each set." },
-    { id: 6, text: "1st Prize - Rs.200 worth Amazon Gift Vochor" },
+    { id: 6, text: "1st Prize - Rs.200 worth Amazon Gift Voucher." },
   ];
 
   const disclaimer = [
@@ -35,7 +35,7 @@ const Terms = () => {
 
   const terms = [
     { id: 1, text: "Give valid Details to get rewards." },
-    { id: 2, text: "Make valid Submission.s" },
+    { id: 2, text: "Make valid Submissions." },
     {
       id: 3,
       text: "By participating, you agree to abide by the rules and decisions of the administrators.",

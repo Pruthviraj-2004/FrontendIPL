@@ -165,7 +165,7 @@ news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Ma
   },
   {
     img: images.pc,
-    news: "Australian captain Pat Cummins will be leading the SRH in IPL 2024 with new colours and new targets. retain 3-4 players ahead of a mega auction",
+    news: "Australian captain Pat Cummins will be leading the SRH in IPL 2024 with new colours and new targets.",
   },
   {
     img: images.chair,

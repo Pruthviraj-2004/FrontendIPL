@@ -99,7 +99,7 @@ const FixturePage = () => {
                 data={match}
                 id={match.matchID}
                 status={match.status}
-                className="h-auto px-5 sm:mx-auto py-2 w-full sm:w-[calc(60%)] md:w-[calc(50%-20px)] lg:w-[calc(33.33%-20px)]"
+                className="h-auto px-3 sm:mx-auto py-2 w-full sm:w-[calc(60%)] md:w-[calc(50%-20px)] lg:w-[calc(33.33%-20px)]"
               />
             ))}
           </div>
@@ -112,7 +112,7 @@ const FixturePage = () => {
                 data={match}
                 id={match.matchID}
                 status={match.status}
-                className="h-auto px-5 sm:mx-auto py-2 w-full sm:w-[calc(60%)] md:w-[calc(50%-20px)] lg:w-[calc(33.33%-20px)]"
+                className="h-auto px-3 sm:mx-auto py-2 w-full sm:w-[calc(60%)] md:w-[calc(50%-20px)] lg:w-[calc(33.33%-20px)]"
               />
             ))}
           </div>

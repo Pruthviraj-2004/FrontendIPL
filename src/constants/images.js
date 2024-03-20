@@ -44,6 +44,8 @@ import hero16 from "../Assets/hero16.jpg";
 import hero17 from "../Assets/hero17.jpg";
 import wpl from '../Assets/rcb_wpl.webp'
 
+import imgpru from "../Assets/compress 58kb1.jpg"
+import imgsunitha from "../Assets/img_sunitha.jpg"
 
 
 const images = {
@@ -90,5 +92,8 @@ const images = {
   hero15,
   hero16,
   hero17,
+
+  imgpru,
+  imgsunitha
 };
 export default images;

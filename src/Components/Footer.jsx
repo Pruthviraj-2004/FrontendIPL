@@ -1,7 +1,7 @@
 import React from "react";
-import { images } from "../constants";
 import SocialMediaShare from "./SocialMediaShare";
 import { useNavigate } from "react-router-dom";
+
 const CTA = () => {
   const navigate = useNavigate()
   return (
@@ -25,6 +25,9 @@ const CTA = () => {
                 </li>
                 <li class=" font-semibold transition-colors duration-200 hover:text-indigo-800 ">
                   <button onClick={()=> navigate("/terms")}>Terms</button>
+                </li>
+                <li class=" font-semibold transition-colors duration-200 hover:text-indigo-800 ">
+                  <button onClick={()=> navigate("/aboutus")}>AboutUs</button>
                 </li>
               </ul>
             </div>

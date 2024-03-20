@@ -1,23 +1,17 @@
 import { fadeIn } from "../../utils/motion";
 import { styles } from "../../styles";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { getTodayMatch } from "../../services/fixtures";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect} from "react";
 import { MdLeaderboard } from "react-icons/md";
 import MainLayout from "../../Components/MainLayout";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { images } from "../../constants";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { createPortal } from "react-dom";
-import ScrollDownArrow from "../../Components/ScrollDown";
 import HeroSection from "./Hero";
 import News from "./News";
 import Card from './Card'
 import Quote from "./Quote";
-import Popup from "../../Components/Popup";
 
 const textss = [
   { index: 1, title: "Browse the upcoming matches and make your predictions." },
@@ -39,117 +33,19 @@ const Introo = () => {
     },
     queryKey: ["todaymatch"],
   });
-
   useEffect(() => {
-    // Check if the message has already been displayed
-    const hasDisplayedMessage = localStorage.getItem('hasDisplayedMessage');
-
-    if (!hasDisplayedMessage) {
-      // Display the toast message
-      setTimeout(() => {
-        setPopup(true);
-      }, 1000);
-  
-      // Set a flag in localStorage indicating that the message has been displayed
-      localStorage.setItem('hasDisplayedMessage', true);
-    }
-
-    // Refetch data
     refetch();
-  }, [refetch]);
-
-  const [popup,setPopup] = useState(false)
+  }, [isLoading]);
 
   const dataaa = dataa?.matches;
- 
-  const sectionRefs = {
-    intro: useRef(null),
-    quote: useRef(null),
-    about: useRef(null),
-    howItWorks: useRef(null),
-    fixtures: useRef(null),
-    leaderboard: useRef(null),
-  };
-
-  const [showIntroArrow, setShowIntroArrow] = useState(false);
-  const [showAboutArrow, setShowAboutArrow] = useState(false);
-  const [showQuoteArrow, setQuoteArrow] = useState(false);
-  const [showHowItWorksArrow, setShowHowItWorksArrow] = useState(false);
-  const [showFixturesArrow, setShowFixturesArrow] = useState(false);
-  const [showLeaderboardArrow, setShowLeaderboardArrow] = useState(false);
-
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
-
-    const handleIntersection = (entries) => {
-      entries.forEach((entry) => {
-        switch (entry.target) {
-          case sectionRefs.intro.current:
-            setShowIntroArrow(entry.isIntersecting);
-            break;
-          case sectionRefs.about.current:
-            setShowAboutArrow(entry.isIntersecting);
-            break;
-          case sectionRefs.quote.current:
-            setQuoteArrow(entry.isIntersecting);
-            break;
-          case sectionRefs.howItWorks.current:
-            setShowHowItWorksArrow(entry.isIntersecting);
-            break;
-          case sectionRefs.fixtures.current:
-            setShowFixturesArrow(entry.isIntersecting);
-            break;
-          case sectionRefs.leaderboard.current:
-            setShowLeaderboardArrow(entry.isIntersecting);
-            break;
-          
-          default:
-            break;
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      handleIntersection,
-      observerOptions
-    );
-    observer.observe(sectionRefs.intro.current);
-    observer.observe(sectionRefs.about.current);
-    observer.observe(sectionRefs.quote.current);
-    observer.observe(sectionRefs.howItWorks.current);
-    observer.observe(sectionRefs.fixtures.current);
-    observer.observe(sectionRefs.leaderboard.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-  useEffect(() => {
-    // Simulate loading for 2 seconds
-   
-  }, []);
-  const handleClosePopup = () => {
-    setPopup(false);
-  };
-
 
   return (
     <>
-    {popup &&
-        createPortal(
-          <Popup setClose={setPopup} />,
-          document.getElementById("popup")
-        )}
       <MainLayout>
         
         <section className="h-full w-screen max-w-screen scrollbar-hide">
           <div className={` w-screen max-w-screen  mt-20 flex flex-col  `}>
             <div
-              ref={sectionRefs.intro}
               style={{
                 backgroundImage: `url(${images.bg23})`,
                 backgroundSize: "cover",
@@ -162,13 +58,13 @@ const Introo = () => {
               
             </div>
             
-            <div ref={sectionRefs.fixtures} className=" w-screen max-w-screen">
+            <div className=" w-screen max-w-screen">
               <motion.h2
                 variants={fadeIn("right", "spring", 0.5, 1)}
                 whileInView="show"
                 viewport={{ once: true, amount: 0.25 }}
                 initial="hidden"
-                className={`${styles.sectionHeadText} text-left mt-10 ml-4`}
+                className={`${styles.sectionHeadText} text-left mt-10 ml-10`}
               >
                 Today's fixtures&nbsp;
               </motion.h2>
@@ -210,13 +106,12 @@ const Introo = () => {
               </div>
              
             </div>
-            <div ref={sectionRefs.quote} className=" w-screen max-w-screen">
+            <div className=" w-screen max-w-screen">
               <Quote />
              
             </div>
             
             <motion.div
-              ref={sectionRefs.about}
               animate="show"
               initial="hidden"
               className="w-screen max-w-screen mx-auto px-5 lg:px-10 my-5"
@@ -248,7 +143,6 @@ const Introo = () => {
             
             </motion.div>
             <div
-              ref={sectionRefs.howItWorks}
               className="w-screen max-w-screen bg-[#eeedf0] mx-auto px-5 lg:px-10 my-5  "
             >
               <div className="">
@@ -275,7 +169,6 @@ const Introo = () => {
             </div>
 
             <div
-              ref={sectionRefs.leaderboard}
               className="w-screen max-w-screen mx-auto px-5 lg:px-10 my-5"
             >
               <motion.div>
