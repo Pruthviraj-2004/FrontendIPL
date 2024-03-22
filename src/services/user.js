@@ -4,6 +4,7 @@ export const signup = async ({ username, name, email, password1, password2 }) =>
   try {
     const response = await axios.post(
       "https://practicehost1.pythonanywhere.com/ipl2/register_user1/",
+      // "http://localhost:8000/ipl2/register_user1/",
       { 
         username: username,
         name: name,
@@ -30,6 +31,7 @@ export const signin = async ({ username, password1 }) => {
   try {
     const response = await axios.post(
       "https://practicehost1.pythonanywhere.com/ipl2/login_user/",
+      // "http://localhost:8000/ipl2/login_user/",
       { username, password1 }
     );
     return response.data;
@@ -51,6 +53,7 @@ export const signout = async ({ username, password1 }) => {
   try {
     const response = await axios.post(
       "https://practicehost1.pythonanywhere.com/ipl2/logout_user/"
+      // "http://localhost:8000/ipl2/logout_user/",
     );
     return response.data;
   } catch (error) {

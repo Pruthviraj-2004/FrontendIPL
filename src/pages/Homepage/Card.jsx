@@ -49,9 +49,9 @@ const Card = ({ data }) => {
 
   return (
     <div
-      className={`lg:w-[500px] w-full rounded-xl pb-5 lg:py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]`}
+      className={`lg:w-[400px] xl:w-[400px] md:w-[400px] sm:w-[400px] w-[370px] rounded-xl pb-5 lg:py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] flex`}
     >
-      <div className="flex flex-col lg:justify-center items-start w-[90vw] md:w-[40vw] lg:w-[30vw] lg:px-5 h-[190px] my-7 ">
+      <div className="flex flex-col lg:justify-center items-start w-[90vw] md:w-[40vw] lg:w-[27vw] lg:px-5 h-[190px] my-7 ">
         <p className="flex flex-row  justify-start items-start gap-x-3 mb-2 text-[#0818A8]">
           <span className="ml-5 mt-[2px]">
             <FaLocationDot size={15} />
@@ -83,12 +83,14 @@ const Card = ({ data }) => {
             <p>{formatTime(data.matchtime)}</p>
           </div>
         </div>
+        <div className="flex w-full justify-center items-center">
         <button
          onClick={()=> navigate(`/fixtures/${data.matchID}`)}
           className="w-[50%] mx-auto my-2 bg-black font-semibold hover:bg-blue-900 rounded-md text-white text-center py-1"
         >
           Make prediction
         </button>
+        </div>
       </div>
     </div>
   );

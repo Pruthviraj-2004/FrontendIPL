@@ -93,7 +93,7 @@ const Introo = () => {
               </motion.h2>
               <div className="lg:flex lg:flex-row lg:w-screen lg:gap-x-1">
                 <div
-                  className="scrollable-wrapper scrollbar-hide mx-5 py-5 flex flex-row whitespace-nowrap gap-x-4 lg:gap-x-15"
+                  className="scrollable-wrapper scrollbar-hide mx-7 py-5 flex flex-row whitespace-nowrap gap-x-4 lg:gap-x-15"
                   style={{ width: "100vw", overflowX: "auto" }}
                 >
                   {dataaa &&

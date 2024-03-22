@@ -7,15 +7,15 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   return (
     <MainLayout>
-      <div className="container  w-screen mt-24 overflow-hidden h-[700px] flex justify-center items-center" 
-        style={{
-          backgroundImage: `url(${images.bg14})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <div className="container bg-white w-screen mt-24 overflow-hidden h-[700px] flex justify-center items-center" 
+        // style={{
+        //   backgroundImage: `url(${images.bg14})`,
+        //   backgroundSize: 'cover',
+        //   backgroundPosition: 'center',
+        //   backgroundRepeat: 'no-repeat'
+        // }}
       >
-        <div className="flex flex-col items-center bg-white h-[90%] w-[80%]" >
+        <div className="flex flex-col items-center bg-white h-[90%] w-[100%]" >
           <div className=" w-[80%] py-8 h-90">
             <p className="text-3xl my-3 blue-text-gradient text-center font-bold">
               Let's get started

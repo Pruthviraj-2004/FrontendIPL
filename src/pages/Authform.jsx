@@ -42,6 +42,7 @@ const Authform = () => {
       localStorage.setItem("account", JSON.stringify(data));
     },
     onError: (error) => {
+      console.log(error)
       toast.error(error.message, {
         position: "top-center",
         autoClose: 3000,
@@ -53,7 +54,7 @@ const Authform = () => {
         closeButton: false,
         progress: undefined,
       });
-      setError(error.message);
+      
     },
   });
   const { mutate: mutatesignin } = useMutation({
@@ -145,7 +146,7 @@ const Authform = () => {
         <section className="mt-[80px] bg-gray-400 overflow-hidden w-screen h-full lg:w-screen scrollbar-hide">
           <div
             className={`${
-              variant === "LOGIN" ? "lg:h-[40%]" : "lg:h-[90%] "
+              variant === "LOGIN" ? "lg:h-[40%] h-[90vh]" : "lg:h-[90%] "
             } flex  rounded-lg w-[100%] justify-center  h-[100vh]  bg-gray-300 items-center overflow-y-auto`}
             style={{
               backgroundImage: `url(${images.bg20})`,
@@ -157,7 +158,7 @@ const Authform = () => {
             <ToastContainer />
             <div
               className={`${
-                variant === "LOGIN" ? "h-[50%]" : "my-24 "
+                variant === "LOGIN" ? "h-[45%]" : "my-24 "
               } lg:my-24  flex flex-row  lg:h-[90%] bg-white w-[90%] lg:w-[60%] rounded-lg w-100 mx-auto font-sans  shadow-2xl shadow-black `}
             >
               <div
@@ -180,15 +181,15 @@ const Authform = () => {
                       src={images.sign}
                       alt="signform"
                       className={`${
-                        variant === "LOGIN" ? "h-[33vh]" : ""
-                      } h-[50vh]`}
+                        variant === "LOGIN" ? "h-[45vh]" : "h-[50vh]"
+                      } `}
                     />
                   </div>
                 </div>
               </div>
               <div
                 className={`${
-                  variant === "LOGIN" ? "lg:h-[60%]" : "lg:h-[100%]"
+                  variant === "LOGIN" ? "lg:h-[50%] lg:py-4 py-0" : "lg:h-[100%]"
                 } bg-white w-[100%]   lg:w-[50%] px-4 py-8 my-auto sm:rounded-lg rounded-lg `}
               >
                 <div className="flex flex-row justify-evenly mb-4">

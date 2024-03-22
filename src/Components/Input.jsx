@@ -119,7 +119,7 @@ const Input = ({
           </div>
         )}
       </div>
-      {errors[id] && (
+      {errors[id] && variant === "REGISTER" && (
         <div className="text-sm text-left ml-3 text-orange-500">
           {errors[id].type === "validate" ? errors[id].message : "This field is required"}
         </div>

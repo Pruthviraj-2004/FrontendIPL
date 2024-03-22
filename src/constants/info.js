@@ -158,7 +158,7 @@ news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Ma
   
   {
     img: images.captains,
-    news: "The start of the IPL 2024 will mark the end of an era as Rohit Sharma, MS Dhoni and Virat Kohli will not be captain of their respective franchise. It's the first time in the history of the IPL that neither of them will be leading a side in a season.",
+    news: "The start of the IPL 2024 will mark the end of an era as Rohit Sharma, MS Dhoni and Virat Kohli will not be captain of their respective franchise.",
   },
   {
     img: images.all_captains,

@@ -144,7 +144,7 @@ const PredictMatch = () => {
       });
     },
     onSuccess: (data) => {
-     
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       toast.success("Prediction successfull!", {
         position: "top-center",
         autoClose: 3000,
@@ -155,11 +155,12 @@ const PredictMatch = () => {
         closeButton: false,
         progress: undefined,
       })
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
       
     },
     onError: (error) => {
-      toast.error(error.message, {
+      console.log(error)
+      toast.error("Unknown error has occured", {
         position: "top-center",
         autoClose: 3000,
         style: {
@@ -197,7 +198,7 @@ const PredictMatch = () => {
         match_id: matchId,
       });
     } catch (error) {
-      toast.error(errors.message, {
+      toast.error("Unknown error has occured", {
         position: "top-center",
         autoClose: 3000,
         style: {
@@ -248,7 +249,7 @@ const PredictMatch = () => {
       >
         <Breadcrumbs data={Breadcrumbsdata} activeName={matchId} />
         <div className="flex flex-col mt-[0px] justify-center items-center md:w-full lg:w-full xs:w-[90%]  overflow-hidden ">
-          <ToastContainer/>
+          <ToastContainer className="z-[100001]"/>
           <div  className="w-full flex justify-center items-center text-2xl mt-[80px] font-semibold ">
             <motion.div
               variants={slideIn("left", "spring", 0.4, 2)}

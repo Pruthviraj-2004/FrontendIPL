@@ -5,7 +5,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
-import { getLeaderBoard, getLeaderBoard2 } from "../../services/leaderboard";
+import { getLeaderBoard,  getLeaderBoard3 } from "../../services/leaderboard";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import MainLayout from "../../Components/MainLayout";
@@ -65,10 +65,10 @@ const Leaderboard = () => {
   }, [selectedOption, searchQuery, debouncedSearchQuery, userState.userInfo]);
 
   const fetchData = () => {
-    if (userState.userInfo) {
-      refetchLeaderBoard2();
+    if (userState?.userInfo) {
+      refetchLeaderBoard3();//3
     } else {
-      refetchLeaderBoard2();
+      refetchLeaderBoard3();//3
     }
   };
 
@@ -96,8 +96,26 @@ const Leaderboard = () => {
     },
   });
 
-  const { data: data2, refetch: refetchLeaderBoard2 } = useQuery({
-    queryFn: () => getLeaderBoard2({ selected_leaderboard: lid }),
+  // const { data: data2, refetch: refetchLeaderBoard2 } = useQuery({
+  //   queryFn: () => getLeaderBoard2({ selected_leaderboard: lid }),
+  //   queryKey: ["board2"],
+  //   onError: (error) => {
+  //     toast.error("Failed to load page",{
+  //       position: "top-center",
+  //       autoClose: 3000,
+  //       style: {
+  //         width: "auto",
+  //         style: "flex justify-center",
+  //       },
+  //       closeButton: false,
+  //       progress: undefined,
+  //     });
+      
+  //   },
+  // });
+
+  const { data: data3, refetch: refetchLeaderBoard3 } = useQuery({
+    queryFn: () => getLeaderBoard3({username:userState?.userInfo?.user?.username, selected_leaderboard: lid }),
     queryKey: ["board2"],
     onError: (error) => {
       toast.error("Failed to load page",{
@@ -113,14 +131,15 @@ const Leaderboard = () => {
       
     },
   });
+  console.log(data3)
 
-  const leaderboards = (userState ? data2 : data)?.leaderboards || [];
+  const leaderboards = (userState ? data3 : data)?.leaderboards || [];//3
   const lidAndNameArray = leaderboards.map((item) => [
     item.lid,
     item.leaderboardname,
   ]);
 
-  const LeaderboardData = userState ? data2 : data;
+  const LeaderboardData = userState ? data3 : data;//3
 
   const user_list =
     filteredUserList.length > 0

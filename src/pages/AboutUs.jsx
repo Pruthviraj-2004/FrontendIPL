@@ -12,11 +12,11 @@ const AboutUs = () => {
     <section class="bg-white mt-24 dark:bg-gray-900">
   <div class="py-8 px-5 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
       <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">The Team Behind Predictive Play</h2>
+          <h2 class="mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">The Team Behind Predictive Play</h2>
      </div> 
       <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
           <div class="items-center  bg-gray-50 rounded-lg shadow flex flex-row dark:bg-gray-800 dark:border-gray-700">
-              <div className='w-[60%] lg:w-[70%]'>
+              <div className='w-[60%] lg:w-[100%]'>
                <a href="#">
                   <img class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={images.imgpru}  alt="Jese Avatar"/>
               </a>
@@ -46,7 +46,7 @@ const AboutUs = () => {
           </div> 
           <div class="items-center bg-gray-50 rounded-lg shadow flex flex-row dark:bg-gray-800 dark:border-gray-700">
              
-              <div className='w-[50%]'>
+              <div className='w-[45%]'>
                 <a href="#">
                   <img class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={images.imgsunitha} alt="Bonnie Avatar"/>
               </a>
