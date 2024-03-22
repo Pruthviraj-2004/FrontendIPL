@@ -14,7 +14,9 @@ import sign from "../Assets/4957136.jpg";
 import e from "../Assets/e.jpg";
 import error from "../Assets/3582365.jpg";
 
-import rcb1 from "../Assets/RCBoutline.png";
+//import rcb1 from "../Assets/RCBoutline.png";
+import rcb1 from "../Assets/RCBoutline1.png";
+
 import rr1 from "../Assets/RRoutline.png";
 import srh1 from "../Assets/SRHoutline.png";
 import dc1 from "../Assets/DCoutline.png";
@@ -47,6 +49,8 @@ import wpl from '../Assets/rcb_wpl.webp'
 import imgpru from "../Assets/compress 58kb1.jpg"
 import imgsunitha from "../Assets/img_sunitha.jpg"
 
+import all_captains from "../Assets/all_captains.png";
+import captains from "../Assets/captians.png";
 
 const images = {
   wpl, 
@@ -94,6 +98,8 @@ const images = {
   hero17,
 
   imgpru,
-  imgsunitha
+  imgsunitha,
+  all_captains,
+  captains,
 };
 export default images;

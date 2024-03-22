@@ -155,13 +155,14 @@ news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Ma
     img: images.vkfaf,
     news: "The Indian Premier League is scheduled to begin on March 22 at Chennai's Chepauk Stadium, where the reigning champion CSK will play their southern rivals, RCB.",
   },
+  
   {
-    img: images.hprs,
-    news: "Sanjay Manjrekar expects Rohit Sharma and Suryakumar Yadav to be a bit uncomfortable playing under Hardik Pandya, who will lead the upcoming season of the IPL",
+    img: images.captains,
+    news: "The start of the IPL 2024 will mark the end of an era as Rohit Sharma, MS Dhoni and Virat Kohli will not be captain of their respective franchise. It's the first time in the history of the IPL that neither of them will be leading a side in a season.",
   },
   {
-    img: images.yc,
-    news: "Yuzvendra Chahal picked Rajasthan Royals teammates Jos Buttler or Yashasvi Jaiswal to win the Orange Cap (become the highest run-scorer) in IPL 2024.",
+    img: images.all_captains,
+    news: "All ten IPL captains at a photo opportunity in Chennai on the eve of the 2024 season opener.",
   },
   {
     img: images.pc,
@@ -171,6 +172,8 @@ news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Ma
     img: images.chair,
     news: "IPL chairman Arun Dhumal confirms mega auction will be held after 2024 season.  Every team is allowed to retain 3-4 players ahead of a mega auction.",
   },
+  
+
   
 ];
 const teams = { news, rcb, csk, mi, srh, kkr, lsg, gt, dc, pbks, rr };

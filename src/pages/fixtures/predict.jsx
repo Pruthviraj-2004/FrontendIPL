@@ -54,7 +54,7 @@ const PredictMatch = () => {
     "Mumbai Indians": images.mi1,
     "Punjab Kings": images.pbks1,
     "Rajasthan Royals": images.rr1,
-    "Royal Challengers Bangalore": images.rcb1,
+    "Royal Challengers Bengaluru": images.rcb1,
     "Sunrisers Hyderabad": images.srh1,
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,

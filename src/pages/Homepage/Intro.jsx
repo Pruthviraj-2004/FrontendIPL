@@ -20,6 +20,29 @@ const textss = [
   { index: 4, title: "Enjoy the thrill of predicting and winning!" },
 ];
 
+const additionalRules = [
+  { id: 1, text: "The Global Leaderboard reward is given to the winners of the entire tournament, up until the final match." },
+  { id: 2, text: "1st Prize - Rs.2500 worth Amazon Gift Voucher." },
+  { id: 3, text: "2nd Prize - Rs.1500 worth Amazon Gift Voucher." },
+  { id: 4, text: "3rd Prize - Rs.1000 worth Amazon Gift Voucher." },
+
+  { id: 5, text: "The Weekly Leaderboard reward is granted for every set of 9 matches, with a reward available after each set." },
+  { id: 6, text: "1st Prize - Rs.200 worth Amazon Gift Voucher." },
+];
+
+const Points = [
+  { id: 1, text: "Winner Team - 3 Base Points." },
+  { id: 2, text: "Player of the Match - 2 Base Points." },
+  { id: 3, text: "Most Runs Scorer of the Match - 2 Base Points." },
+  { id: 4, text: "Most Economical Wicket Taker of the Match - 2 Base Points." },
+  { id: 5, text: "Bonus weeks with 2x and 3x Bonus Points." },
+
+  { id: 6, text: "In case of players with same runs then Strike Rate is taken under consideration." },
+  { id: 7, text: "In case of players with same wickets then Economy is taken under consideration." },
+  { id: 8, text: "In case of same points, user submission time is taken under consideration." },
+
+];
+
 const Introo = () => {
   const navigate = useNavigate("/");
 
@@ -96,7 +119,7 @@ const Introo = () => {
                       }
                     
 
-                      if (!isMatchCompleted && !isTodayBeforeMatchTime) {
+                      if (isMatchCompleted && isTodayBeforeMatchTime) {
                         return <Card data={match} />;
                       } else {
                         return null;
@@ -110,6 +133,44 @@ const Introo = () => {
               <Quote />
              
             </div>
+            
+          {/* Global Leaderboard Winner Reward */}
+          <div className="mx-10">
+            <h3 className="text-xl font-bold mt-4">Global Leaderboard Winner Reward:</h3>
+            <ol>
+              {additionalRules.slice(0, 4).map((rule) => (
+                <li key={rule.id} className="text-left text-lg my-4">
+                  <p className="flex flex-row justify-start">
+                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                      {rule.id}.&nbsp;&nbsp;
+                      <span className="font-medium text-black">
+                        {rule.text}
+                      </span>
+                    </p>
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Weekly Leaderboard Winner Reward */}
+          <div className="mx-10">
+            <h3 className="text-xl font-bold mt-4">Weekly Leaderboard Winner Reward:</h3>
+            <ol>
+              {additionalRules.slice(4, 7).map((rule) => (
+                <li key={rule.id} className="text-left text-lg my-4">
+                  <p className="flex flex-row justify-start">
+                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                      {rule.id}.&nbsp;&nbsp;
+                      <span className="font-medium text-black">
+                        {rule.text}
+                      </span>
+                    </p>
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
             
             <motion.div
               animate="show"
@@ -130,6 +191,7 @@ const Introo = () => {
               >
                 Predictive Play
               </motion.p>
+
               <div>
                 <p className="text-justify  font-medium text-lg">
                   Welcome to our prediction website, where the excitement of
@@ -142,9 +204,9 @@ const Introo = () => {
               </div>
             
             </motion.div>
+
             <div
-              className="w-screen max-w-screen bg-[#eeedf0] mx-auto px-5 lg:px-10 my-5  "
-            >
+              className="w-screen max-w-screen bg-[#eeedf0] mx-auto px-5 lg:px-10 my-5 ">
               <div className="">
                 <h2 className={`${styles.sectionHeadText} mt-5 text-left`}>
                   How it works&nbsp;?
@@ -166,6 +228,26 @@ const Introo = () => {
                 </div>
               </div>
              
+            </div>
+            
+            <div className="mt-5 mx-10">
+              <h2 className="text-2xl font-bold text-left">Points System:</h2>
+              <div className="flex">
+                <ol>
+                  {Points.map((rule) => (
+                    <li key={rule.id} className="text-left text-lg my-4">
+                      <p className="flex flex-row justify-start">
+                        <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                          {rule.id}.&nbsp;&nbsp;
+                          <span className="font-medium text-black">
+                            {rule.text}
+                          </span>
+                        </p>
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
 
             <div
