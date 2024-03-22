@@ -3,7 +3,7 @@ import axios from "axios";
 export const signup = async ({ username, name, email, password1, password2 }) => {
   try {
     const response = await axios.post(
-      "https://practicehost1.pythonanywhere.com/ipl2/register_user/",
+      "https://practicehost1.pythonanywhere.com/ipl2/register_user1/",
       { 
         username: username,
         name: name,
