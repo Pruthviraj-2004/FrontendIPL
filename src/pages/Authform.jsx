@@ -43,7 +43,7 @@ const Authform = () => {
     },
     onError: (error) => {
       console.log(error)
-      toast.error(error.message, {
+      toast.error("Username or email already exists", {
         position: "top-center",
         autoClose: 3000,
         style: {
@@ -124,9 +124,19 @@ const Authform = () => {
     if (variant === "REGISTER") {
       const { username, name, email, password1, password2 } = data;
       if (password1 !== password2) {
-        setError(true);
-        setMessage("Passwords do not match");
-      }
+        toast.error("Passwords do not match", {
+          position: "top-center",
+          autoClose: 3000,
+          style: {
+            width: "auto",
+            display: "flex",
+            justifyContent: "center",
+          },
+          closeButton: false,
+          progress: undefined,
+        });
+    
+      } else 
       mutate({ username, name, email, password1, password2 });
     } else {
       const { username, password1 } = data;
@@ -155,7 +165,7 @@ const Authform = () => {
               backgroundRepeat: "no-repeat",
             }}
           >
-            <ToastContainer />
+           
             <div
               className={`${
                 variant === "LOGIN" ? "h-[45%]" : "my-24 "
@@ -276,7 +286,7 @@ const Authform = () => {
                     {variant === "LOGIN" ? "SIGN IN" : "REGISTER"}
                   </Button>
                 </form>
-
+                <ToastContainer className="z-[100001]"/>
                 <div className="flex gap-2 justify-center text-md mt-6 px-2 text-gray-800">
                   {variant === "REGISTER"
                     ? "Already have an account?"

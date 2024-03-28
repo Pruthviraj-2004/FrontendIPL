@@ -119,7 +119,7 @@ const PredictMatch = () => {
   const matchTime = matchTimeParts ? new Date(currentDate).setHours(matchHours, matchMinutes, 0, 0) : 0; 
 
   const currentTime = currentDate.getTime();
-
+  // console.log(currentTime)
   // Compare current time with match time and check if it's before 12 AM
   if (currentTime > matchTime && currentTime < new Date(currentDate).setHours(0, 0, 0, 0)) {
    setCurrent(true)
@@ -160,7 +160,7 @@ const PredictMatch = () => {
     },
     onError: (error) => {
       console.log(error)
-      toast.error("Unknown error has occured", {
+      toast.error(error.message, {
         position: "top-center",
         autoClose: 3000,
         style: {
@@ -198,7 +198,7 @@ const PredictMatch = () => {
         match_id: matchId,
       });
     } catch (error) {
-      toast.error("Unknown error has occured", {
+      toast.error("Match has started!", {
         position: "top-center",
         autoClose: 3000,
         style: {
@@ -377,7 +377,7 @@ const PredictMatch = () => {
               <div>
               <label className="flex flex-col">
                   <span className="font-semibold text-left w-full">
-                    Most runs scorer
+                    Leading runs scorer
                   </span>
                   {!completed ? (
                     <select
@@ -415,7 +415,7 @@ const PredictMatch = () => {
               <div>
               <label className="flex flex-col">
                   <span className="font-semibold text-left w-full">
-                   Most wickets taker
+                   Leading wicket taker
                   </span>
                   {!completed ? (
                     <select
@@ -455,10 +455,11 @@ const PredictMatch = () => {
                     {!completed && (
                       <button
                         type="submit"
-                        disabled={isLoading}
+                        // disabled={isLoading}
                         className="bg-[#29349e] hover:bg-[#10185c] cursor-pointer disabled:cursor-not-allowed disabled:opacity-20 flex mt-10 text-white font-semibold py-2 px-4 rounded-md mx-auto items-center"
                       >
-                        {isLoading ? "Adding..." : "Predict"}
+                        {/* {isLoading ? "Adding..." : "Predict"} */}
+                        Predict
                       </button>
                     )}
                   </div>

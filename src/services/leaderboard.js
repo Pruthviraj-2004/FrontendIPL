@@ -1,24 +1,24 @@
 import axios from "axios";
-export const getLeaderBoard = async ({selected_leaderboard}) => {
-  const config = {
-    // Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-  try {
-    // console.log(user)
-    const { data } = await axios.get(
-    //   "http://localhost:8000/ipl2/leaderboard2/",
-    "https://practicehost1.pythonanywhere.com/ipl2/leaderboard2/",
-      config,{selected_leaderboard}
-    );
-    return data;
-  } catch (error) {
-    if (error.response && error.response.data.message)
-      throw new Error(error.response.data.message);
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
+// export const getLeaderBoard = async ({selected_leaderboard}) => {
+//   const config = {
+//     // Authorization: `Bearer ${token}`,
+//     "Content-Type": "application/json",
+//   };
+//   try {
+//     // console.log(user)
+//     const { data } = await axios.get(
+//       "http://localhost:8000/ipl2/leaderboard2/",
+//     // "https://practicehost1.pythonanywhere.com/ipl2/leaderboard2/",
+//       config,{selected_leaderboard}
+//     );
+//     return data;
+//   } catch (error) {
+//     if (error.response && error.response.data.message)
+//       throw new Error(error.response.data.message);
+//     console.log(error);
+//     throw new Error(error.message);
+//   }
+// };
 // export const getLeaderBoard2 = async ({selected_leaderboard}) => {
 //     const config = {
 //       // Authorization: `Bearer ${token}`,
@@ -44,11 +44,10 @@ export const getLeaderBoard = async ({selected_leaderboard}) => {
       // Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
-    console.log(username)
+    // console.log(username)
     try {
       // console.log(user)
       const { data } = await axios.get(
-      //   "http://localhost:8000/ipl2/leaderboard1/",
       `https://practicehost1.pythonanywhere.com/ipl2/leaderboard4/${username}?selected_leaderboard=${selected_leaderboard}`,
       // `http://localhost:8000/ipl2/leaderboard4/${username}?selected_leaderboard=${selected_leaderboard}`,
 

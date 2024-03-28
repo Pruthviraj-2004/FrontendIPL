@@ -5,7 +5,9 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
-import { getLeaderBoard,  getLeaderBoard3 } from "../../services/leaderboard";
+// import { getLeaderBoard,  getLeaderBoard3 } from "../../services/leaderboard";
+import {getLeaderBoard3 } from "../../services/leaderboard";
+
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import MainLayout from "../../Components/MainLayout";
@@ -15,7 +17,7 @@ import Loading from "../../Components/loading";
 const Leaderboard = () => {
   const userState = useSelector((state) => state.user);
   const [filteredUserList, setFilteredUserList] = useState([]);
-  const [lid, setLid] = useState(1);
+  const [lid, setLid] = useState(1);//we need to set this to 6 if the default leaderboard is Nexthink
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [loading,setLoading] = useState(true)
@@ -51,6 +53,8 @@ const Leaderboard = () => {
     setSelectedOption(option);
     setLid(selectedLeaderboard.lid);
   };
+  
+  
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -72,29 +76,29 @@ const Leaderboard = () => {
     }
   };
 
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    refetch: refetchLeaderBoard,
-  } = useQuery({
-    queryFn: () => getLeaderBoard({ selected_leaderboard: lid }),
-    queryKey: ["board"],
-    onError: (error) => {
-      toast.error(error.message,{
-        position: "top-center",
-        autoClose: 3000,
-        style: {
-          width: "auto",
-          style: "flex justify-center",
-        },
-        closeButton: false,
-        progress: undefined,
-      });
+  // const {
+  //   data,
+  //   isLoading,
+  //   isError,
+  //   error,
+  //   refetch: refetchLeaderBoard,
+  // } = useQuery({
+  //   queryFn: () => getLeaderBoard({ selected_leaderboard: lid }),
+  //   queryKey: ["board"],
+  //   onError: (error) => {
+  //     toast.error(error.message,{
+  //       position: "top-center",
+  //       autoClose: 3000,
+  //       style: {
+  //         width: "auto",
+  //         style: "flex justify-center",
+  //       },
+  //       closeButton: false,
+  //       progress: undefined,
+  //     });
       
-    },
-  });
+  //   },
+  // });
 
   // const { data: data2, refetch: refetchLeaderBoard2 } = useQuery({
   //   queryFn: () => getLeaderBoard2({ selected_leaderboard: lid }),
@@ -131,15 +135,15 @@ const Leaderboard = () => {
       
     },
   });
-  console.log(data3)
+  // console.log(data3)
 
-  const leaderboards = (userState ? data3 : data)?.leaderboards || [];//3
+  const leaderboards = (userState ? data3 : data3)?.leaderboards || [];//3
   const lidAndNameArray = leaderboards.map((item) => [
     item.lid,
     item.leaderboardname,
   ]);
 
-  const LeaderboardData = userState ? data3 : data;//3
+  const LeaderboardData = userState ? data3 : data3;//3
 
   const user_list =
     filteredUserList.length > 0
@@ -279,10 +283,12 @@ const Leaderboard = () => {
                           {record.username}
                         </div>
                         <div className="flex-1 px-5 py-5 text-xl font-bold text-center text-gray-600">
-                          {selectedOption === "Weekly"
+                          {/* {selectedOption === "Weekly"
+                            ? record.score2
+                    : record.score1} */}
+                          {(selectedOption === "Weekly" || selectedOption === "Nexthink Weekly")
                             ? record.score2
                             : record.score1}
-                          
                         </div>
                       </div>
                     ))}

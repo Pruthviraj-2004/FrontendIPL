@@ -141,7 +141,7 @@ const Headers = () => {
   };
   return (
     <>
-      <section className="fixed left-0 right-0 top-0 m-0 z-[10000] bg-[#F8F8FF] w-full max-w-screen px-4 py-2 lg:px-8 lg:py-1">
+      <section className="fixed left-0 right-0 top-0 m-0 z-[3000] bg-[#F8F8FF] w-full max-w-screen px-4 py-2 lg:px-8 lg:py-1">
         <header className="container mx-auto my-0 flex items-center justify-between px-5 py-2 sm:px-0">
           <div className="left-0 text-xl flex flex-row justify-center items-center gap-x-5 my-auto">
             <div className=" flex flex-row">

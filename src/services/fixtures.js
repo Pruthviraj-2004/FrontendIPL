@@ -7,6 +7,7 @@ export const getFixtures = async () => {
   try {
     const { data } = await axios.get(
       "https://practicehost1.pythonanywhere.com/ipl2/fixtures/",
+      // "http://localhost:8000/ipl2/fixtures/",
       config
     );
     return data;
@@ -34,7 +35,6 @@ export const predictMatch = async ({
     username,
     match_id
   });
-  // console.log(body)
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -43,6 +43,7 @@ export const predictMatch = async ({
   try {
     const { data } = await axios.post(
       `https://practicehost1.pythonanywhere.com/ipl2/predict1/${match_id}/`,
+      // `http://localhost:8000/ipl2/predict1/${match_id}/`,
       body,config
     );
     return data;
@@ -95,6 +96,7 @@ export const getMatchDetails = async (parsedMatchId) => {
     try {
       const { data } = await axios.get(
         `https://practicehost1.pythonanywhere.com/ipl2/home/`,
+        // `http://localhost:8000/ipl2/home/`,
 
       );
       return data;

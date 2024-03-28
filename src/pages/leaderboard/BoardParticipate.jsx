@@ -29,6 +29,7 @@ const LeaderboardForm = () => {
   const handleSubmitParticipate = async ({ leaderboardname, password }) => {
     try {
       const response = await fetch("https://practicehost1.pythonanywhere.com/ipl2/lb_participation/", {
+        // const response = await fetch("http://localhost:8000/ipl2/lb_participation/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +43,7 @@ const LeaderboardForm = () => {
 
       if (response.ok) {
         // Redirect or perform any action upon successful submission
-        toast.success("Leaderboard joined!", {
+        toast.success("Leaderboard joined!!!", {
           position: "top-center",
           autoClose: 3000,
           style: {

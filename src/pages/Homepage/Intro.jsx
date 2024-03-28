@@ -129,10 +129,10 @@ const Introo = () => {
               </div>
              
             </div>
-            <div className=" w-screen max-w-screen">
+            {/* <div className=" w-screen max-w-screen">
               <Quote />
              
-            </div>
+            </div> */}
             
           {/* Global Leaderboard Winner Reward */}
           <div className="mx-10">
@@ -171,6 +171,11 @@ const Introo = () => {
               ))}
             </ol>
           </div>
+
+          <div className=" w-screen max-w-screen">
+              <Quote />
+             
+            </div>
             
             <motion.div
               animate="show"

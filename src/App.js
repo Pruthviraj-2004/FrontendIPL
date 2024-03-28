@@ -12,7 +12,6 @@ import Intro from "./pages/Homepage/Intro";
 import { useSelector } from "react-redux";
 import AboutUsPage from "./pages/AboutUs";
 import Terms from "./pages/Terms";
-// import {,Routes,Route,Link} from 'react-router-dom';
 
 function App() {
   
@@ -21,8 +20,10 @@ function App() {
   
   return (
     <div className="App bg-gray-100  w-screen overflow-hidden">
-      <HashRouter basename='/'>
+   
+     
         <Routes>
+          
           <Route exact path="/" element={<Intro />} />
           <Route exact path="/register" element={<Authform />} />
           <Route exact path="/board" element={<Leaderboard />} />
@@ -37,8 +38,10 @@ function App() {
           )}
           <Route exact path="/aboutus" element={<AboutUsPage />} />
           <Route exact path="/terms" element={<Terms />}></Route>
+          
         </Routes>
-      </HashRouter>
+   
+      
     </div>
   );
 }
