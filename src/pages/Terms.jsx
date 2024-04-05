@@ -25,7 +25,7 @@ const Terms = () => {
     { id: 3, text: "2nd Prize - Rs.1500 worth Amazon Gift Voucher." },
     { id: 4, text: "3rd Prize - Rs.1000 worth Amazon Gift Voucher." },
 
-    { id: 5, text: "The Weekly Leaderboard reward is granted for every set of 9 matches, with a reward available after each set." },
+    { id: 5, text: "The Weekly Leaderboard reward is granted for matches from Friday to Thursday, with a reward available after each set." },
     { id: 6, text: "1st Prize - Rs.200 worth Amazon Gift Voucher." },
   ];
 
@@ -34,7 +34,7 @@ const Terms = () => {
     { id: 2, text: "Player of the Match - 2 Base Points." },
     { id: 3, text: "Most Runs Scorer of the Match - 2 Base Points." },
     { id: 4, text: "Most Economical Wicket Taker of the Match - 2 Base Points." },
-    { id: 5, text: "Bonus weeks with 2x and 3x Bonus Points." },
+    // { id: 5, text: "Bonus weeks with 2x and 3x Bonus Points." },
 
     { id: 6, text: "In case of players with same runs then Strike Rate is taken under consideration." },
     { id: 7, text: "In case of players with same wickets then Economy is taken under consideration." },
@@ -104,8 +104,8 @@ const Terms = () => {
       id: 5,
       text: "Request a personalized leaderboard by sending an email.",
     },
-    { id: 6, text: "Enjoy bonus weeks with double and triple points to enhance your performance." },
-    { id: 7, text: "Keep track of your submissions for better performance evaluation." },
+    // { id: 6, text: "Enjoy bonus weeks with double and triple points to enhance your performance." },
+    { id: 6, text: "Keep track of your submissions for better performance evaluation." },
   ];
 
   return (

@@ -148,8 +148,8 @@ const rr = {
 
 const news = [
   {
-    img: images.wpl,
-    news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Mandhana & Co beat DC in the final by 8 wickets to secure their maiden WPL title" 
+    img: images.klass,
+    news: "Sunrisers break record for highest ever IPL total. Mumbai respond with the highest total in a losing cause, as both teams combine to smack the most sixes ever in a IPL match" 
  },
   {
     img: images.sky1,
@@ -161,11 +161,11 @@ const news = [
     news: "Shashank Singh, Ashutosh Sharma make Punjab kings of Gujarat. The duo helped chase down 41 off the last three overs to hand Punjab an unlikely win." },
   {
     img: images.mayank,
-    news: "'This is just the start Mayank Yadav's thunderbolts now rattle RCB Mayank Yadav bowled a 16.7 kph delivery in his match-winning spell of 3 for 14 in four overs at the Chinnaswamy Stadium"
+    news: "Mayank Yadav bowled a 156.7 kph delivery in his match-winning spell of 3 for 14 in four overs at the Chinnaswamy Stadium"
   },
   {
     img: images.pant,
-    news: "Ponting 'almost embarrassed' by Delhi's loss to KKR. Delhi Capitals conceded 272, the second highest total in the IPL, against KKR"
+    news: "Ponting almost embarrassed by Delhi's loss to KKR. Delhi Capitals conceded 272, the second highest total in the IPL, against KKR"
   },
   {
     img: images.chair,

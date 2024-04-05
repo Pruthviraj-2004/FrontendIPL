@@ -56,6 +56,7 @@ import pant from "../Assets/pant1.webp";
 import shank1 from "../Assets/shask1.webp";
 import mayank from "../Assets/mayank1.webp";
 import sky1 from "../Assets/sky1.webp";
+import klass from "../Assets/klass.webp";
 
 const images = {
   wpl, 
@@ -109,6 +110,7 @@ const images = {
   pant,
   shank1,
   sky1,
-  mayank
+  mayank,
+  klass
 };
 export default images;
