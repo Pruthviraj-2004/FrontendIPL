@@ -149,28 +149,27 @@ const rr = {
 const news = [
   {
     img: images.wpl,
-news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Mandhana & Co beat DC in the final by 8 wickets to secure their maiden WPL title" 
+    news: "RCB finally ended their trophy curse, clinching WPL 2024 title. Smriti Mandhana & Co beat DC in the final by 8 wickets to secure their maiden WPL title" 
  },
   {
-    img: images.vkfaf,
-    news: "The Indian Premier League is scheduled to begin on March 22 at Chennai's Chepauk Stadium, where the reigning champion CSK will play their southern rivals, RCB.",
+    img: images.sky1,
+    news: "Suryakumar Yadav set to join Mumbai Indians squad It is still not confirmed if he is fit for Sundays match, against Delhi Capitals at the Wankhede."
   },
   
   {
-    img: images.captains,
-    news: "The start of the IPL 2024 will mark the end of an era as Rohit Sharma, MS Dhoni and Virat Kohli will not be captain of their respective franchise.",
+    img: images.shank1,
+    news: "Shashank Singh, Ashutosh Sharma make Punjab kings of Gujarat. The duo helped chase down 41 off the last three overs to hand Punjab an unlikely win." },
+  {
+    img: images.mayank,
+    news: "'This is just the start Mayank Yadav's thunderbolts now rattle RCB Mayank Yadav bowled a 16.7 kph delivery in his match-winning spell of 3 for 14 in four overs at the Chinnaswamy Stadium"
   },
   {
-    img: images.all_captains,
-    news: "All ten IPL captains at a photo opportunity in Chennai on the eve of the 2024 season opener.",
-  },
-  {
-    img: images.pc,
-    news: "Australian captain Pat Cummins will be leading the SRH in IPL 2024 with new colours and new targets.",
+    img: images.pant,
+    news: "Ponting 'almost embarrassed' by Delhi's loss to KKR. Delhi Capitals conceded 272, the second highest total in the IPL, against KKR"
   },
   {
     img: images.chair,
-    news: "IPL chairman Arun Dhumal confirms mega auction will be held after 2024 season.  Every team is allowed to retain 3-4 players ahead of a mega auction.",
+    news: "KKR vs Royals match moved to April 16. Titans vs Capitals subsequently switched to April 17",
   },
   
 

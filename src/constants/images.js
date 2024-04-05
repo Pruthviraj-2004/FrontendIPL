@@ -52,6 +52,11 @@ import imgsunitha from "../Assets/img_sunitha.jpg"
 import all_captains from "../Assets/all_captains.png";
 import captains from "../Assets/captians.png";
 
+import pant from "../Assets/pant1.webp";
+import shank1 from "../Assets/shask1.webp";
+import mayank from "../Assets/mayank1.webp";
+import sky1 from "../Assets/sky1.webp";
+
 const images = {
   wpl, 
   bg1,
@@ -101,5 +106,9 @@ const images = {
   imgsunitha,
   all_captains,
   captains,
+  pant,
+  shank1,
+  sky1,
+  mayank
 };
 export default images;
