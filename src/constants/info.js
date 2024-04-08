@@ -149,27 +149,27 @@ const rr = {
 const news = [
   {
     img: images.klass,
-    news: "Sunrisers break record for highest ever IPL total. Mumbai respond with the highest total in a losing cause, as both teams combine to smack the most sixes ever in a IPL match" 
+    news: "Sunrisers break record for highest ever IPL total." 
  },
   {
-    img: images.sky1,
-    news: "Suryakumar Yadav set to join Mumbai Indians squad It is still not confirmed if he is fit for Sundays match, against Delhi Capitals at the Wankhede."
+    img: images.vk1,
+    news: "Kohli scores record eighth IPL hundred, but ends up on the losing side."
   },
   
   {
-    img: images.shank1,
-    news: "Shashank Singh, Ashutosh Sharma make Punjab kings of Gujarat. The duo helped chase down 41 off the last three overs to hand Punjab an unlikely win." },
+    img: images.shep,
+    news: "Romario Shepherd blasts 4, 6, 6, 6, 4, 6 off Anrich Nortje in the 20th over." },
   {
     img: images.mayank,
-    news: "Mayank Yadav bowled a 156.7 kph delivery in his match-winning spell of 3 for 14 in four overs at the Chinnaswamy Stadium"
+    news: "Mayank Yadav bowled a 156.7 kph delivery at the Chinnaswamy Stadium"
   },
   {
-    img: images.pant,
-    news: "Ponting almost embarrassed by Delhi's loss to KKR. Delhi Capitals conceded 272, the second highest total in the IPL, against KKR"
+    img: images.yash1,
+    news: "Spinners, Yash Thakur defend 163 to seal LSG's first-ever win against Titans."
   },
   {
-    img: images.chair,
-    news: "KKR vs Royals match moved to April 16. Titans vs Capitals subsequently switched to April 17",
+    img: images.liam,
+    news: "Capitals sign Lizaad Williams as Harry Brook replacement.",
   },
   
 

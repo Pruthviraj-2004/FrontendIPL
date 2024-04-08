@@ -239,6 +239,7 @@ const PredictMatch = () => {
           )
         }
     <MainLayout>
+
       <section className="h-full bg-white mt-[65px] overflow-hidden " 
         style={{
           backgroundImage: `url(${images.bg1})`,
@@ -250,6 +251,11 @@ const PredictMatch = () => {
         <Breadcrumbs data={Breadcrumbsdata} activeName={matchId} />
         <div className="flex flex-col mt-[0px] justify-center items-center md:w-full lg:w-full xs:w-[90%]  overflow-hidden ">
           <ToastContainer className="z-[100001]"/>
+          <div className="bg-white text-black p-4 text-center">
+            <p className="text-sm md:text-base">
+            📅 From April 8th to the 14th, it's the time to earn double points during Rivalry Week. 💪🏆
+            </p>
+          </div>
           <div  className="w-full flex justify-center items-center text-2xl mt-[80px] font-semibold ">
             <motion.div
               variants={slideIn("left", "spring", 0.4, 2)}

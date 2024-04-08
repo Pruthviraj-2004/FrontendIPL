@@ -20,6 +20,10 @@ const textss = [
   { index: 4, title: "Enjoy the thrill of predicting and winning!" },
 ];
 
+const rivalryweek = [
+  { id:1, text: "📅 From April 8th to the 14th, it's the time to earn double points during Rivalry Week. 💪🏆."}
+];
+
 const additionalRules = [
   { id: 1, text: "The Global Leaderboard reward is given to the winners of the entire tournament, up until the final match." },
   { id: 2, text: "1st Prize - Rs.2500 worth Amazon Gift Voucher." },
@@ -133,6 +137,24 @@ const Introo = () => {
               <Quote />
              
             </div> */}
+
+          <div className="mx-10">
+            <h3 className="text-xl font-bold mt-4">Bonus Week:</h3>
+            <ol>
+              {rivalryweek.map((rule) => (
+                <li key={rule.id} className="text-left text-lg my-4">
+                  <p className="flex flex-row justify-start">
+                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                      {rule.id}.&nbsp;&nbsp;
+                      <span className="font-medium text-black">
+                        {rule.text}
+                      </span>
+                    </p>
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
             
           {/* Global Leaderboard Winner Reward */}
           <div className="mx-10">
