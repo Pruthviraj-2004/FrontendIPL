@@ -21,7 +21,7 @@ const textss = [
 ];
 
 const rivalryweek = [
-  { id:1, text: "📅 From April 8th to the 14th, it's the time to earn double points during Rivalry Week. 💪🏆."}
+  { id:1, text: "📅 From April 21th to the 28th, it's the time to earn double points during Payback Week. 💪🏆."}
 ];
 
 const additionalRules = [
@@ -84,6 +84,24 @@ const Introo = () => {
 
               
             </div>
+
+            <div className="mx-10">
+              <h3 className="text-xl font-bold mt-4">Bonus Week:</h3>
+              <ol>
+                {rivalryweek.map((rule) => (
+                  <li key={rule.id} className="text-left text-lg my-4">
+                    <p className="flex flex-row justify-start">
+                      <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
+                        {rule.id}.&nbsp;&nbsp;
+                        <span className="font-medium text-black">
+                          {rule.text}
+                        </span>
+                      </p>
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
             
             <div className=" w-screen max-w-screen">
               <motion.h2
@@ -138,23 +156,7 @@ const Introo = () => {
              
             </div> */}
 
-          <div className="mx-10">
-            <h3 className="text-xl font-bold mt-4">Bonus Week:</h3>
-            <ol>
-              {rivalryweek.map((rule) => (
-                <li key={rule.id} className="text-left text-lg my-4">
-                  <p className="flex flex-row justify-start">
-                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
-                      {rule.id}.&nbsp;&nbsp;
-                      <span className="font-medium text-black">
-                        {rule.text}
-                      </span>
-                    </p>
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
+          
             
           {/* Global Leaderboard Winner Reward */}
           <div className="mx-10">

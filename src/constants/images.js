@@ -52,12 +52,13 @@ import imgsunitha from "../Assets/img_sunitha.jpg"
 import all_captains from "../Assets/all_captains.png";
 import captains from "../Assets/captians.png";
 
-import mayank from "../Assets/mayank1.webp";
-import klass from "../Assets/klass.webp";
 import liam from "../Assets/liz1.webp";
-import shep from "../Assets/shep1.webp";
-import yash1 from "../Assets/yash1.webp"
-import vk1 from "../Assets/vk1.webp";
+import josnr from "../Assets/josnr1.webp";
+import head1 from "../Assets/head1.webp";
+import highest1 from "../Assets/highest1.webp";
+import dhoni1 from "../Assets/dhoni1.webp";
+import aush from "../Assets/ashutosh2.webp";
+
 
 const images = {
   wpl, 
@@ -108,12 +109,13 @@ const images = {
   imgsunitha,
   all_captains,
   captains,
-  mayank,
-  klass,
-  yash1,
-  shep,
   liam,
-  vk1,
+  josnr,
+  head1,
+  highest1,
+  dhoni1,
+  aush,
+
 
 };
 export default images;

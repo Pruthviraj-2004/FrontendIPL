@@ -148,24 +148,24 @@ const rr = {
 
 const news = [
   {
-    img: images.klass,
-    news: "Sunrisers break record for highest ever IPL total." 
+    img: images.highest1,
+    news: "IPL 2024, a turbo-charged, batter-dominated season like no other." 
  },
   {
-    img: images.vk1,
-    news: "Kohli scores record eighth IPL hundred, but ends up on the losing side."
+    img: images.head1,
+    news: "125 in 6 overs: Head and Sunrisers shatter T20 powerplay records."
   },
   
   {
-    img: images.shep,
-    news: "Romario Shepherd blasts 4, 6, 6, 6, 4, 6 off Anrich Nortje in the 20th over." },
+    img: images.josnr,
+    news: "Narine, Buttler, and a tale of two tons." },
   {
-    img: images.mayank,
-    news: "Mayank Yadav bowled a 156.7 kph delivery at the Chinnaswamy Stadium"
+    img: images.aush,
+    news: "Sixy Ashutosh Sharma is making up for lost time."
   },
   {
-    img: images.yash1,
-    news: "Spinners, Yash Thakur defend 163 to seal LSG's first-ever win against Titans."
+    img: images.dhoni1,
+    news: "Rahul leads LSG's cruise past CSK despite Dhoni fireworks."
   },
   {
     img: images.liam,

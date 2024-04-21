@@ -253,7 +253,7 @@ const PredictMatch = () => {
           <ToastContainer className="z-[100001]"/>
           <div className="bg-white text-black p-4 text-center">
             <p className="text-sm md:text-base">
-            📅 From April 8th to the 14th, it's the time to earn double points during Rivalry Week. 💪🏆
+            📅 From April 21th to the 28th, it's the time to earn double points during Payback Week. 💪🏆
             </p>
           </div>
           <div  className="w-full flex justify-center items-center text-2xl mt-[80px] font-semibold ">
