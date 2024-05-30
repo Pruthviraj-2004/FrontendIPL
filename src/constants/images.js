@@ -1,22 +1,11 @@
 import start from "../Assets/noun-start-over-111855.png";
 import iplogo from "../Assets/iplogo.png";
-import sachin from "../Assets/sachin.jpg";
 import lb from "../Assets/8777094.jpg";
-
-import crowd from "../Assets/crowd.jpg";
-import vkfaf from "../Assets/vkfaf.webp";
-import hprs from "../Assets/hprs.webp";
-import chair from "../Assets/chair.webp";
-import yc from "../Assets/yc.jpg";
-import pc from "../Assets/pc.webp";
-import sign from "../Assets/4957136.jpg";
 
 import e from "../Assets/e.jpg";
 import error from "../Assets/3582365.jpg";
 
-//import rcb1 from "../Assets/RCBoutline.png";
 import rcb1 from "../Assets/RCBoutline1.png";
-
 import rr1 from "../Assets/RRoutline.png";
 import srh1 from "../Assets/SRHoutline.png";
 import dc1 from "../Assets/DCoutline.png";
@@ -44,39 +33,41 @@ import hero14 from "../Assets/hero14.webp";
 import hero15 from "../Assets/hero15.webp";
 import hero16 from "../Assets/hero16.jpg";
 import hero17 from "../Assets/hero17.jpg";
-import wpl from '../Assets/rcb_wpl.webp'
 
 import imgpru from "../Assets/compress 58kb1.jpg"
 import imgsunitha from "../Assets/img_sunitha.jpg"
 
-import all_captains from "../Assets/all_captains.png";
-import captains from "../Assets/captians.png";
+import IRE from "../Assets/ire.png";
+import AFG from "../Assets/afg.png";
+import AUS from "../Assets/aus.png";
+import BAN from "../Assets/ban.png";
+import CAN from "../Assets/can.png";
 
-import liam from "../Assets/liz1.webp";
-import josnr from "../Assets/josnr1.webp";
-import head1 from "../Assets/head1.webp";
-import highest1 from "../Assets/highest1.webp";
-import dhoni1 from "../Assets/dhoni1.webp";
-import aush from "../Assets/ashutosh2.webp";
+import ENG from "../Assets/eng.png";
+import IND from "../Assets/ind.png";
+import NAM from "../Assets/nam.png";
+import NED from "../Assets/ned.png";
+import NEP from "../Assets/nep.png";
 
+import NZ from "../Assets/nz.png";
+import OMA from "../Assets/oman.png";
+import PAK from "../Assets/pak.png";
+import PNG from "../Assets/png.png";
+import SA from "../Assets/sa.png";
+
+import SCO from "../Assets/sco.png";
+import SL from "../Assets/sl.png";
+import UGA from "../Assets/uga.png";
+import USA from "../Assets/usa.png";
+import WI from "../Assets/wi.png";
 
 const images = {
-  wpl, 
   bg1,
   error,  
   e, 
-  sign,
-  pc,
-  yc,
-  chair,
-  vkfaf,
   iplogo,
-  crowd,
-
-  hprs,
   
   start,
-  sachin,
   lb,
   rcb1,
   srh1,
@@ -107,15 +98,8 @@ const images = {
 
   imgpru,
   imgsunitha,
-  all_captains,
-  captains,
-  liam,
-  josnr,
-  head1,
-  highest1,
-  dhoni1,
-  aush,
 
+  IRE,AFG,AUS,BAN,CAN,ENG,IND,NAM,NED,NEP,NZ,OMA,PAK,PNG,SA,SCO,SL,UGA,USA,WI
 
 };
 export default images;

@@ -214,7 +214,7 @@ const Terms = () => {
             </div>
           </div>
 
-          {/* Global Leaderboard Winner Reward */}
+          {/* Global Leaderboard Winner Reward
           <div>
             <h3 className="text-xl font-bold mt-4">Global Leaderboard Winner Reward:</h3>
             <ol>
@@ -233,7 +233,7 @@ const Terms = () => {
             </ol>
           </div>
 
-          {/* Weekly Leaderboard Winner Reward */}
+          Weekly Leaderboard Winner Reward
           <div>
             <h3 className="text-xl font-bold mt-4">Weekly Leaderboard Winner Reward:</h3>
             <ol>
@@ -250,7 +250,7 @@ const Terms = () => {
                 </li>
               ))}
             </ol>
-          </div>
+          </div> */}
 
         </div>
       </div>

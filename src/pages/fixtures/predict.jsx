@@ -58,6 +58,31 @@ const PredictMatch = () => {
     "Sunrisers Hyderabad": images.srh1,
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,
+    
+    "India": images.IND ,
+    "Canada": images.CAN ,
+    "Ireland": images.IRE ,
+    "Pakistan": images.PAK ,
+    "United States": images.USA ,
+
+    "Australia": images.AUS ,
+    "England": images.ENG ,
+    "Namibia": images.NAM ,
+    "Oman": images.OMA ,
+    "Scotland": images.SCO ,
+    
+    "Afghanistan": images.AFG ,
+    "New Zewland": images.NZ ,
+    "Papua New Guinea": images.PNG ,
+    "Uganda": images.UGA ,
+    "West Indies": images.WI ,
+
+    "Bangladesh": images.BAN ,
+    "South Africa": images.SA ,
+    "Sri Lanka": images.SL ,
+    "Nepal": images.NEP ,
+    "Netherlands": images.NED ,
+
   };
   const teamColors = {
     "Chennai Super Kings": "yellow", // Yellow
@@ -203,7 +228,7 @@ const PredictMatch = () => {
         autoClose: 3000,
         style: {
           width: "auto",
-          display: "flex", // Changed 'style' object key from 'style' to 'display'
+          display: "flex",
           justifyContent: "center",
         },
         closeButton: false,
@@ -251,11 +276,11 @@ const PredictMatch = () => {
         <Breadcrumbs data={Breadcrumbsdata} activeName={matchId} />
         <div className="flex flex-col mt-[0px] justify-center items-center md:w-full lg:w-full xs:w-[90%]  overflow-hidden ">
           <ToastContainer className="z-[100001]"/>
-          <div className="bg-white text-black p-4 text-center">
+          {/* <div className="bg-white text-black p-4 text-center">
             <p className="text-sm md:text-base">
-            📅 From April 21th to the 28th, it's the time to earn double points during Payback Week. 💪🏆
+            📅 From May 21th to the May 22th, it's the time to earn double points during Playoffs. 💪🏆
             </p>
-          </div>
+          </div> */}
           <div  className="w-full flex justify-center items-center text-2xl mt-[80px] font-semibold ">
             <motion.div
               variants={slideIn("left", "spring", 0.4, 2)}

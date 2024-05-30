@@ -21,7 +21,7 @@ const textss = [
 ];
 
 const rivalryweek = [
-  { id:1, text: "📅 From April 21th to the 28th, it's the time to earn double points during Payback Week. 💪🏆."}
+  { id:1, text: "📅 From May 21th to the May 22th, it's the time to earn double points during Playoffs. 💪🏆."}
 ];
 
 const additionalRules = [
@@ -44,6 +44,16 @@ const Points = [
   { id: 5, text: "In case of players with same runs then Strike Rate is taken under consideration." },
   { id: 6, text: "In case of players with same wickets then Economy is taken under consideration." },
   { id: 7, text: "In case of same points, user submission time is taken under consideration." },
+
+];
+
+const contributers = [
+  { id: 1, text: "Dhanush" },
+  { id: 2, text: "Deekshith" },
+  { id: 3, text: "Prasad" },
+  { id: 4, text: "Nithyanada" },
+  { id: 5, text: "Raghuveer" },
+  { id: 6, text: "Vardhini" },
 
 ];
 
@@ -81,27 +91,9 @@ const Introo = () => {
               }}
             >
               <HeroSection />
-
-              
             </div>
 
-            <div className="mx-10">
-              <h3 className="text-xl font-bold mt-4">Bonus Week:</h3>
-              <ol>
-                {rivalryweek.map((rule) => (
-                  <li key={rule.id} className="text-left text-lg my-4">
-                    <p className="flex flex-row justify-start">
-                      <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
-                        {rule.id}.&nbsp;&nbsp;
-                        <span className="font-medium text-black">
-                          {rule.text}
-                        </span>
-                      </p>
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            
             
             <div className=" w-screen max-w-screen">
               <motion.h2
@@ -151,51 +143,7 @@ const Introo = () => {
               </div>
              
             </div>
-            {/* <div className=" w-screen max-w-screen">
-              <Quote />
-             
-            </div> */}
-
-          
             
-          {/* Global Leaderboard Winner Reward */}
-          <div className="mx-10">
-            <h3 className="text-xl font-bold mt-4">Global Leaderboard Winner Reward:</h3>
-            <ol>
-              {additionalRules.slice(0, 4).map((rule) => (
-                <li key={rule.id} className="text-left text-lg my-4">
-                  <p className="flex flex-row justify-start">
-                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
-                      {rule.id}.&nbsp;&nbsp;
-                      <span className="font-medium text-black">
-                        {rule.text}
-                      </span>
-                    </p>
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          {/* Weekly Leaderboard Winner Reward */}
-          <div className="mx-10">
-            <h3 className="text-xl font-bold mt-4">Weekly Leaderboard Winner Reward:</h3>
-            <ol>
-              {additionalRules.slice(4, 7).map((rule) => (
-                <li key={rule.id} className="text-left text-lg my-4">
-                  <p className="flex flex-row justify-start">
-                    <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
-                      {rule.id}.&nbsp;&nbsp;
-                      <span className="font-medium text-black">
-                        {rule.text}
-                      </span>
-                    </p>
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-
           <div className=" w-screen max-w-screen">
               <Quote />
              
@@ -307,10 +255,10 @@ const Introo = () => {
                 </p>
               </motion.div>
             </div>
-            <div className="w-screen max-w-screen lg:mx-0 mx-5">
+            {/* <div className="w-screen max-w-screen lg:mx-0 mx-5">
               <p className={`${styles.sectionHeadText} mt-5 text-left lg:ml-10`}>News</p>
               <News />
-            </div>
+            </div> */}
           </div>
         </section>
       </MainLayout>

@@ -15,6 +15,30 @@ const Matches = ({ data, id, status, className }) => {
     "Sunrisers Hyderabad": images.srh1,
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,
+
+    "India": images.IND ,
+    "Canada": images.CAN ,
+    "Ireland": images.IRE ,
+    "Pakistan": images.PAK ,
+    "United States": images.USA ,
+
+    "Australia": images.AUS ,
+    "England": images.ENG ,
+    "Namibia": images.NAM ,
+    "Oman": images.OMA ,
+    "Scotland": images.SCO ,
+    
+    "Afghanistan": images.AFG ,
+    "New Zewland": images.NZ ,
+    "Papua New Guinea": images.PNG ,
+    "Uganda": images.UGA ,
+    "West Indies": images.WI ,
+
+    "Bangladesh": images.BAN ,
+    "South Africa": images.SA ,
+    "Sri Lanka": images.SL ,
+    "Nepal": images.NEP ,
+    "Netherlands": images.NED ,
   };
 
   const teamA = data.teamA;
