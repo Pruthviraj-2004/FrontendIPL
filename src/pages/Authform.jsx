@@ -188,7 +188,7 @@ const Authform = () => {
                   </div>
                   <div>
                     <img
-                      src={images.sign}
+                      src={images.sigin}
                       alt="signform"
                       className={`${
                         variant === "LOGIN" ? "h-[45vh]" : "h-[50vh]"

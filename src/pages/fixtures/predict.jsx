@@ -245,11 +245,15 @@ const PredictMatch = () => {
     setTimeout(() => {
       setPopup(true);
     }, 1000);
+    
 
   }, []);
   const handleClosePopup = () => {
     setPopup(false);
   };
+  useEffect(()=> {
+    window.scrollTo(0,0);
+  },[])
 
   return (
     <>
@@ -496,7 +500,7 @@ const PredictMatch = () => {
                   </div>
             </form>
           </div> : <div></div>}
-          <div className="mt-5 flex flex-col gap-y-4 ">
+          {/* <div className="mt-5 flex flex-col gap-y-4 ">
             <div className=" mx-8 shadow-lg p-3 rounded-md">
               <p className="text-left font-semibold my-2 text-xl">
                  {team_a?.teamshortform} Current squad
@@ -531,7 +535,7 @@ const PredictMatch = () => {
                 </p>
               </div> 
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </MainLayout>

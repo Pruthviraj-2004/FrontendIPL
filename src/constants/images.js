@@ -1,7 +1,7 @@
 import start from "../Assets/noun-start-over-111855.png";
 import iplogo from "../Assets/iplogo.png";
 import lb from "../Assets/8777094.jpg";
-
+import sigin from "../Assets/4957136.jpg";
 import e from "../Assets/e.jpg";
 import error from "../Assets/3582365.jpg";
 
@@ -24,6 +24,8 @@ import bg20 from "../Assets/bg20.jpg";
 import bg22 from "../Assets/bg22.jpg";
 import bg23 from "../Assets/bg23.jpg";
 import bg24 from "../Assets/bg24.jpg";
+
+import sachin from "../Assets/sachin.jpg";
 
 import hero10 from "../Assets/hero10.jpg";
 import hero11 from "../Assets/hero11.webp";
@@ -61,11 +63,23 @@ import UGA from "../Assets/uga.png";
 import USA from "../Assets/usa.png";
 import WI from "../Assets/wi.png";
 
+import hero51 from "../Assets/1.webp";
+import hero52 from "../Assets/2.jpg";
+import hero53 from "../Assets/3.webp";
+import hero54 from "../Assets/4.avif";
+import hero55 from "../Assets/5.webp";
+import hero56 from "../Assets/6.jpg";
+import hero57 from "../Assets/7.webp";
+import hero58 from "../Assets/8.webp";
+
+
 const images = {
   bg1,
   error,  
   e, 
   iplogo,
+  sigin,
+  sachin,
   
   start,
   lb,
@@ -95,6 +109,16 @@ const images = {
   hero15,
   hero16,
   hero17,
+
+  hero51,
+  hero52,
+  hero53,
+  hero54,
+  hero55,
+  hero56,
+  hero57,
+  hero58,
+
 
   imgpru,
   imgsunitha,

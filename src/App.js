@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {  Routes, Route } from "react-router-dom";
 import { useMediaQuery } from "@react-hook/media-query";
 import Leaderboard from "./pages/leaderboard/Leaderboard";
 import ProfilePage from "./pages/ProfilePage";
@@ -17,11 +17,12 @@ function App() {
   
   const userState = useSelector((state) => state.user);
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
-  
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
   return (
     <div className="App bg-gray-100  w-screen overflow-hidden">
    
-     
         <Routes>
           
           <Route exact path="/" element={<Intro />} />

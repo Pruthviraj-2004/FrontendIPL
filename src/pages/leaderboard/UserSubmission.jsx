@@ -103,6 +103,9 @@ const UserSubmission = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  useEffect(()=> {
+    window.scrollTo(0,0);
+  },[])
 
   const recordsPerPage = 4;
   const startIndex = currentPage * recordsPerPage;

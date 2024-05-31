@@ -35,10 +35,10 @@ const additionalRules = [
 ];
 
 const Points = [
-  { id: 1, text: "Winner Team - 3 Base Points." },
-  { id: 2, text: "Player of the Match - 2 Base Points." },
-  { id: 3, text: "Most Runs Scorer of the Match - 2 Base Points." },
-  { id: 4, text: "Most Economical Wicket Taker of the Match - 2 Base Points." },
+  { id: 1, text: "Winner Team - 2 Base Points." },
+  { id: 2, text: "Player of the Match - 3 Base Points." },
+  { id: 3, text: "Most Runs Scorer of the Match - 3 Base Points." },
+  { id: 4, text: "Most Economical Wicket Taker of the Match - 3 Base Points." },
   // { id: 5, text: "Bonus weeks with 2x and 3x Bonus Points." },
 
   { id: 5, text: "In case of players with same runs then Strike Rate is taken under consideration." },
@@ -73,7 +73,9 @@ const Introo = () => {
   useEffect(() => {
     refetch();
   }, [isLoading]);
-
+  useEffect(()=> {
+    window.scrollTo(0,0)
+  },[])
   const dataaa = dataa?.matches;
 
   return (
@@ -144,10 +146,10 @@ const Introo = () => {
              
             </div>
             
-          <div className=" w-screen max-w-screen">
+          {/* <div className=" w-screen max-w-screen">
               <Quote />
              
-            </div>
+            </div> */}
             
             <motion.div
               animate="show"

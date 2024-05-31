@@ -171,6 +171,9 @@ const Leaderboard = () => {
 
     return () => clearTimeout(timer); // Cleanup function to clear the timeout if component unmounts
   }, []);
+  useEffect(()=> {
+    window.scrollTo(0,0);
+  },[])
   const navigate = useNavigate();
   return (
     <MainLayout>

@@ -41,6 +41,9 @@ const FixturePage = () => {
    
     refetch();
   }, [loading]);
+  useEffect(()=> {
+    window.scrollTo(0,0);
+  },[])
   
   
 
@@ -53,7 +56,7 @@ const FixturePage = () => {
       setLoading(false);
     }, 1000);
 
-    return () => clearTimeout(timer); // Cleanup function to clear the timeout if component unmounts
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -78,13 +81,13 @@ const FixturePage = () => {
             <div className="flex flex-col lg:text-secondary justify-center items-center h-[220px] lg:h-[200px] lg:w-[90%] lg:mx-auto lg:my-4">
               <div>
                 <h2 className="text-3xl uppercase font-bold my-2 text-black">
-                  IPL Predictions
+                  T20 World Cup Predictions
                 </h2>
               </div>
               <div>
                 <p className="text-lg text-black font-semibold">
                   Get ready to predict the winners and score big prizes with our
-                  IPL prediction game! Check out the upcoming fixtures and make
+                  T20 WC prediction game! Check out the upcoming fixtures and make
                   your predictions now!
                 </p>
               </div>
