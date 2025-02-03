@@ -72,7 +72,7 @@ const PredictMatch = () => {
     "Scotland": images.SCO ,
     
     "Afghanistan": images.AFG ,
-    "New Zewland": images.NZ ,
+    "New Zealand": images.NZ ,
     "Papua New Guinea": images.PNG ,
     "Uganda": images.UGA ,
     "West Indies": images.WI ,
