@@ -2,6 +2,7 @@
   "name": "iplproject2frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@react-hook/media-query": "^1.1.1",
     "@reduxjs/toolkit": "^2.2.1",
