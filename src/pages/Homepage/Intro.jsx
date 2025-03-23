@@ -83,7 +83,7 @@ const Introo = () => {
       <MainLayout>
         
         <section className="h-full w-screen max-w-screen scrollbar-hide">
-          <div className={` w-screen max-w-screen  mt-20 flex flex-col  `}>
+          <div className={` w-screen max-w-screen flex flex-col  `}>
             <div
               style={{
                 backgroundImage: `url(${images.bg23})`,
@@ -97,7 +97,7 @@ const Introo = () => {
 
             
             
-            <div className=" w-screen max-w-screen">
+            <div className=" w-screen max-w-screen my-5">
               <motion.h2
                 variants={fadeIn("right", "spring", 0.5, 1)}
                 whileInView="show"
@@ -151,10 +151,11 @@ const Introo = () => {
              
             </div> */}
             
-            <motion.div
+           <div className=" w-screen max-w-screen mx-auto px-5 lg:px-10  my-5">
+             <motion.div
               animate="show"
               initial="hidden"
-              className="w-screen max-w-screen mx-auto px-5 lg:px-10 my-5"
+              className=""
             >
               <motion.p
                 variants={fadeIn("up", "spring", 0.5, 1)}
@@ -172,7 +173,7 @@ const Introo = () => {
               </motion.p>
 
               <div>
-                <p className="text-justify  font-medium text-lg">
+                <p className="text-justify  font-medium text-md">
                   Welcome to our prediction website, where the excitement of
                   sports meets the thrill of forecasting outcomes! Whether
                   you're a seasoned predictor or just starting out, our platform
@@ -183,6 +184,7 @@ const Introo = () => {
               </div>
             
             </motion.div>
+           </div>
 
             <div
               className="w-screen max-w-screen bg-[#eeedf0] mx-auto px-5 lg:px-10 my-5 ">
@@ -193,7 +195,7 @@ const Introo = () => {
                 <div className="flex">
                   <ol>
                     {textss.map((text, index) => (
-                      <li className="text-left text-lg   my-4">
+                      <li className="text-left text-md   my-4">
                         <p className="flex flex-row">
                           <p className=" rounded-full text-center lg:mr-2 justify-center w-10 lg:w-7 bg-none font-bold text-pink-900 lg:bg-pink-500">
                             {index + 1}
@@ -209,12 +211,12 @@ const Introo = () => {
              
             </div>
             
-            <div className="mt-5 mx-10">
-              <h2 className="text-2xl font-bold text-left">Points System:</h2>
+            <div className=" mx-10 my-5">
+             <h2 className={`${styles.sectionHeadText} mt-5 text-left`}>Points System:</h2>
               <div className="flex">
                 <ol>
                   {Points.map((rule) => (
-                    <li key={rule.id} className="text-left text-lg my-4">
+                    <li key={rule.id} className="text-left text-md my-4">
                       <p className="flex flex-row justify-start">
                         <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
                           {rule.id}.&nbsp;&nbsp;
@@ -249,7 +251,7 @@ const Introo = () => {
                 <h3 className={`${styles.sectionHeadText}  text-left  mb-5`}>
                   LeaderBoard
                 </h3>
-                <p className={` text-left text-lg font-semibold`}>
+                <p className={` text-left text-md font-semibold`}>
                   Keep an eye on the{" "}
                   <b className="text-[#38277e]">leaderboard </b>
                   to see how you stack up against other players. The more

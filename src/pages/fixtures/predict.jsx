@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,7 +10,7 @@ import {  slideIn, zoomIn } from "../../utils/motion";
  import { useSelector } from "react-redux";
 // import CTA from "../../Components/CTA";
 import { images } from "../../constants";
-
+import ClipLoader from "react-spinners/ClipLoader";
 import MainLayout from "../../Components/MainLayout";
 import { predictMatch } from "../../services/fixtures";
 import { useQuery } from "@tanstack/react-query";
@@ -150,7 +150,7 @@ const PredictMatch = () => {
    setCurrent(true)
   }
   
-  const { mutate,isLoading } = useMutation({
+  const { mutate,isLoading,isPending } = useMutation({
     mutationFn: ({
       predicted_winner_team,
       predicted_player_of_the_match,
@@ -197,6 +197,7 @@ const PredictMatch = () => {
       })
     },
   });
+  
   const {
     register,
     handleSubmit,
@@ -255,31 +256,38 @@ const PredictMatch = () => {
     window.scrollTo(0,0);
   },[])
 
+  const topRef = useRef(null);
+
+  useEffect(() => {
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
   return (
-    <>
-    {/* {popup &&
-        createPortal(
-          <Popup setClose={handleClosePopup} />,
-          document.getElementById("error")
-        )} */}
-        {
-          errorss && createPortal(
-            <ErrorMessage message="You must be logged in!!" setCreateError={setCreateError}></ErrorMessage>,document.getElementById("error")
-          )
-        }
+  
+       <>
+      
     <MainLayout>
 
-      <section className="h-full bg-white mt-[65px] overflow-hidden " 
+      <section className="h-full bg-white  overflow-hidden " 
         style={{
           backgroundImage: `url(${images.bg1})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
-      >
+      > 
         <Breadcrumbs data={Breadcrumbsdata} activeName={matchId} />
-        <div className="flex flex-col mt-[0px] justify-center items-center md:w-full lg:w-full xs:w-[90%]  overflow-hidden ">
-          <ToastContainer className="z-[100001]"/>
+        <div className="flex flex-col justify-center items-center md:w-full lg:w-full xs:w-[90%]  overflow-hidden ">
+     
+  
+         {errorss &&  <div className={`fixed top-0 left-0 w-full flex justify-center`}>
+    <ErrorMessage message="You must be logged in!!" setCreateError={setCreateError} />
+  </div>}
+
+{/* 
+          <ToastContainer className="z-[100001]"/> */}
           {/* <div className="bg-white text-black p-4 text-center">
             <p className="text-sm md:text-base">
             📅 From May 21th to the May 22th, it's the time to earn double points during Playoffs. 💪🏆
@@ -306,7 +314,7 @@ const PredictMatch = () => {
            </div>
             <motion.div
               variants={slideIn("right", "spring", 0.4, 2)}
-              className="flex flex-col justify-end items-center lg:items-start items-center mx-4 gap-x-3 h-40 "
+              className="flex flex-col justify-end lg:items-start items-center mx-4 gap-x-3 h-40 "
             >
               <img
                 src={teamImages[team_b?.teamname]}
@@ -491,10 +499,10 @@ const PredictMatch = () => {
                       <button
                         type="submit"
                         // disabled={isLoading}
-                        className="bg-[#29349e] hover:bg-[#10185c] cursor-pointer disabled:cursor-not-allowed disabled:opacity-20 flex mt-10 text-white font-semibold py-2 px-4 rounded-md mx-auto items-center"
+                        className="bg-[#29349e] hover:bg-[#10185c] cursor-pointer disabled:cursor-not-allowed disabled:opacity-20 flex mt-5 text-white font-semibold py-2 px-4 rounded-md mx-auto items-center"
                       >
                         {/* {isLoading ? "Adding..." : "Predict"} */}
-                        Predict
+                        {isPending ? <ClipLoader color="white" size={20} /> : "Predict"}
                       </button>
                     )}
                   </div>
@@ -540,6 +548,7 @@ const PredictMatch = () => {
       </section>
     </MainLayout>
     </>
+    
   );
 };
 

@@ -11,6 +11,7 @@ import ScrollToTopOnPageChange from "./ScrollToTop";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const queryClient = new QueryClient();
+console.log("App is running");
 root.render(
   <Provider store={store}>
   <QueryClientProvider client={queryClient}>

@@ -38,7 +38,8 @@ const Authform = () => {
         closeButton: false,
         progress: undefined,
       });
-      dispatch(userActions.setUserInfo(data));
+      navigate("/lbparticipate");
+      setTimeout(()=>dispatch(userActions.setUserInfo(data),3000));
       localStorage.setItem("account", JSON.stringify(data));
     },
     onError: (error) => {
@@ -72,8 +73,12 @@ const Authform = () => {
         closeButton: false,
         progress: undefined,
       });
-      dispatch(userActions.setUserInfo(data));
+     
+      
+      setTimeout(()=>{
+        dispatch(userActions.setUserInfo(data));
       localStorage.setItem("account", JSON.stringify(data));
+      },3000)
     },
     onError: (error) => {
       toast.error(error.message, {
@@ -153,7 +158,7 @@ const Authform = () => {
         )}
 
       <MainLayout>
-        <section className="mt-[80px] bg-gray-400 overflow-hidden w-screen h-full lg:w-screen scrollbar-hide">
+        <section className=" bg-gray-400 overflow-hidden w-screen h-full lg:w-screen scrollbar-hide">
           <div
             className={`${
               variant === "LOGIN" ? "lg:h-[40%] h-[90vh]" : "lg:h-[90%] "

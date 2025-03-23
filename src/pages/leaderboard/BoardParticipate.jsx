@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Input from "../../Components/Input";
 import { useForm } from "react-hook-form";
@@ -16,6 +16,7 @@ const LeaderboardForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -79,6 +80,18 @@ const LeaderboardForm = () => {
     handleSubmitParticipate({ leaderboardname, password });
   };
   setTimeout(() => {});
+
+  useEffect(()=> {
+    toast.info("Please enter the leaderboard name and password to join the leaderboard",{
+      position: "top-center",    
+      style: {
+        width: "auto",
+        style: "flex justify-center",
+      },
+      closeButton: false,
+      progress: undefined,
+    });
+  },[])
   return (
     <MainLayout>
       <div
@@ -113,6 +126,7 @@ const LeaderboardForm = () => {
               type="text"
               register={register}
               errors={errors}
+              watch={watch}
             />
             <Input
               label="Password"
@@ -120,6 +134,7 @@ const LeaderboardForm = () => {
               type="password"
               register={register}
               errors={errors}
+              watch={watch}
             />
             <Button
               type="submit"

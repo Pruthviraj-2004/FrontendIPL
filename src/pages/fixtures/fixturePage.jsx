@@ -65,7 +65,7 @@ const FixturePage = () => {
         loading ? (<div className="w-screen h-screen text-center flex justify-center items-center animate-pulse">
         <Loading/>
       </div>) : (
-          <section className={`h-full  mt-[75px] overflow-hidden`} 
+          <section className={`h-full overflow-hidden`} 
         style={{
           backgroundImage: `url(${images.bg10})`,
           backgroundSize: 'cover', 
@@ -75,19 +75,19 @@ const FixturePage = () => {
       >
         <ToastContainer/>
         
-        <div className="container mx-auto py-3" >
+        <div className="container mx-auto" >
         <Breadcrumbs data={Breadcrumbsdata} activeName="Fixtures" />
           <div className="flex flex-col lg:flex-row justify-center items-center my-auto mx-3" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
             <div className="flex flex-col lg:text-secondary justify-center items-center h-[220px] lg:h-[200px] lg:w-[90%] lg:mx-auto lg:my-4">
               <div>
                 <h2 className="text-3xl uppercase font-bold my-2 text-black">
-                  T20 World Cup Predictions
+                  IPL Predictions
                 </h2>
               </div>
               <div>
                 <p className="text-lg text-black font-semibold">
                   Get ready to predict the winners and score big prizes with our
-                  T20 WC prediction game! Check out the upcoming fixtures and make
+                  IPL prediction game! Check out the upcoming fixtures and make
                   your predictions now!
                 </p>
               </div>

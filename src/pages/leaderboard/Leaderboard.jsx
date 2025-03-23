@@ -76,47 +76,7 @@ const Leaderboard = () => {
     }
   };
 
-  // const {
-  //   data,
-  //   isLoading,
-  //   isError,
-  //   error,
-  //   refetch: refetchLeaderBoard,
-  // } = useQuery({
-  //   queryFn: () => getLeaderBoard({ selected_leaderboard: lid }),
-  //   queryKey: ["board"],
-  //   onError: (error) => {
-  //     toast.error(error.message,{
-  //       position: "top-center",
-  //       autoClose: 3000,
-  //       style: {
-  //         width: "auto",
-  //         style: "flex justify-center",
-  //       },
-  //       closeButton: false,
-  //       progress: undefined,
-  //     });
-      
-  //   },
-  // });
-
-  // const { data: data2, refetch: refetchLeaderBoard2 } = useQuery({
-  //   queryFn: () => getLeaderBoard2({ selected_leaderboard: lid }),
-  //   queryKey: ["board2"],
-  //   onError: (error) => {
-  //     toast.error("Failed to load page",{
-  //       position: "top-center",
-  //       autoClose: 3000,
-  //       style: {
-  //         width: "auto",
-  //         style: "flex justify-center",
-  //       },
-  //       closeButton: false,
-  //       progress: undefined,
-  //     });
-      
-  //   },
-  // });
+ 
 
   const { data: data3, refetch: refetchLeaderBoard3 } = useQuery({
     queryFn: () => getLeaderBoard3({username:userState?.userInfo?.user?.username, selected_leaderboard: lid }),
@@ -182,14 +142,14 @@ const Leaderboard = () => {
                     <Loading/>
                   </div>
                 ) : (
-      <div className="flex flex-col mt-[85px] min-w-xl overflow-clip sm:h-[200vh] h-auto mb-10" >
-        <Breadcrumbs data={Breadcrumbsdata} activeName="Leaderboard" />
+      <div className="flex flex-col min-w-xl overflow-y-visible h-auto" >
+        <Breadcrumbs data={Breadcrumbsdata} activeName="Leaderboard"  />
         <div
-          className={`w-full my-0 lg:h-[160px] bg-cover bg-no-repeat border-t-2 md:h-[200px] h-[110px] border-b-2  flex flex-col justify-center items-center`}
+          className={`w-full my-0 lg:h-full bg-cover bg-no-repeat border-t-2 md:h-[200px] h-[110px] border-b-2  flex flex-col justify-center items-center`}
           
         >
           
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center py-5">
             <button onClick={() => fetchData()}></button>
             <p className="text-2xl font-bold mt-3 xs:mt-[1px] sm:mt-1 ml-3 lg:text-black lg:text-3xl text-center uppercase">
               Indian Premier League 2024
@@ -312,11 +272,11 @@ const Leaderboard = () => {
               </button>
             </div>
             {/* previous and next for mobile view */}
-            <div className="flex flex-row justify-center items-center gap-3 m-5  ">
+            <div className="flex flex-row justify-center lg:hidden  items-center gap-3 m-5  ">
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 0}
-                className="cursor-pointer disabled:animate-none disabled:opacity-10  ml-4 my-auto p-2 bg-gray-200 w-fit  animate-pulse block sm:hidden"
+                className="cursor-pointer disabled:animate-none disabled:opacity-10  ml-4 my-auto p-2 bg-gray-200 w-fit  animate-pulse block"
               >
                 <FaArrowLeft color="black" />
               </button>
@@ -326,14 +286,14 @@ const Leaderboard = () => {
                   endIndex >= user_list.length ||
                   endIndex >= LeaderboardData?.total_users
                 }
-                className="cursor-pointer disabled:animate-none mr-4 w-fit disabled:opacity-10 bg-gray-200 my-auto p-2  animate-pulse block sm:hidden"
+                className="cursor-pointer disabled:animate-none mr-4 w-fit disabled:opacity-10 bg-gray-200 my-auto p-2  animate-pulse block "
               >
                 <FaArrowRight color="black" />
               </button>
             </div>
             {/* search bar for mobile view
              */}
-            <div className="flex justify-center sm:hidden  items-center ">
+            <div className="flex justify-center lg:hidden items-center ">
               <input
                 type="text"
                 value={searchQuery}
@@ -343,7 +303,7 @@ const Leaderboard = () => {
               />
             </div>
 
-            <div className="flex flex-col items-center justify-center mx-auto mt-8">
+            <div className="flex flex-col items-center justify-center mx-auto lg:mt-0">
               <p className="text-lg text-blue font-semibold text-center mb-4">
                 Want to compete with your friends on a personalized leaderboard?
               </p>

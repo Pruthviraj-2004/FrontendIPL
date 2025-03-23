@@ -74,13 +74,15 @@ const Matches = ({ data, id, status, className }) => {
   const navigate = useNavigate();
   return (
     
-      <div onClick={() => navigate(`/fixtures/${id}?status=${data.status}`)} className={`overflow-hidden rounded-xl py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${className}`}>
+      <div onClick={() => navigate(`/fixtures/${id}?status=${data.status}`)} className={`overflow-hidden hover:cursor-pointer rounded-xl py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] ${className}`}>
         <div className="flex flex-col justify-center w-full h-[110px] my-7">
-          <p className="flex flex-row justify-start items-start gap-x-3 top-0 mb-2 ml-3 text-[#0818A8]">
+          <p className="flex flex-row justify-start items-start text-wrap gap-x-3 top-0 mb-2 ml-3 text-[#0818A8]">
             <span className="mt-1">
               <FaLocationDot size={15} />
             </span>
-            {data.location}
+            <span className="w-full truncate">
+              {data.location}
+            </span>
           </p>
           <div className="flex flex-row">
             <div className="flex flex-col justify-start w-[60%]">

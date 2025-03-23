@@ -8,12 +8,12 @@ import { MdEmail, MdError, MdLeaderboard } from "react-icons/md";
 import { findInputError, isFormInvalid } from "../utils/motion";
 import { AnimatePresence } from "framer-motion";
 import { IoPersonSharp } from "react-icons/io5";
+import { useFormContext } from "react-hook-form";
 
 const Input = ({
   label,
   id,
   type,
-  required,
   variant,
   register,
   errors,
@@ -40,6 +40,16 @@ const Input = ({
     }
     return true;
   };
+
+  
+  useEffect(() => {
+  // Delay checking watch(id) to ensure form values are populated
+      
+      setIsFocused(true);
+    
+}, []);
+
+
 
   return (
     <div>

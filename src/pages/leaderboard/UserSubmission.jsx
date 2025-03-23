@@ -113,7 +113,7 @@ const UserSubmission = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col my-auto mx-auto overflow-x-auto mt-[100px]   h-fit" 
+      <div className="flex flex-col my-auto mx-auto overflow-x-auto   h-fit" 
         style={{
           backgroundImage: `url(${images.bg24})`,
           backgroundSize: 'cover',
