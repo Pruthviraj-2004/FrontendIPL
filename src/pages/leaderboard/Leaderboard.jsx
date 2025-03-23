@@ -17,7 +17,7 @@ import Loading from "../../Components/loading";
 const Leaderboard = () => {
   const userState = useSelector((state) => state.user);
   const [filteredUserList, setFilteredUserList] = useState([]);
-  const [lid, setLid] = useState(1);//we need to set this to 6 if the default leaderboard is Nexthink
+  const [lid, setLid] = useState(12);//we need to set this to 6 if the default leaderboard is Nexthink
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [loading,setLoading] = useState(true)
@@ -152,7 +152,7 @@ const Leaderboard = () => {
           <div className="flex flex-col justify-center items-center py-5">
             <button onClick={() => fetchData()}></button>
             <p className="text-2xl font-bold mt-3 xs:mt-[1px] sm:mt-1 ml-3 lg:text-black lg:text-3xl text-center uppercase">
-              Indian Premier League 2024
+              Indian Premier League 2025
             </p>
             <p className="xs:text-sm mx-3 text-xl hidden lg:block text-center sm:block   text-blue font-semibold">
               Dive into the pulse-pounding excitement of the IPL!

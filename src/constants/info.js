@@ -2,7 +2,7 @@ import images from "./images";
 
 const csk = {
   intro:
-    "The IPL 2024 Auction ended on Tuesday at the Coca-Cola Arena in Dubai. Five-time champion Chennai Super Kings bought six new players at the bidding, with the star attractions being the Kiwi duo of Rachin Ravindra and Daryl Mitchell. The MS Dhoni-led side will also have the services of India all-rounder Shardul Thakur, who was purchased for Rs. 4 crore, and the 20-year-old hard-hitting batter from Uttar Pradesh, Sameer Rizvi, who fetched a whopping Rs. 8.40 crore.",
+    "The IPL 2025 Auction ended on Tuesday at the Coca-Cola Arena in Dubai. Five-time champion Chennai Super Kings bought six new players at the bidding, with the star attractions being the Kiwi duo of Rachin Ravindra and Daryl Mitchell. The MS Dhoni-led side will also have the services of India all-rounder Shardul Thakur, who was purchased for Rs. 4 crore, and the 20-year-old hard-hitting batter from Uttar Pradesh, Sameer Rizvi, who fetched a whopping Rs. 8.40 crore.",
   Wicketkeepers: "MS Dhoni, Devon Conway (NZ), Avanish Rao Aravelly.",
   Batters: "Ruturaj Gaikwad, Shaik Rasheed, Ajinkya Rahane, Sameer Rizvi.",
 
@@ -149,7 +149,7 @@ const rr = {
 const news = [
   {
     img: images.highest1,
-    news: "IPL 2024, a turbo-charged, batter-dominated season like no other." 
+    news: "IPL 2025, a turbo-charged, batter-dominated season like no other." 
  },
   {
     img: images.head1,

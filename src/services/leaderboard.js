@@ -53,6 +53,7 @@ import axios from "axios";
 
       config
       );
+      console.log(`https://practicehost1.pythonanywhere.com/ipl2/leaderboard4/${username}?selected_leaderboard=${selected_leaderboard}`)
       return data;
     } catch (error) {
       if (error.response && error.response.data.message)
