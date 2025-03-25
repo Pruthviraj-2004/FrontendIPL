@@ -30,7 +30,7 @@ const Terms = () => {
   ];
 
   const Points = [
-    { id: 1, text: "Winner Team - 2 Base Points." },
+    { id: 1, text: "Winner Team - 4 Base Points." },
     { id: 2, text: "Player of the Match - 3 Base Points." },
     { id: 3, text: "Most Runs Scorer of the Match - 3 Base Points." },
     { id: 4, text: "Most Economical Wicket Taker of the Match - 3 Base Points." },
@@ -47,7 +47,7 @@ const Terms = () => {
   ]
 
   const terms = [
-    { id: 1, text: "Give valid Details to get rewards." },
+    { id: 1, text: "Do not share your account credentials with anyone else." },
     { id: 2, text: "Make valid Submissions." },
     {
       id: 3,
@@ -74,38 +74,29 @@ const Terms = () => {
       id: 9,
       text: "The website reserves the right to disqualify any participant found to be violating the rules or terms.",
     },
+
     {
       id: 10,
-      text: "Prizes and rewards are non-transferable and may not be exchanged for cash or other alternatives.",
-    },
-    {
-      id: 11,
       text: "The website may use user-generated content for promotional purposes with proper attribution.",
     },
-    {
-      id: 12,
-      text: "Rewards are given only to Tournament and Weekly Winners.",
-    },
-    { id: 13, text: "Do not share your account credentials with anyone else." },
+  
+
   ];
 
   const benefits = [
+  
+ 
     {
       id: 1,
-      text: "Top three overall tournament winners receive Amazon Gift Cards.",
-    },
-    { id: 2, text: "Weekly top performers also get rewarded." },
-    {
-      id: 3,
       text: "Have fun predicting, earning points, and winning rewards.",
     },
-    { id: 4, text: "Compete with friends using personalized leaderboards." },
+    { id: 2, text: "Compete with friends using personalized leaderboards." },
     {
-      id: 5,
+      id: 3,
       text: "Request a personalized leaderboard by sending an email.",
     },
     // { id: 6, text: "Enjoy bonus weeks with double and triple points to enhance your performance." },
-    { id: 6, text: "Keep track of your submissions for better performance evaluation." },
+    { id: 4, text: "Keep track of your submissions for better performance evaluation." },
   ];
 
   return (

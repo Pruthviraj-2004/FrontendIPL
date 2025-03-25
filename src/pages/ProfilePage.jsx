@@ -26,7 +26,7 @@ const ProfilePage = () => {
             </p>
           </div>
           <div>
-            <img src={images.sign} alt="signform" className="w-80" />
+            <img src={images.sigin} alt="signform" className="w-80" />
           </div>
           <div className="flex flex-col space-y-3 mt-3" 
             
