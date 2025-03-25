@@ -73,14 +73,14 @@ const Card = ({ data }) => {
 
   return (
     <div
-      className={`lg:w-[400px] xl:w-[400px] md:w-[400px] sm:w-[400px] w-[370px] rounded-xl pb-5 lg:py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] flex`}
+      className={`lg:w-[400px] xl:w-[400px] md:w-[400px] sm:w-[400px] w-[90%] rounded-xl pb-5 lg:py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] flex`}
     >
       <div className="flex flex-col lg:justify-center items-start w-[90vw] md:w-[40vw] lg:w-[27vw] lg:px-5 h-[190px] my-7 ">
         <p className="flex flex-row justify-start items-start gap-x-3 mb-2 text-[#0818A8] max-w-full">
   <span className="ml-5 mt-[2px] flex-shrink-0">
     <FaLocationDot size={15} />
   </span>
-  <span className="w-full truncate">
+  <span className="max-w-full truncate">
     {data.location}
   </span>
 </p>

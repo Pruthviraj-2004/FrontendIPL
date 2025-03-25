@@ -15,6 +15,7 @@ import { signup, signin } from "../services/user";
 import MainLayout from "../Components/MainLayout";
 import { createPortal } from "react-dom";
 import ErrorMessage from "../Components/Error";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Authform = () => {
   const navigate = useNavigate();
@@ -288,7 +289,7 @@ const Authform = () => {
                       <div className="ml-3 text-sm text-orange-500">Passwords do not match</div>
                     )}
                   <Button disabled={isLoading} fullWidth type="submit">
-                    {variant === "LOGIN" ? "SIGN IN" : "REGISTER"}
+                    {isLoading ? <ClipLoader size={20}/> : variant === "LOGIN" ? "SIGN IN" : "REGISTER"}
                   </Button>
                 </form>
                 <ToastContainer className="z-[100001]"/>

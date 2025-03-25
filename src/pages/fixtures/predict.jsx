@@ -282,12 +282,12 @@ const PredictMatch = () => {
         <div className="flex flex-col justify-center items-center md:w-full lg:w-full xs:w-[90%]  overflow-hidden ">
      
   
-         {errorss &&  <div className={`fixed top-0 left-0 w-full flex justify-center`}>
+         {errorss &&  <div className={`fixed z-[10001] top-0 left-0 w-full flex justify-center`}>
     <ErrorMessage message="You must be logged in!!" setCreateError={setCreateError} />
   </div>}
 
-{/* 
-          <ToastContainer className="z-[100001]"/> */}
+
+         <ToastContainer className="z-[100001]"/> 
           {/* <div className="bg-white text-black p-4 text-center">
             <p className="text-sm md:text-base">
             📅 From May 21th to the May 22th, it's the time to earn double points during Playoffs. 💪🏆

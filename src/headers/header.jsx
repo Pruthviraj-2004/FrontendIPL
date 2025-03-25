@@ -173,7 +173,7 @@ const Headers = () => {
           <div
             className={`${
               naVisible ? "left-0 bg-white" : "-left-full bg-[#F8F8FF]"
-            } fixed bottom-0 top-0 z-[1000] mt-[70px] flex sm:w-[35%] w-[60%]  flex-col lg:items-center bg-none  gap-x-9 gap-y-8 p-4 transition-all duration-300 lg:static lg:mt-0 lg:w-auto lg:flex-row lg:justify-end lg:bg-[#F8F8FF] lg:text-black`}
+            } fixed bottom-0 top-0 z-[1000] mt-[60px] flex sm:w-[35%] w-[60%]  flex-col lg:items-center bg-none  gap-x-9 gap-y-8 p-4 transition-all duration-300 lg:static lg:mt-0 lg:w-auto lg:flex-row lg:justify-end lg:bg-[#F8F8FF] lg:text-black`}
             style={{
               backgroundColor: naVisible ? "#F8F8FF" : "#F8F8FF",
               color: naVisible ? "black" : "white",

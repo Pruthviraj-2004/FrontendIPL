@@ -35,7 +35,7 @@ const additionalRules = [
 ];
 
 const Points = [
-  { id: 1, text: "Winner Team - 2 Base Points." },
+  { id: 1, text: "Winner Team - 4 Base Points." },
   { id: 2, text: "Player of the Match - 3 Base Points." },
   { id: 3, text: "Most Runs Scorer of the Match - 3 Base Points." },
   { id: 4, text: "Most Economical Wicket Taker of the Match - 3 Base Points." },
@@ -211,7 +211,7 @@ const Introo = () => {
              
             </div>
             
-            <div className=" mx-10 my-5">
+            <div className=" mx-5 my-5">
              <h2 className={`${styles.sectionHeadText} mt-5 text-left`}>Points System:</h2>
               <div className="flex">
                 <ol>
