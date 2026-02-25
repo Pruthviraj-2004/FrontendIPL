@@ -25,8 +25,8 @@ const Authform = () => {
   const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { mutate, isLoading } = useMutation({
-    mutationFn: ({ username, name, email, password1, password2 }) => {
-      return signup({ username, name, email, password1, password2 });
+    mutationFn: ({ username, name, email, password, repeat_password }) => {
+      return signup({ username, name, email, password, repeat_password });
     },
     onSuccess: (data) => {
       toast.success("Registration successfull!!", {
@@ -60,8 +60,8 @@ const Authform = () => {
     },
   });
   const { mutate: mutatesignin } = useMutation({
-    mutationFn: ({ username, password1 }) => {
-      return signin({ username, password1 });
+    mutationFn: ({ company_display_id,email,username, password }) => {
+      return signin({ company_display_id,email,username, password });
     },
     onSuccess: (data) => {
       toast.success("Login successfull!", {
@@ -76,10 +76,11 @@ const Authform = () => {
       });
      
       
-      setTimeout(()=>{
-        dispatch(userActions.setUserInfo(data));
-      localStorage.setItem("account", JSON.stringify(data));
-      },3000)
+      // setTimeout(()=>{
+      //   dispatch(userActions.setUserInfo(data));
+      // localStorage.setItem("account", JSON.stringify(data));
+      // },3000)
+      navigate("/");
     },
     onError: (error) => {
       toast.error(error.message, {
@@ -96,11 +97,11 @@ const Authform = () => {
     },
   });
 
-  useEffect(() => {
-    if (userState?.userInfo) {
-      navigate("/");
-    }
-  }, [navigate, userState?.userInfo]);
+  // useEffect(() => {
+  //   if (userState?.userInfo) {
+  //     navigate("/");
+  //   }
+  // }, [navigate, userState?.userInfo]);
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") {
       setVariant("REGISTER");
@@ -118,8 +119,8 @@ const Authform = () => {
       username: "",
       name: "",
       email: "",
-      password1: "",
-      password2: "",
+      password: "",
+      repeat_password: "",
     },
     mode: "onChange",
   });
@@ -128,8 +129,8 @@ const Authform = () => {
   }, [reset, variant]);
   const onSubmit = (data) => {
     if (variant === "REGISTER") {
-      const { username, name, email, password1, password2 } = data;
-      if (password1 !== password2) {
+      const { company_display_id, username, name, email, password, repeat_password } = data;
+      if (password !== repeat_password) {
         toast.error("Passwords do not match", {
           position: "top-center",
           autoClose: 3000,
@@ -143,10 +144,10 @@ const Authform = () => {
         });
     
       } else 
-      mutate({ username, name, email, password1, password2 });
+      mutate({ username, name, email, password, repeat_password });
     } else {
-      const { username, password1 } = data;
-      mutatesignin({ username, password1 });
+      const { email, company_display_id, username, password } = data;
+      mutatesignin({ email, company_display_id, username, password });
     }
   };
 
@@ -240,6 +241,16 @@ const Authform = () => {
                     disabled={isLoading}
                     variant={variant}
                   />
+                  <Input
+                    label="Company display id"
+                    id="company_display_id"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    disabled={isLoading}
+                    variant={variant}
+                  />
+                  
 
                   {variant === "REGISTER" && (
                     <Input
@@ -252,7 +263,7 @@ const Authform = () => {
                       variant={variant}
                     />
                   )}
-                  {variant === "REGISTER" && (
+                  {/* {variant === "REGISTER" && ( */}
                     <Input
                       label="Email"
                       id="email"
@@ -262,10 +273,10 @@ const Authform = () => {
                       disabled={isLoading}
                       variant={variant}
                     />
-                  )}
+                  {/* // )}  */}
                   <Input
                     label="Password"
-                    id="password1"
+                    id="password"
                     type="password"
                     register={register}
                     errors={errors}
@@ -275,7 +286,7 @@ const Authform = () => {
                   {variant === "REGISTER" && (
                     <Input
                       label="Confirm password"
-                      id="password2"
+                      id="repeat_password"
                       type="password"
                       register={register}
                       errors={errors}
@@ -285,7 +296,7 @@ const Authform = () => {
                   )}
 
                   {variant === "REGISTER" &&
-                    errors.password2?.type === "validate" && (
+                    errors.repeat_password?.type === "validate" && (
                       <div className="ml-3 text-sm text-orange-500">Passwords do not match</div>
                     )}
                   <Button disabled={isLoading} fullWidth type="submit">

@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "./axios";
 export const getFixtures = async () => {
   const config = {
     // Authorization: `Bearer ${token}`,
@@ -61,9 +62,8 @@ export const predictMatch = async ({
 export const getMatchDetails = async (parsedMatchId) => {
     
     try {
-      const { data } = await axios.get(
-        `https://practicehost1.pythonanywhere.com/ipl2/predict1/${parsedMatchId}/`,
-
+      const { data } = await api.get(
+        `/api/v2/match/${parsedMatchId}/`
       );
       return data;
     } catch (error) {
@@ -89,18 +89,14 @@ export const getMatchDetails = async (parsedMatchId) => {
       throw new Error(error.message);
     }
   };
-  export const getTodayMatch = async () => {
-    try {
-      const { data } = await axios.get(
-        `https://practicehost1.pythonanywhere.com/ipl2/home/`,
-        // `http://localhost:8000/ipl2/home/`,
-
-      );
-      return data;
-    } catch (error) {
-      if (error.response && error.response.data.message)
-        throw new Error(error.response.data.message);
-      console.log(error);
-      throw new Error(error.message);
+ export const getTodayMatch = async () => {
+  try {
+    const { data } = await api.get("/api/v2/active-matches/");
+    return data;
+  } catch (error) {
+    if (error.response?.data?.message) {
+      throw new Error(error.response.data.message);
     }
-  };
+    throw new Error(error.message);
+  }
+};

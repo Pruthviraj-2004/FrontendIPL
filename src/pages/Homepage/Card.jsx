@@ -1,8 +1,8 @@
 import React from "react";
-import { teams } from "../../constants";
 import { images } from "../../constants";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+
 const Card = ({ data }) => {
   const teamImages = {
     "Chennai Super Kings": images.csk1,
@@ -11,115 +11,104 @@ const Card = ({ data }) => {
     "Mumbai Indians": images.mi1,
     "Punjab Kings": images.pbks1,
     "Rajasthan Royals": images.rr1,
-    "Royal Challengers Bengaluru": images.rcb1,
+    "Royal Challengers Bangalore": images.rcb1,
     "Sunrisers Hyderabad": images.srh1,
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,
 
-    "India": images.IND ,
-    "Canada": images.CAN ,
-    "Ireland": images.IRE ,
-    "Pakistan": images.PAK ,
-    "United States": images.USA ,
+    India: images.IND,
+    Canada: images.CAN,
+    Ireland: images.IRE,
+    Pakistan: images.PAK,
+    "United States": images.USA,
 
-    "Australia": images.AUS ,
-    "England": images.ENG ,
-    "Namibia": images.NAM ,
-    "Oman": images.OMA ,
-    "Scotland": images.SCO ,
-    
-    "Afghanistan": images.AFG ,
-    "New Zealand": images.NZ ,
-    "Papua New Guinea": images.PNG ,
-    "Uganda": images.UGA ,
-    "West Indies": images.WI ,
+    Australia: images.AUS,
+    England: images.ENG,
+    Namibia: images.NAM,
+    Oman: images.OMA,
+    Scotland: images.SCO,
 
-    "Bangladesh": images.BAN ,
-    "South Africa": images.SA ,
-    "Sri Lanka": images.SL ,
-    "Nepal": images.NEP ,
-    "Netherlands": images.NED ,
+    Afghanistan: images.AFG,
+    "New Zealand": images.NZ,
+    "Papua New Guinea": images.PNG,
+    Uganda: images.UGA,
+    "West Indies": images.WI,
+
+    Bangladesh: images.BAN,
+    "South Africa": images.SA,
+    "Sri Lanka": images.SL,
+    Nepal: images.NEP,
+    Netherlands: images.NED,
   };
-  const navigate = useNavigate()
-  const teamA = data.teamA;
-  const teamB = data.teamB;
-  const teamAImage = teamImages[teamA.teamname];
-  const teamBImage = teamImages[teamB.teamname];
+
+  const navigate = useNavigate();
+
+  const team1Image = teamImages[data.team1.team_name];
+  const team2Image = teamImages[data.team2.team_name];
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
+    return date.toLocaleDateString("en-GB");
   };
+
+  console.log(data)
 
   const formatTime = (timeString) => {
     const [hours, minutes] = timeString.split(":");
-    let formattedHours = parseInt(hours, 10);
-    let period = "AM";
-
-    if (formattedHours === 0) {
-      formattedHours = 12;
-    } else if (formattedHours === 12) {
-      period = "PM";
-    } else if (formattedHours > 12) {
-      formattedHours -= 12;
-      period = "PM";
-    }
-
-    return `${formattedHours}:${minutes.padStart(2, "0")} ${period} IST`;
+    let h = parseInt(hours, 10);
+    const period = h >= 12 ? "PM" : "AM";
+    if (h > 12) h -= 12;
+    if (h === 0) h = 12;
+    return `${h}:${minutes} ${period} IST`;
   };
 
   return (
-    <div
-      className={`lg:w-[400px] xl:w-[400px] md:w-[400px] sm:w-[400px] w-[90%] rounded-xl pb-5 lg:py-5 bg-[#eeedf0] shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)] flex`}
-    >
-      <div className="flex flex-col lg:justify-center items-start w-[90vw] md:w-[40vw] lg:w-[27vw] lg:px-5 h-[190px] my-7 ">
-        <p className="flex flex-row justify-start items-start gap-x-3 mb-2 text-[#0818A8] max-w-full">
-  <span className="ml-5 mt-[2px] flex-shrink-0">
-    <FaLocationDot size={15} />
-  </span>
-  <span className="max-w-full truncate">
-    {data.location}
-  </span>
-</p>
+    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-5 flex flex-col justify-between">
+      
+      {/* Location */}
+      <div className="flex items-center gap-2 text-sm text-blue-700 mb-4 truncate">
+        <FaLocationDot size={14} />
+        <span className="truncate">{data.location}</span>
+      </div>
 
-
-        <div className="flex flex-col">
-          <div className="flex flex-col justify-start items-start w-[40%]">
-            <div className="flex flex-row justify-start items-center my-[1px]">
-              <img
-                src={teamAImage}
-                alt={data.teamA.teamname}
-                className="w-9 h-auto my-[2px] rounded mx-3"
-              />
-              <p>{data.teamA.teamname}</p>
-            </div>
-            <div className="flex flex-row justify-start items-center my-[1px]">
-              <img
-                src={teamBImage}
-                alt={data.teamB}
-                className="w-9 h-auto my-[2px] rounded mx-3"
-              />
-              <p>{data.teamB.teamname}</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-center items-start ml-5 my-2">
-            <p>{formatDate(data.matchdate)}</p>
-            <p>{formatTime(data.matchtime)}</p>
-          </div>
+      {/* Teams */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-3">
+          <img
+            src={team1Image}
+            alt={data.team1.team_name}
+            className="w-10 h-10 object-contain"
+          />
+          <p className="font-medium text-gray-900">
+            {data.team1.team_name}
+          </p>
         </div>
-        <div className="flex w-full justify-center items-center">
-        <button
-         onClick={()=> navigate(`/fixtures/${data.matchID}`)}
-          className="w-[50%] mx-auto my-2 bg-black font-semibold hover:bg-blue-900 rounded-md text-white text-center py-1"
-        >
-          Make prediction
-        </button>
+
+        <div className="flex items-center gap-3">
+          <img
+            src={team2Image}
+            alt={data.team2.team_name}
+            className="w-10 h-10 object-contain"
+          />
+          <p className="font-medium text-gray-900">
+            {data.team2.team_name}
+          </p>
         </div>
       </div>
+
+      {/* Date & Time */}
+      <div className="mt-4 text-sm text-gray-600">
+        <p>{formatDate(data.match_date)}</p>
+        <p>{formatTime(data.match_time)}</p>
+      </div>
+
+      {/* CTA */}
+      <button
+        onClick={() => navigate(`/fixtures/${data.match_id}`)}
+        className="mt-5 w-full rounded-xl bg-purple-600 hover:bg-purple-700 transition text-white font-semibold py-2"
+      >
+        Make Prediction
+      </button>
     </div>
   );
 };

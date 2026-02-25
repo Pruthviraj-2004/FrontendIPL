@@ -4,7 +4,10 @@ import lb from "../Assets/8777094.jpg";
 import sigin from "../Assets/4957136.jpg";
 import e from "../Assets/e.jpg";
 import error from "../Assets/3582365.jpg";
-
+import hiw1 from "../Assets/hiw1.jpg"
+import hiw2 from "../Assets/hiw2.jpg"
+import hiw3 from "../Assets/hiw3.jpg"
+import hiw4 from "../Assets/hiw4.jpg"
 import rcb1 from "../Assets/RCBoutline1.png";
 import rr1 from "../Assets/RRoutline.png";
 import srh1 from "../Assets/SRHoutline.png";
@@ -72,6 +75,9 @@ import hero56 from "../Assets/6.jpg";
 import hero57 from "../Assets/7.webp";
 import hero58 from "../Assets/8.webp";
 
+import fe1 from "../Assets/fe1.jpg"
+import fe2 from "../Assets/fe2.jpg"
+import fe3 from "../Assets/fe3.jpg"
 
 const images = {
   bg1,
@@ -80,7 +86,10 @@ const images = {
   iplogo,
   sigin,
   sachin,
-  
+  hiw1,
+  hiw2,
+  hiw3,
+  hiw4,
   start,
   lb,
   rcb1,
@@ -93,7 +102,9 @@ const images = {
   lsg1,
   rr1,
   csk1,
-
+  fe1,
+  fe2,
+  fe3,
   bg10,
   bg14,
   bg20,

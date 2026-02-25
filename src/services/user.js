@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "./axios";
 
 export const signup = async ({ username, name, email, password1, password2 }) => {
   try {
@@ -29,12 +30,13 @@ export const signup = async ({ username, name, email, password1, password2 }) =>
   }
 };
 
-export const signin = async ({ username, password1 }) => {
+export const signin = async ({ company_display_id, email, username, password }) => {
   try {
-    const response = await axios.post(
-      "https://practicehost1.pythonanywhere.com/ipl2/login_user/",
+    console.log({ company_display_id, email, username, password })
+    const response = await api.post(
+      "https://predictiveplaybackendpractice.pythonanywhere.com/api/v2/login/",
       // "http://localhost:8000/ipl2/login_user/",
-      { username, password1 }
+      { company_display_id, email, username, password }
     );
     return response.data;
   } catch (error) {

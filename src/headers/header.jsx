@@ -70,9 +70,9 @@ const Headers = () => {
       icon: <MdLeaderboard color="#111fbd" />,
     },
     {
-      name: "Fixtures",
+      name: "Events",
       type: "link",
-      href: "/fixtures",
+      href: "/events",
       icon: <BiSolidCricketBall color="#111fbd" />,
     },
     {
@@ -91,8 +91,8 @@ const Headers = () => {
     userState,
   }) => {
     return (
-      <div>
-        <li className=" group relative py-2 ">
+      <div className="">
+        <li className=" group relative bg-gradient-to-r from-[#1e0f3d] to-[#3b1d6d] ">
           {item.type === "link" || userState.userInfo ? (
             <div
               className={`${
@@ -101,13 +101,13 @@ const Headers = () => {
                   : "hidden"
               } mx-auto flex flex-row justify-start items-center rounded-sm px-5 py-1 bg-gray-50 hover:bg-gray-100 text-center`}
             >
-              <div className={`${true ? "block" : "hidden"}`}>
+              {/* <div className={`${true ? "block" : "hidden"}`}>
                 {item.icon}
-              </div>
+              </div> */}
               <div className=" ">
                 <button
                   onClick={()=> navigate(`${item.href}`)}
-                  className="cursor-pointer ml-3 text-[16px] text-black font-bold  shadow-none hover:text-indigo-950 lg:hover:text-blue "
+                  className="text-gray-700 font-medium hover:text-purple-600 transition"
                 >
                   {item.name}
                 </button>
@@ -118,7 +118,7 @@ const Headers = () => {
               <div
                 className={` mx-auto flex flex-row justify-start ounded-sm px-5 bg-gray-50 hover:bg-gray-100 text-center`}
               >
-                <div className={`${naVisible ? "block" : "hidden"} mt-1`}>
+                <div className={`${naVisible ? "block" : "hidden"} mt-1\\`}>
                   {item.icon}
                 </div>
                 <div className="">
@@ -127,7 +127,7 @@ const Headers = () => {
                       item.name === "Log out" ? logoutHandler : loginHandler
                     }
                     type={item.type}
-                    className="cursor-pointer ml-3 text-[16px] text-black font-bold  shadow-none hover:text-indigo-950 lg:hover:text-blue "
+                    className="text-gray-700 font-medium hover:text-purple-600 transition"
                   >
                     {item.name}
                   </button>
@@ -141,7 +141,7 @@ const Headers = () => {
   };
   return (
     <>
-      <section className="sticky left-0 right-0 top-0 m-0 z-[3000] bg-[#F8F8FF] w-full max-w-screen px-4 py-2 lg:px-8 lg:py-1">
+      <section className="sticky left-0 right-0 top-0 m-0 z-[3000] bg-[#F8F8FF] w-full max-w-screen px-4 lg:px-8">
         <header className="container mx-auto my-0 flex items-center justify-between px-5 sm:px-0">
           <div className="left-0 text-xl flex flex-row justify-center items-center gap-x-5 my-auto">
             <div className=" flex flex-row">
@@ -195,14 +195,14 @@ const Headers = () => {
                   <div
                     className={` mx-auto flex flex-row justify-start items-center rounded-sm px-5 py-1 bg-gray-50 hover:bg-gray-100 text-center`}
                   >
-                    <div className="">
+                    <div className="mx-1 mt-1">
                       <MdLogout color="111fbd" />
                     </div>
 
                     <div className="">
                       <button
                         onClick={logoutHandler}
-                        className="cursor-pointer ml-3 text-[16px] text-black font-bold  shadow-none hover:text-indigo-950 lg:hover:text-blue "
+                        className="text-gray-700 font-medium hover:text-purple-600 transition"
                       >
                         Log out
                       </button>
@@ -212,14 +212,14 @@ const Headers = () => {
                   <div
                     className={` mx-auto flex flex-row justify-start ounded-sm px-5 bg-gray-50 hover:bg-gray-100 text-center`}
                   >
-                    <div className="mt-1">
+                    <div className="mt-1 mx-1">
                       <MdLogin color="111fbd" />
                     </div>
 
                     <div className="">
                       <button
                         onClick={loginHandler}
-                        className="cursor-pointer ml-3 text-[16px] text-black font-bold  shadow-none hover:text-indigo-950 lg:hover:text-blue "
+                        className="text-gray-700 font-medium hover:text-purple-600 transition"
                       >
                         Sign in
                       </button>

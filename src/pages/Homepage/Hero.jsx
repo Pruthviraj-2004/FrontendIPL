@@ -1,58 +1,120 @@
 import React from "react";
 import { images } from "../../constants";
 import { styles } from "../../styles";
+
 const HeroSection = () => {
   const imagess = [
-    images.hero16,
+    images.hero16, // main
     images.hero10,
-    images.e,
     images.hero17,
     images.hero12,
     images.hero11,
     images.hero13,
     images.hero15,
-    images.hero14,
-    // images.hero51,
-    // images.hero52,
-    // images.hero53,
-    // images.hero54,
-    // images.hero55,
-    // images.hero56,
-    // images.hero57,
-    // images.hero58,
-
-
   ];
 
-  
   return (
-    <div className="hero h-[700px] w-[100vw] relative overflow-hidden">
-      <div
-        className=" absolute top-0 left-0 w-full h-full bg-cover bg-center z-0"
-      >
-      <div className=" flex flex-col mt-[10%] z-50 items-start mx-5">
-        <h1 className={`${styles.heroHeadText} m-2 mt-[60px] sm:mx-20  `}>
-          Predictive Play
-        </h1>
-        <p
-          className={`text-sm text-justify sm:text-none sm:text-xl z-49 m-0 sm:mx-20 xs:mx-10  text-[#F8F8FF] sm:mt-0  mt-[15px] font-bold font-md`}
-        >
-          Predict the outcomes of the matches and earn points to climb the
-          leaderboard. Compete with other players and showcase your predictive
-          skills!
-        </p>
+       <section className="hero h-[700px] w-[100vw] relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 h-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+        {/* LEFT CONTENT */}
+        <div className="z-10 text-white">
+          <h1 className={`${styles.heroHeadText}`}>
+            Predict. Play. Win!
+          </h1>
+
+          <p className="mt-6 text-lg max-w-xl font-medium text-gray-100">
+            Predict the outcomes of matches, earn points, and climb the
+            leaderboard. Compete with others and showcase your cricket instincts.
+          </p>
+
+          <button className="mt-8 px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 transition font-semibold">
+            Start Predicting
+          </button>
+        </div>
+
+        {/* RIGHT IMAGE GRID (DESKTOP) */}
+        <div className="hidden lg:grid grid-cols-3 grid-rows-3 gap-3 w-full max-w-lg h-[400px] mx-auto">
+
+          {/* Top-left small */}
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={imagess[1]}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              alt=""
+            />
+          </div>
+
+          {/* Center LARGE */}
+          <div className="row-span-2 overflow-hidden rounded-2xl shadow-xl">
+            <img
+              src={imagess[0]}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              alt=""
+            />
+          </div>
+
+          {/* Top-right small */}
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={imagess[2]}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              alt=""
+            />
+          </div>
+
+          {/* Middle-left */}
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={imagess[3]}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              alt=""
+            />
+          </div>
+
+          {/* Middle-right */}
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={imagess[4]}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              alt=""
+            />
+          </div>
+
+          {/* Bottom-wide */}
+          <div className="col-span-2 overflow-hidden rounded-2xl">
+            <img
+              src={imagess[5]}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              alt=""
+            />
+          </div>
+
+          {/* Bottom-right */}
+          <div className="overflow-hidden rounded-2xl">
+            <img
+              src={imagess[6]}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              alt=""
+            />
+          </div>
+        </div>
+
+        {/* MOBILE GRID */}
+        <div className="lg:hidden grid grid-cols-2 gap-3 mt-10">
+          {imagess.slice(0, 4).map((img, idx) => (
+            <div key={idx} className="overflow-hidden rounded-xl">
+              <img
+                src={img}
+                className="w-full h-full object-cover aspect-[4/5] transition-transform duration-300 hover:scale-105"
+                alt=""
+              />
+            </div>
+          ))}
+        </div>
+
       </div>
-      <div className="scrollable-images absolute bottom-0 left-0 z-50 w-full flex items-center justify-start overflow-x-auto whitespace-nowrap scrollbar-hide pl-auto mx-5 lg:mx-10 py-6">
-        {imagess.map((image) => (
-          <img
-            src={image}
-            alt="Image 3"
-            className="max-h-[300px] z-50 rounded-md  mr-4 object-contain"
-          />
-        ))}
-      </div>
-    </div>
-    </div>
+    </section>
   );
 };
 
