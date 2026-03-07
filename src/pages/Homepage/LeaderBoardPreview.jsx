@@ -9,7 +9,7 @@ const LeaderboardPreview = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="w-full py-12 bg-gradient-to-r from-[#1e0f3d] to-[#3b1d6d]">
+    <section className="w-full py-12 bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial="hidden"
@@ -29,7 +29,7 @@ const LeaderboardPreview = () => {
           </p>
 
           {/* Heading */}
-          <h2 className={`${styles.sectionHeadText} mt-3 text-left text-white`}>
+          <h2 className={`${styles.sectionHeadText} mt-3 text-left text-gray-100`}>
             Leaderboard
           </h2>
 

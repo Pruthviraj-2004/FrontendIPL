@@ -67,14 +67,14 @@ const PredictMatch = () => {
       )}
 
       <section className="min-h-screen bg-gray-50 py-10">
-        <Breadcrumbs
+        {/* <Breadcrumbs
           data={[
             { name: "Home", link: "/" },
             { name: "Fixtures", link: "/fixtures" },
             { name: "Prediction", link: "#" },
           ]}
           activeName="Prediction"
-        />
+        /> */}
 
         {/* ================= MATCH HEADER ================= */}
         <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow p-6 mt-6">
@@ -93,16 +93,16 @@ const PredictMatch = () => {
           <div className="grid grid-cols-2 gap-6">
             {[teamA, teamB].map((team) => (
               <SelectableCard
-                key={team.team_id}
-                active={winner === team.team_name}
-                onClick={() => setWinner(team.team_name)}
+                key={team?.team_id}
+                active={winner === team?.team_name}
+                onClick={() => setWinner(team?.team_name)}
               >
                 <img
-                  src={teamImages[team.team_name]}
+                  src={teamImages[team?.team_name]}
                   alt=""
                   className="h-20 mx-auto"
                 />
-                <p className="font-semibold mt-2">{team.team_name}</p>
+                <p className="font-semibold mt-2">{team?.team_name}</p>
               </SelectableCard>
             ))}
           </div>

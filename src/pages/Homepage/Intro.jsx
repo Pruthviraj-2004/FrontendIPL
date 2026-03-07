@@ -98,7 +98,7 @@ const Introo = () => {
               //   backgroundRepeat: "no-repeat",
               //   height: "screen"
               // }}
-              className="bg-gradient-to-r from-[#1e0f3d] to-[#3b1d6d]"
+              className="bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]"
             >
               <HeroSection />
             </div>

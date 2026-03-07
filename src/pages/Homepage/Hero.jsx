@@ -14,7 +14,7 @@ const HeroSection = () => {
   ];
 
   return (
-       <section className="hero h-[700px] w-[100vw] relative overflow-hidden">
+       <section className="hero bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] h-[700px] w-[100vw] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 h-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
         {/* LEFT CONTENT */}

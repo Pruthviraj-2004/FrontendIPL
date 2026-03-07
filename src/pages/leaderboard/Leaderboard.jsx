@@ -73,20 +73,25 @@ const Leaderboard = () => {
 
   return (
     <MainLayout>
-      <Breadcrumbs
+      {/* <Breadcrumbs
         data={[
           { name: "Home", link: "/" },
           { name: "Leaderboard", link: "/board" },
         ]}
         activeName="Leaderboard"
-      />
+      /> */}
       
-      <section className="max-w-5xl mx-auto px-4 py-10">
-       <span className="text-gray-500 text-lg ">HAVE TO BE REDONE -- IGNORE</span>
+<section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
+  
+  {/* Glow effects */}
+  <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-purple-700 opacity-20 blur-[150px] rounded-full"></div>
+  <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
+
+  <div className="relative max-w-6xl mx-auto px-6 py-20">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold">IPL 2025 Leaderboard</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl text-white font-bold">IPL 2025 Leaderboard</h1>
+          <p className="text-gray-300 mt-2">
             Compete, predict, and climb the ranks
           </p>
         </div>
@@ -109,7 +114,7 @@ const Leaderboard = () => {
             </button>
           ))}
         </div> */}
-        <div className="flex bg-gray-100 rounded-full p-1 w-fit mx-auto mb-6">
+        <div className="flex  rounded-full p-1 w-fit mx-auto">
         {leaderboardList?.leaderboards?.map((lb) => (
           <button
             key={lb.leaderboard_id}
@@ -118,7 +123,7 @@ const Leaderboard = () => {
               ${
                 selectedLeaderboardId === lb.leaderboard_id
                   ? "bg-purple-600 text-white shadow"
-                  : "text-gray-600 hover:text-black"
+                  : "text-gray-100 hover:text-black"
               }`}
           >
             {lb.leaderboard_name}
@@ -189,6 +194,7 @@ const Leaderboard = () => {
           })}
         </div> */} 
         <LeaderboardUI leaderboardData={rows}/>
+        </div>
       </section>
     </MainLayout>
   );

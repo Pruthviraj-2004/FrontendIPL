@@ -36,7 +36,7 @@ const PointsSystem = ({ points }) => {
         {/* Main Rules (Scoreboard style) */}
         <motion.div
           variants={fadeIn("up", "spring", 0.3, 1)}
-          className="bg-white rounded-2xl px-6 py-8 shadow-sm"
+          className="bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] rounded-2xl px-6 py-8 shadow-sm"
         >
           <div className="divide-y">
             {mainRules.map((rule) => {
@@ -48,7 +48,7 @@ const PointsSystem = ({ points }) => {
                   key={rule.id}
                   className="flex items-center justify-between py-4"
                 >
-                  <span className="text-gray-800 font-medium">
+                  <span className="text-gray-100 font-semibold">
                     {label.trim()}
                   </span>
 

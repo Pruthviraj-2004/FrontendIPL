@@ -5,7 +5,7 @@ const EventCard = ({ event, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+      className="group cursor-pointer bg-gradient-to-br from-[#f5f7ff] via-[#eef1ff] to-[#f9fbff] rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
     >
       {/* Banner placeholder */}
       <div className="h-44 bg-gray-200 flex items-center justify-center">

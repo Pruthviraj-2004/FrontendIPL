@@ -41,13 +41,19 @@ const EventsPage = () => {
 
   return (
     <MainLayout>
-       <Breadcrumbs data={Breadcrumbsdata} activeName="Events" />
+       {/* <Breadcrumbs data={Breadcrumbsdata} activeName="Events" /> */}
       {isLoading ? (
         <div className="w-screen h-screen flex justify-center items-center">
           <Loading />
         </div>
       ) : (
-        <section className="w-full py-5 bg-[#f8f9fc]">
+             <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
+  
+  {/* Glow effects */}
+  <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-purple-700 opacity-20 blur-[150px] rounded-full"></div>
+  <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
+
+  <div className="relative py-20">
           <ToastContainer />
 
           <div className="max-w-7xl mx-auto px-6">
@@ -55,10 +61,10 @@ const EventsPage = () => {
 
             {/* Page Header */}
             <div className="mt-8 mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-200">
                 Events
               </h2>
-              <p className="mt-3 text-gray-600 max-w-xl">
+              <p className="mt-3 text-gray-300 max-w-xl">
                 Select a tournament to explore fixtures and start predicting.
               </p>
             </div>
@@ -79,6 +85,7 @@ const EventsPage = () => {
                 ))}
               </div>
             )}
+          </div>
           </div>
         </section>
       )}

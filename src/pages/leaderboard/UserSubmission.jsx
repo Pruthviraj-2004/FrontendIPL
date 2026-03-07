@@ -121,7 +121,7 @@ const UserSubmission = () => {
           backgroundRepeat: 'no-repeat'
         }}
       >
-          <Breadcrumbs data={Breadcrumbsdata} activeName="Leaderboard" />
+          {/* <Breadcrumbs data={Breadcrumbsdata} activeName="Leaderboard" /> */}
         <div class="container max-w-6xl px-4 mx-auto sm:px-8">
           <div class="py-8 relative">
             <div class="flex flex-row justify-center items-center text-center w-full mb-1 sm:mb-0">

@@ -1,6 +1,6 @@
 const LeaderboardList = ({ users }) => {
   const rest = users.slice(3);
-
+   console.log("Rendering LeaderboardList with users:", users);
   return (
     <div className="mt-10 bg-[#0f0f1a] rounded-2xl p-4">
       {rest.map((user) => (
@@ -25,7 +25,7 @@ const LeaderboardList = ({ users }) => {
           </div>
 
           <span className="text-green-400 font-bold">
-            {user.score}
+            {user.total_points} pts
           </span>
         </div>
       ))}
