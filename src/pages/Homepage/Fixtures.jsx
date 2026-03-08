@@ -8,24 +8,25 @@ const TodaysFixtures = ({ matches }) => {
 
   if (!matches || matches.length === 0) return null;
 
-  const todayMatches = matches.filter((match) => {
-    const matchDate = new Date(match.match_date);
-    const currentDate = new Date();
+  // const todayMatches = matches.filter((match) => {
+  //   const matchDate = new Date(match.match_date);
+  //   const currentDate = new Date();
 
-    const currentTime =
-      currentDate.getHours() * 60 + currentDate.getMinutes();
+  //   const currentTime =
+  //     currentDate.getHours() * 60 + currentDate.getMinutes();
 
-    const [matchHours, matchMinutes] = match.match_time
-      .split(":")
-      .map(Number);
+  //   const [matchHours, matchMinutes] = match.match_time
+  //     .split(":")
+  //     .map(Number);
 
-    const matchTimeInMinutes = matchHours * 60 + matchMinutes;
+  //   const matchTimeInMinutes = matchHours * 60 + matchMinutes;
 
-    return (
-      matchDate.toDateString() !== currentDate.toDateString() &&
-      currentTime < matchTimeInMinutes
-    );
-  });
+  //   return (
+  //     matchDate.toDateString() !== currentDate.toDateString() &&
+  //     currentTime < matchTimeInMinutes
+  //   );
+  // });
+  const todayMatches = matches
 
   // console.log("Filtered today's matches:", todayMatches);
 

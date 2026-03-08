@@ -159,11 +159,11 @@ const Authform = () => {
         )}
 
       <MainLayout>
-        <section className=" bg-gray-400 overflow-hidden w-screen h-full lg:w-screen scrollbar-hide">
+        <section className="bg-gray-400 overflow-hidden w-screen h-full lg:w-screen scrollbar-hide">
           <div
             className={`${
               variant === "LOGIN" ? "lg:h-[40%] h-[90vh]" : "lg:h-[90%] "
-            } flex  rounded-lg w-[100%] justify-center  h-[100vh]  bg-gray-300 items-center overflow-y-auto`}
+            } flex  rounded-lg w-[100%] justify-center bg-gray-300 items-center overflow-y-auto`}
             style={{
               backgroundImage: `url(${images.bg20})`,
               backgroundSize: "cover",
@@ -174,17 +174,17 @@ const Authform = () => {
            
             <div
               className={`${
-                variant === "LOGIN" ? "h-[45%]" : "my-24 "
+                variant === "LOGIN" ? "" : "my-24 "
               } lg:my-24  flex flex-row  lg:h-[90%] bg-white w-[90%] lg:w-[60%] rounded-lg w-100 mx-auto font-sans  shadow-2xl shadow-black `}
             >
               <div
                 className={`${
-                  variant === "LOGIN" ? "lg:h-[68vh]" : ""
-                } w-[50%] hidden lg:flex overflow-hidden h-[85vh] px-10 justify-center items-center`}
+                  variant === "LOGIN" ? "lg:h-[68vh] h-[50vh]" : ""
+                } w-[50%] hidden lg:flex overflow-hidden px-10 justify-center items-center`}
               >
                 <div className="flex flex-col bg-white items-center">
                   <div className="bg-white">
-                    <p className="text-2xl my-3 blue-text-gradient text-center font-bold">
+                    <p className="text-2xl my-3 text-primary-800 text-center font-bold">
                       Let's get started
                     </p>
 
@@ -211,7 +211,7 @@ const Authform = () => {
                 <div className="flex flex-row justify-evenly mb-4">
                   {variant === "LOGIN" && (
                     <div className={`  w-[100%] cursor-pointer h-18`}>
-                      <p className="my-2 text-xl ml-2 font-bold text-left blue-text-gradient">
+                      <p className="my-2 text-xl ml-2 font-bold text-left text-primary-800">
                         SIGN IN
                       </p>
                       <p className="lg:my-0 my-2 mb-2 text-md ml-2 font-medium text-left">
@@ -221,7 +221,7 @@ const Authform = () => {
                   )}
                   {variant === "REGISTER" && (
                     <div className={` w-[100%] cursor-pointer h-14`}>
-                      <p className="my-2 text-xl ml-2 font-bold text-left blue-text-gradient">
+                      <p className="my-2 text-xl ml-2 font-bold text-left text-primary-800">
                         SIGN UP
                       </p>
                       <p className="my-2 mb-2 text-md ml-2 font-medium text-left">

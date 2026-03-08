@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -22,7 +22,7 @@ const PredictMatch = () => {
     "Mumbai Indians": images.mi1,
     "Punjab Kings": images.pbks1,
     "Rajasthan Royals": images.rr1,
-    "Royal Challengers Bengaluru": images.rcb1,
+    "Royal Challengers Bangalore": images.rcb1,
     "Sunrisers Hyderabad": images.srh1,
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,
@@ -63,11 +63,46 @@ const PredictMatch = () => {
     onError: (e) => toast.error(e.message),
   });
  
-  console.log("Match details:", data);
+   useEffect(() => {
+  if (data?.submission) {
+    setWinner(data.submission.predicted_winner_team_id);
+    setMom(data.submission.predicted_player_of_match_id);
+    setRuns(data.submission.predicted_most_runs_player_id);
+    setWickets(data.submission.predicted_most_wickets_taker_id);
+    setPredictionDone(true);
+  }
+}, [data]);
+    
+    const [predictionDone, setPredictionDone] = useState(false);
+    const teamA = data?.teams?.[0];
+    const teamB = data?.teams?.[1];
 
-  const teamA = data?.teams?.[0];
-  const teamB = data?.teams?.[1];
+        const players = [
+      ...(data?.mom_players || []),
+      ...(data?.run_scorers || []),
+      ...(data?.wicket_takers || [])
+    ];
+  
+     const getPlayerName = (id) => {
+      const player = players.find((p) => p.player_id === id);
+      return player?.player_name || null;
+    };
 
+    const getTeamName = (id) => {
+      if (teamA?.team_id === id) return teamA?.team_name;
+      if (teamB?.team_id === id) return teamB?.team_name;
+      return null;
+    };
+
+  const winnerName = getTeamName(winner);
+  const momName = getPlayerName(mom);
+  const runsName = getPlayerName(runs);
+  const wicketsName = getPlayerName(wickets);
+
+
+
+
+ 
   /* ---------------- SUBMIT ---------------- */
   const { mutate, isPending } = useMutation({
     mutationFn: predictMatch,
@@ -207,16 +242,16 @@ const PredictMatch = () => {
                   <button
                     key={team?.team_id}
                     onClick={() => {
-                      setWinner(team?.team_name);
+                      setWinner(team?.team_id);
                       setActiveSection("mom");
                     }}
                     className={`group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 ${
-                      winner === team?.team_name
+                      winner === team?.team_id
                         ? "shadow-2xl scale-[1.02]"
                         : "bg-white shadow-lg hover:shadow-xl hover:scale-[1.02]"
                     }`}
                   >
-                    {winner === team?.team_name && (
+                    {winner === team?.team_id && (
                       <div className="absolute top-4 right-4 bg-primary-700 text-white p-2 rounded-full">
                         <Check size={20} />
                       </div>
@@ -280,28 +315,28 @@ const PredictMatch = () => {
         <SummaryPill
           icon={Trophy}
           label="Winner"
-          value={winner}
+          value={winnerName}
           isActive={activeSection === "winner"}
           onClick={() => setActiveSection("winner")}
         />
         <SummaryPill
           icon={Star}
           label="POTM"
-          value={mom}
+          value={momName}
           isActive={activeSection === "mom"}
           onClick={() => setActiveSection("mom")}
         />
         <SummaryPill
           icon={Activity}
           label="Runs"
-          value={runs}
+          value={runsName}
           isActive={activeSection === "runs"}
           onClick={() => setActiveSection("runs")}
         />
         <SummaryPill
           icon={Target}
           label="Wickets"
-          value={wickets}
+          value={wicketsName}
           isActive={activeSection === "wickets"}
           onClick={() => setActiveSection("wickets")}
         />
@@ -310,7 +345,7 @@ const PredictMatch = () => {
       {/* Submit button */}
       <button
         onClick={submitPrediction}
-        disabled={isPending || !winner || !mom || !runs || !wickets}
+        disabled={predictionDone || isPending || !winner || !mom || !runs || !wickets}
         className="h-[48px] min-w-[180px] flex items-center justify-center gap-2 
         bg-[#0f0f1a] hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed 
         text-white px-6 rounded-xl font-semibold transition shadow-lg hover:shadow-xl"
@@ -423,8 +458,8 @@ const PlayerSelectionSection = ({ type, data, selected, onSelect, teamA, teamB, 
               <PlayerCard
                 key={player.player_id}
                 player={player}
-                isSelected={selected === player.player_name}
-                onClick={() => onSelect(player.player_name)}
+                isSelected={selected === player.player_id}
+                onClick={() => onSelect(player.player_id)}
               />
             ))}
           </div>
@@ -446,8 +481,8 @@ const PlayerSelectionSection = ({ type, data, selected, onSelect, teamA, teamB, 
               <PlayerCard
                 key={player.player_id}
                 player={player}
-                isSelected={selected === player.player_name}
-                onClick={() => onSelect(player.player_name)}
+                isSelected={selected === player.player_id}
+                onClick={() => onSelect(player.player_id)}
               />
             ))}
           </div>

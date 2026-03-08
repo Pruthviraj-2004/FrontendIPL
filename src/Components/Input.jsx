@@ -64,22 +64,27 @@ const Input = ({
       <div className="my-2 relative">
         {(label === "Name" || label === "Username") && (
           <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <IoPersonSharp color="#3486eb" />
+            <IoPersonSharp color="#28047b" />
           </div>
         )}
         {label === "Email" && (
           <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <MdEmail color="#3486eb" />
+            <MdEmail color="#28047b" />
           </div>
         )}
         {type === "password" && (
           <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <FaLock color="#3486eb" />
+            <FaLock color="#28047b" />
           </div>
         )}
         {label === "Leaderboard Name" && (
           <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <MdLeaderboard color="#3486eb" />
+            <MdLeaderboard color="#28047b" />
+          </div>
+        )}
+         {label === "Company display id" && (
+          <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
+            <MdLeaderboard color="#28047b" />
           </div>
         )}
         <motion.label
@@ -88,7 +93,7 @@ const Input = ({
             "absolute origin-top-left left-10 top-[-0px] text-md font-medium transition-all duration-200",
             {
               "text-gray-500": !isFocused && !errors[id],
-              "text-teal-500 transform -translate-y-[3px] scale-75": isFocused,
+              "text-primary-600 transform -translate-y-[3px] scale-75": isFocused,
               "text-orange-500": errors[id],
             }
           )}

@@ -8,7 +8,7 @@ import hiw1 from "../Assets/hiw1.jpg"
 import hiw2 from "../Assets/hiw2.jpg"
 import hiw3 from "../Assets/hiw3.jpg"
 import hiw4 from "../Assets/hiw4.jpg"
-import rcb1 from "../Assets/RCBoutline1.png";
+import rcb1 from "../Assets/RCBoutline.png";
 import rr1 from "../Assets/RRoutline.png";
 import srh1 from "../Assets/SRHoutline.png";
 import dc1 from "../Assets/DCoutline.png";

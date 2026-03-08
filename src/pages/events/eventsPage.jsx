@@ -8,6 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getEvents } from "../../services/events";
 import EventCard from "./eventCard";
+import { useSelector } from "react-redux";
+import AuthRequired from "../../Components/AuthRequired";
 
 const EventsPage = () => {
   const navigate = useNavigate();
@@ -38,6 +40,16 @@ const EventsPage = () => {
   }, []);
 
   const events = data?.events || [];
+
+  const userState = useSelector((state) => state.user);
+
+    if (!userState?.userInfo) {
+  return (
+    <MainLayout>
+      <AuthRequired message="Sign in to view and participate in events." />
+    </MainLayout>
+  );
+}
 
   return (
     <MainLayout>

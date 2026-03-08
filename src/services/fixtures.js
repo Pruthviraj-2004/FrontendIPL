@@ -38,9 +38,10 @@ export const predictMatch = async ({
       "Content-Type": "application/json",
     },
   };
+  console.log("Predicting with body:", body);
   try {
     const { data } = await api.post(
-      `https://practicehost1.pythonanywhere.com/api/v2/match/${match_id}/`,
+      `/api/v2/match/${match_id}/`,
       // `http://localhost:8000/ipl2/predict1/${match_id}/`,
       body,config
     );
@@ -55,6 +56,7 @@ export const predictMatch = async ({
     }
   }
 };
+
 
 export const getMatchDetails = async (parsedMatchId) => {
     

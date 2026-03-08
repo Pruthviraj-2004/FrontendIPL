@@ -26,7 +26,7 @@ const AuthRequired = ({ title = "Login Required", message }) => {
       {/* Button */}
       <button
         onClick={() => navigate("/register")}
-        className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition"
+        className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition w-fit"
       >
         Sign In
       </button>

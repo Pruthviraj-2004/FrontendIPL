@@ -8,7 +8,7 @@ const FeaturedEvents = () => {
   // TEMP data – later replace with API response
   const events = [
     {
-      id: "1",
+      id: "b68329a5-9e1b-4e1f-a239-488a3672b521",
       name: "Indian Premier League 2025",
       status: "Active",
       image: images.fe1
