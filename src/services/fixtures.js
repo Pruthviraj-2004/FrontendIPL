@@ -21,20 +21,17 @@ export const getFixtures = async () => {
 };
 
 export const predictMatch = async ({
-  predicted_winner_team,
-  predicted_player_of_the_match,
-  predicted_most_runs_scorer,
-  predicted_most_wicket_taker,
-  username,
-  match_id
+    winning_team_id,
+    player_of_match_id,
+    most_runs_player_id,
+    most_wickets_player_id,
+    match_id
 }) => {
   const body = JSON.stringify({
-    predicted_winner_team,
-    predicted_player_of_the_match,
-    predicted_most_runs_scorer,
-    predicted_most_wicket_taker,
-    username,
-    match_id
+    winning_team_id,
+    player_of_match_id,
+    most_runs_player_id,
+    most_wickets_player_id
   });
   const config = {
     headers: {
@@ -42,8 +39,8 @@ export const predictMatch = async ({
     },
   };
   try {
-    const { data } = await axios.post(
-      `https://practicehost1.pythonanywhere.com/ipl2/predict1/${match_id}/`,
+    const { data } = await api.post(
+      `https://practicehost1.pythonanywhere.com/api/v2/match/${match_id}/`,
       // `http://localhost:8000/ipl2/predict1/${match_id}/`,
       body,config
     );

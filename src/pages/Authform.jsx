@@ -74,13 +74,12 @@ const Authform = () => {
         closeButton: false,
         progress: undefined,
       });
-     
-      
-      // setTimeout(()=>{
-      //   dispatch(userActions.setUserInfo(data));
-      // localStorage.setItem("account", JSON.stringify(data));
-      // },3000)
-      navigate("/");
+      setTimeout(()=>{
+        dispatch(userActions.setUserInfo(data));
+      localStorage.setItem("account", JSON.stringify(data));
+      },3000)
+      console.log(data)
+      // navigate("/");
     },
     onError: (error) => {
       toast.error(error.message, {
@@ -97,11 +96,11 @@ const Authform = () => {
     },
   });
 
-  // useEffect(() => {
-  //   if (userState?.userInfo) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, userState?.userInfo]);
+  useEffect(() => {
+    if (userState?.userInfo) {
+      navigate("/");
+    }
+  }, [navigate, userState?.userInfo]);
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") {
       setVariant("REGISTER");

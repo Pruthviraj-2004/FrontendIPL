@@ -27,7 +27,7 @@ const TodaysFixtures = ({ matches }) => {
     );
   });
 
-  console.log("Filtered today's matches:", todayMatches);
+  // console.log("Filtered today's matches:", todayMatches);
 
   if (todayMatches.length === 0) return null;
 

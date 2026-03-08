@@ -51,7 +51,7 @@ const Card = ({ data }) => {
     return date.toLocaleDateString("en-GB");
   };
 
-  console.log(data)
+  // console.log(data)
 
   const formatTime = (timeString) => {
     const [hours, minutes] = timeString.split(":");

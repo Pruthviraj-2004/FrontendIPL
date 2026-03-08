@@ -102,6 +102,10 @@ const Introo = () => {
             >
               <HeroSection />
             </div>
+            
+            <div className="">
+              <TodaysFixtures matches={dataaa}/>
+            </div>
 
             <div>
               <FeaturedEvents/>
@@ -155,9 +159,7 @@ const Introo = () => {
               </div>
              
             </div> */}
-            <div>
-              <TodaysFixtures matches={dataaa}/>
-            </div>
+
             
           {/* <div className=" w-screen max-w-screen">
               <Quote />
