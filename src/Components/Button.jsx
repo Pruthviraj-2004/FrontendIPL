@@ -24,7 +24,7 @@ const Button = ({
           "text-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600",
         !secondary &&
           !danger &&
-          "bg-primary-900 hover:bg-[#050A30] focus-visible:outline-sky-600"
+          "bg-purple-800 hover:bg-purple-950 focus-visible:outline-sky-600"
       )}
     >
       <p className="uppercase">{children}</p>

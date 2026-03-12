@@ -383,7 +383,7 @@ const PredictMatch = () => {
               return (
                 <motion.button
                   key={section.id}
-                  onClick={() => !isLocked && handleSectionChange(section.id)}
+                  onClick={() => handleSectionChange(section.id)}
                   whileHover={!isLocked ? { scale: 1.02 } : {}}
                   className={`relative overflow-hidden rounded-xl p-4 transition-all duration-300 ${
                     isActive
@@ -391,7 +391,7 @@ const PredictMatch = () => {
                       : isCompleted
                       ? "bg-slate-900/50 border border-emerald-500/30"
                       : "bg-slate-900/30 border border-slate-800"
-                  } ${isLocked ? "cursor-not-allowed opacity-80" : "cursor-pointer hover:border-slate-700"}`}
+                  } ${"cursor-pointer hover:border-slate-700"}`}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${section.color} opacity-0 ${isActive ? "opacity-10" : ""}`} />
                   

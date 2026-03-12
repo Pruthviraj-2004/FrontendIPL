@@ -16,6 +16,7 @@ import MainLayout from "../Components/MainLayout";
 import { createPortal } from "react-dom";
 import ErrorMessage from "../Components/Error";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useWatch } from "react-hook-form";
 
 const Authform = () => {
   const navigate = useNavigate();
@@ -113,6 +114,7 @@ const Authform = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    control
   } = useForm({
     defaultValues: {
       username: "",
@@ -239,6 +241,8 @@ const Authform = () => {
                     errors={errors}
                     disabled={isLoading}
                     variant={variant}
+                    control={control}
+
                   />
                   <Input
                     label="Company display id"
@@ -248,6 +252,7 @@ const Authform = () => {
                     errors={errors}
                     disabled={isLoading}
                     variant={variant}
+                    control={control}
                   />
                   
 
@@ -260,6 +265,7 @@ const Authform = () => {
                       errors={errors}
                       disabled={isLoading}
                       variant={variant}
+                      control={control}
                     />
                   )}
                   {/* {variant === "REGISTER" && ( */}
@@ -271,6 +277,7 @@ const Authform = () => {
                       errors={errors}
                       disabled={isLoading}
                       variant={variant}
+                      control={control}
                     />
                   {/* // )}  */}
                   <Input
@@ -281,6 +288,7 @@ const Authform = () => {
                     errors={errors}
                     disabled={isLoading}
                     variant={variant}
+                    control={control}
                   />
                   {variant === "REGISTER" && (
                     <Input
@@ -291,6 +299,7 @@ const Authform = () => {
                       errors={errors}
                       disabled={isLoading}
                       variant={variant}
+                      control={control}
                     />
                   )}
 
