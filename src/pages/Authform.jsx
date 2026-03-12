@@ -163,32 +163,32 @@ const Authform = () => {
           <div
             className={`${
               variant === "LOGIN" ? "lg:h-[40%] h-[90vh]" : "lg:h-[90%] "
-            } flex  rounded-lg w-[100%] justify-center bg-gray-300 items-center overflow-y-auto`}
-            style={{
-              backgroundImage: `url(${images.bg20})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
+            } flex  rounded-lg w-[100%] justify-center bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] items-center overflow-y-auto`}
+            // style={{
+            //   backgroundImage: `url(${images.bg20})`,
+            //   backgroundSize: "cover",
+            //   backgroundPosition: "center",
+            //   backgroundRepeat: "no-repeat",
+            // }}
           >
            
             <div
               className={`${
                 variant === "LOGIN" ? "" : "my-24 "
-              } lg:my-24  flex flex-row  lg:h-[90%] bg-white w-[90%] lg:w-[60%] rounded-lg w-100 mx-auto font-sans  shadow-2xl shadow-black `}
+              } lg:my-24  flex flex-row  lg:h-[90%] bg-slate-900/80 backdrop-blur-xl border border-slate-800 w-[90%] lg:w-[60%] rounded-lg w-100 mx-auto font-sans  shadow-2xl shadow-black `}
             >
               <div
                 className={`${
                   variant === "LOGIN" ? "lg:h-[68vh] h-[50vh]" : ""
                 } w-[50%] hidden lg:flex overflow-hidden px-10 justify-center items-center`}
               >
-                <div className="flex flex-col bg-white items-center">
-                  <div className="bg-white">
-                    <p className="text-2xl my-3 text-primary-800 text-center font-bold">
+                <div className="flex flex-col items-center">
+                  <div className="">
+                    <p className="text-2xl my-3 text-purple-800 text-center font-bold">
                       Let's get started
                     </p>
 
-                    <p className="text-lg">
+                    <p className="text-lg text-white">
                       Create an account or login if you already have one
                     </p>
                   </div>
@@ -206,22 +206,22 @@ const Authform = () => {
               <div
                 className={`${
                   variant === "LOGIN" ? "lg:h-[50%] lg:py-4 py-0" : "lg:h-[100%]"
-                } bg-white w-[100%]   lg:w-[50%] px-4 py-8 my-auto sm:rounded-lg rounded-lg `}
+                }  w-[100%]   lg:w-[50%] px-4 py-8 my-auto sm:rounded-lg rounded-lg `}
               >
                 <div className="flex flex-row justify-evenly mb-4">
                   {variant === "LOGIN" && (
                     <div className={`  w-[100%] cursor-pointer h-18`}>
-                      <p className="my-2 text-xl ml-2 font-bold text-left text-primary-800">
+                      <p className="my-2 text-xl ml-2 font-bold text-left text-purple-700">
                         SIGN IN
                       </p>
-                      <p className="lg:my-0 my-2 mb-2 text-md ml-2 font-medium text-left">
+                      <p className="lg:my-0 my-2 mb-2 text-slate-200 text-md ml-2 font-medium text-left">
                         Sign in below
                       </p>
                     </div>
                   )}
                   {variant === "REGISTER" && (
                     <div className={` w-[100%] cursor-pointer h-14`}>
-                      <p className="my-2 text-xl ml-2 font-bold text-left text-primary-800">
+                      <p className="my-2 text-xl ml-2 font-bold text-left text-purple-700">
                         SIGN UP
                       </p>
                       <p className="my-2 mb-2 text-md ml-2 font-medium text-left">
@@ -303,21 +303,21 @@ const Authform = () => {
                   </Button>
                 </form>
                 <ToastContainer className="z-[100001]"/>
-                <div className="flex gap-2 justify-center text-md mt-6 px-2 text-gray-800">
+                <div className="flex gap-2 justify-center text-md mt-6 px-2 text-slate-200">
                   {variant === "REGISTER"
                     ? "Already have an account?"
                     : "New here ?"}
 
                   <div
                     onClick={toggleVariant}
-                    className="underline cursor-pointer text-md font-medium text-[#3486eb]"
+                    className="underline cursor-pointer text-md font-medium text-purple-600"
                   >
                     {variant === "LOGIN" ? "Create an account" : "Login"}
                   </div>
                 </div>
-                <div className="flex gap-2 justify-center font-semibold text-sm mt-4 px-2 text-gray-800">
+                <div className="flex gap-2 justify-center font-semibold text-sm mt-4 px-2 text-slate-200">
                   <p>
-                   Forgot password? <a className="text-[#3486eb]  underline" href="https://practicehost1.pythonanywhere.com/ipl2/password_reset/">Click here</a>
+                   Forgot password? <a className="text-purple-600  underline" href="https://practicehost1.pythonanywhere.com/ipl2/password_reset/">Click here</a>
                    </p>
               </div>
               </div>

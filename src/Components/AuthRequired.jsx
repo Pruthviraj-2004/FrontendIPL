@@ -6,7 +6,7 @@ const AuthRequired = ({ title = "Login Required", message }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center text-center py-20 px-4">
+    <div className="flex min-h-[80vh] flex-col items-center justify-center text-center py-20 px-4">
       
       {/* Icon */}
       <div className="w-16 h-16 flex items-center justify-center rounded-full bg-purple-100 mb-4">
