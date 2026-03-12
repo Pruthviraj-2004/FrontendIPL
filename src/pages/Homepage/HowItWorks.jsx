@@ -33,17 +33,17 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="w-full py-10 bg-[#f8f9fc]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="w-full lg:py-10 ">
+      <div className="max-w-7xl mx-auto px-2">
 
         {/* Section Header */}
-        <div className="text-center mb-10">
+        <div className="text-left mb-10">
           <p className="text-md font-semibold text-purple-600 uppercase tracking-wide">
             How it works
           </p>
-          {/* <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-gray-900">
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-200">
             Start Predicting in 4 Simple Steps
-          </h2> */}
+          </h2>
         </div>
 
         {/* Cards */}
@@ -51,10 +51,10 @@ const HowItWorks = () => {
           {steps.map((step) => (
             <div
               key={step.id}
-              className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
+              className="group bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               {/* Image Placeholder */}
-              <div className="w-full h-40 bg-gray-200 rounded-xl flex items-center justify-center mb-6">
+              <div className="w-full h-40 rounded-xl flex items-center justify-center mb-6">
                  <img
               src={step.image}
               className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
@@ -68,11 +68,11 @@ const HowItWorks = () => {
               </div> */}
 
               {/* Text */}
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-slate-200 mb-2">
                 {step.title}
               </h3>
 
-              <p className="text-sm text-gray-600 leading-relaxed">
+              <p className="text-sm text-slate-300 leading-relaxed">
                 {step.description}
               </p>
             </div>

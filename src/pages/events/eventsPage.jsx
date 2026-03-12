@@ -2,22 +2,17 @@ import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../../Components/MainLayout";
-import Breadcrumbs from "../../Components/Breadcrumbs";
-import Loading from "../../Components/loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getEvents } from "../../services/events";
 import EventCard from "./eventCard";
 import { useSelector } from "react-redux";
 import AuthRequired from "../../Components/AuthRequired";
-
+import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 const EventsPage = () => {
   const navigate = useNavigate();
 
-  const Breadcrumbsdata = [
-    { name: "Home", link: "/" },
-    { name: "Events", link: "/events" },
-  ];
 
   const { data, isLoading } = useQuery({
     queryKey: ["events"],
@@ -34,7 +29,9 @@ const EventsPage = () => {
       );
     },
   });
-
+  
+  console.log("Events data:", data);
+  console.log("Loading state:", isLoading);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -50,15 +47,24 @@ const EventsPage = () => {
     </MainLayout>
   );
 }
-
+     if (isLoading) {
+       return (
+         <MainLayout>
+           <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+             <motion.div
+               animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+             >
+               <Sparkles className="w-12 h-12 text-violet-500" />
+             </motion.div>
+           </div>
+         </MainLayout>
+       );
+     }
   return (
     <MainLayout>
        {/* <Breadcrumbs data={Breadcrumbsdata} activeName="Events" /> */}
-      {isLoading ? (
-        <div className="w-screen h-screen flex justify-center items-center">
-          <Loading />
-        </div>
-      ) : (
+
              <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
   
   {/* Glow effects */}
@@ -68,7 +74,7 @@ const EventsPage = () => {
   <div className="relative py-20">
           <ToastContainer />
 
-          <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-7xl mx-auto px-2">
            
 
             {/* Page Header */}
@@ -100,7 +106,6 @@ const EventsPage = () => {
           </div>
           </div>
         </section>
-      )}
     </MainLayout>
   );
 };

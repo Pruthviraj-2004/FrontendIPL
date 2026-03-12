@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import MainLayout from "../../Components/MainLayout";
-import Breadcrumbs from "../../Components/Breadcrumbs";
+import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import Loading from "../../Components/loading";
 import { ToastContainer, toast } from "react-toastify";
-import MatchCard from "./matchCard";
 import { getEventDetails } from "../../services/events";
 import Card from "../Homepage/Card";
 
@@ -35,22 +35,26 @@ const EventDetailsPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (isLoading) {
+    if (isLoading) {
     return (
       <MainLayout>
-        <div className="w-screen h-screen flex justify-center items-center">
-          <Loading />
+        <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+          <motion.div
+            animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+            <Sparkles className="w-12 h-12 text-violet-500" />
+          </motion.div>
         </div>
       </MainLayout>
     );
   }
   
   const event = data?.event;
-  console.log(data)
+
   const upcomingMatches = data?.upcoming_matches || [];
   const pastMatches = data?.past_matches || [];
-  console.log(upcomingMatches)
-  console.log(pastMatches)
+
   return (
     <MainLayout>
         {/* <Breadcrumbs
@@ -66,7 +70,7 @@ const EventDetailsPage = () => {
   <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
 
   <div className="relative max-w-6xl mx-auto py-20">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-2">
 
           
 
@@ -93,7 +97,7 @@ const EventDetailsPage = () => {
               onClick={() => setActiveTab("upcoming")}
               className={`px-4 py-2 rounded-xl font-semibold ${
                 activeTab === "upcoming"
-                  ? "bg-purple-600 text-white"
+                  ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-lg shadow-violet-500/25"
                   : "bg-white text-gray-700"
               }`}
             >
@@ -104,7 +108,7 @@ const EventDetailsPage = () => {
               onClick={() => setActiveTab("past")}
               className={`px-4 py-2 rounded-xl font-semibold ${
                 activeTab === "past"
-                  ? "bg-purple-600 text-white"
+                  ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-lg shadow-violet-500/25"
                   : "bg-white text-gray-700"
               }`}
             >

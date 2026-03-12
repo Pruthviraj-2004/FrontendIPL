@@ -33,8 +33,8 @@ const TodaysFixtures = ({ matches }) => {
   if (todayMatches.length === 0) return null;
 
   return (
-    <section className="w-full py-10 bg-[#f8f9fc]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="w-full py-10 ">
+      <div className="max-w-7xl mx-auto px-2">
 
         {/* Header */}
         <motion.div
@@ -44,17 +44,17 @@ const TodaysFixtures = ({ matches }) => {
           viewport={{ once: true }}
           className="mb-8"
         >
-          <h2 className={`${styles.sectionHeadText} text-left`}>
+          <h2 className={`${styles.sectionHeadText} text-left text-white`}>
             Today’s Fixtures
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-slate-300">
             Matches you can predict today
           </p>
         </motion.div>
 
         {/* Scrollable Match Cards */}
         <div className="relative">
-          <div className="scrollbar-hide flex gap-6 overflow-x-auto pb-6">
+          <div className="scrollbar-hide no-scrollbar flex gap-6 overflow-x-auto pb-6">
             {todayMatches.map((match, index) => (
               <div key={index} className="min-w-[280px]">
                 <Card data={match} />
@@ -63,7 +63,7 @@ const TodaysFixtures = ({ matches }) => {
           </div>
 
           {/* Scroll Hint */}
-          <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-[#f8f9fc] to-transparent w-24 h-full pointer-events-none" />
+          <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-[#303134] to-transparent w-16 h-full pointer-events-none" />
         </div>
       </div>
     </section>

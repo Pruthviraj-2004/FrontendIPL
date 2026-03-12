@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-import { FaArrowUp } from "react-icons/fa";
-
+import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 import MainLayout from "../../Components/MainLayout";
-import Breadcrumbs from "../../Components/Breadcrumbs";
-import Loading from "../../Components/loading";
-
 import {
   getLeaderboardsByEvent,
   getLeaderboardRankings,
@@ -32,7 +29,6 @@ const Leaderboard = () => {
     enabled: !!eventId,
   });
   
-  console.log("Fetched leaderboards:", leaderboardList);
   /* Auto-select first leaderboard */
   useEffect(() => {
     if (leaderboardList?.leaderboards?.length) {
@@ -52,24 +48,26 @@ const Leaderboard = () => {
     enabled: !!selectedLeaderboardId,
   });
 
-  if (loadingLeaderboards || loadingRankings) {
-    return (
-      <MainLayout>
-        <div className="h-screen flex justify-center items-center">
-          <Loading />
-        </div>
-      </MainLayout>
-    );
-  }
+
+    if (loadingRankings || loadingLeaderboards) {
+      return (
+        <MainLayout>
+          <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+            <motion.div
+              animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            >
+              <Sparkles className="w-12 h-12 text-violet-500" />
+            </motion.div>
+          </div>
+        </MainLayout>
+      );
+    }
   
-  console.log("Fetched rankings:", rankings);
   const rows = rankings?.rows || [];
   const topThree = rows.slice(0, 3);
   const rest = rows.slice(3);
 
-  console.log("Top 3 users:", topThree);
-  console.log("Rest of the users:", rest);
-  console.log("Current username:", username);
 
   return (
     <MainLayout>
@@ -114,7 +112,7 @@ const Leaderboard = () => {
             </button>
           ))}
         </div> */}
-        <div className="flex  rounded-full p-1 w-fit mx-auto">
+        {/* <div className="flex  rounded-full p-1 w-fit mx-auto">
         {leaderboardList?.leaderboards?.map((lb) => (
           <button
             key={lb.leaderboard_id}
@@ -129,7 +127,7 @@ const Leaderboard = () => {
             {lb.leaderboard_name}
           </button>
         ))}
-      </div>
+      </div> */}
 
         {/* 🏆 Podium */}
         {/* {topThree.length === 3 && (
@@ -193,7 +191,10 @@ const Leaderboard = () => {
             );
           })}
         </div> */} 
-        <LeaderboardUI leaderboardData={rows}/>
+       <LeaderboardUI 
+  eventId="b68329a5-9e1b-4e1f-a239-488a3672b521"
+  initialLeaderboardId="e04f49e5-abb9-4044-8d66-3873128991cc"
+/>
         </div>
       </section>
     </MainLayout>

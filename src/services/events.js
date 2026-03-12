@@ -2,8 +2,13 @@
 import api from "./axios";
 
 export const getEvents = async () => {
-  const { data } = await api.get("/api/v2/fixtures/events/");
-  return data;
+  try {
+    const { data } = await api.get("/api/v2/fixtures/events/");
+    return data;
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    throw error;
+  }
 };
 
 export const getEventDetails = async (eventId) => {

@@ -10,8 +10,8 @@ const PointsSystem = ({ points }) => {
   const tieBreakRules = points.slice(4);
 
   return (
-    <section className="w-full py-20 bg-[#f1f3f7]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="w-full py-16 lg:py-20 ">
+      <div className="max-w-7xl mx-auto px-2">
 
         {/* Header */}
         <motion.div
@@ -24,10 +24,10 @@ const PointsSystem = ({ points }) => {
           <p className="text-sm font-semibold uppercase tracking-widest text-purple-600">
             Scoring Rules
           </p>
-          <h2 className={`${styles.sectionHeadText} mt-2 text-left`}>
+          <h2 className={`${styles.sectionHeadText} text-white mt-2 text-left`}>
             Points System
           </h2>
-          <p className="mt-3 text-gray-600 max-w-2xl">
+          <p className="mt-3 text-slate-200 max-w-2xl">
             Points are awarded based on prediction accuracy. Higher precision
             means higher ranking.
           </p>
@@ -36,7 +36,7 @@ const PointsSystem = ({ points }) => {
         {/* Main Rules (Scoreboard style) */}
         <motion.div
           variants={fadeIn("up", "spring", 0.3, 1)}
-          className="bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] rounded-2xl px-6 py-8 shadow-sm"
+          className="bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] rounded-2xl px-6 py-8 border shadow-sm"
         >
           <div className="divide-y">
             {mainRules.map((rule) => {
@@ -48,7 +48,7 @@ const PointsSystem = ({ points }) => {
                   key={rule.id}
                   className="flex items-center justify-between py-4"
                 >
-                  <span className="text-gray-100 font-semibold">
+                  <span className="text-slate-100 font-semibold">
                     {label.trim()}
                   </span>
 
@@ -65,9 +65,9 @@ const PointsSystem = ({ points }) => {
         {tieBreakRules.length > 0 && (
           <motion.div
             variants={fadeIn("up", "spring", 0.5, 1)}
-            className="mt-12"
+            className="mt-10"
           >
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <h3 className="text-lg font-semibold text-slate-200 mb-2">
               Tie-break Rules
             </h3>
 
@@ -75,7 +75,7 @@ const PointsSystem = ({ points }) => {
               {tieBreakRules.map((rule) => (
                 <li
                   key={rule.id}
-                  className="flex items-start text-sm text-gray-700"
+                  className="flex items-start text-md text-slate-200"
                 >
                   <span className="mr-3 mt-1 w-2 h-2 bg-purple-600 rounded-full" />
                   <span>{rule.text}</span>

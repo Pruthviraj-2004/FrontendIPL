@@ -200,7 +200,7 @@ const Headers = () => {
               <li className=" group relative py-2 ">
                 {userState.userInfo ? (
                   <div
-                    className={` mx-auto flex flex-row justify-start items-center rounded-sm px-5 py-1 bg-gray-50 hover:bg-gray-100 text-center`}
+                    className={` mx-auto flex flex-row justify-start items-center rounded-sm px-5 py-1 bg-slate-900/80 backdrop-blur-xl border border-slate-800 text-center`}
                   >
                     <div className="mx-1 mt-1">
                       <MdLogout color="111fbd" />
@@ -209,7 +209,7 @@ const Headers = () => {
                     <div className="">
                       <button
                         onClick={logoutHandler}
-                        className="text-gray-700 font-medium hover:text-purple-600 transition"
+                        className="text-slate-300 font-medium hover:text-purple-600 transition"
                       >
                         Log out
                       </button>

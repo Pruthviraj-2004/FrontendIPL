@@ -1,16 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Trophy, 
+  Star, 
+  Target, 
+  Activity, 
+  ChevronRight, 
+  Check, 
+  Shield,
+  Swords,
+  Zap,
+  Crown,
+  User,
+  Sparkles,
+  Lock,
+  AlertCircle
+} from "lucide-react";
 import ClipLoader from "react-spinners/ClipLoader";
-import { Trophy, Star, Target, Activity, ChevronRight, Check } from "lucide-react";
 
 import MainLayout from "../../Components/MainLayout";
 import ErrorMessage from "../../Components/Error";
-
 import { images } from "../../constants";
 import { getMatchDetails, predictMatch } from "../../services/fixtures";
 import { SectionWrapper } from "../../hoc";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+const slideVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => ({
+    zIndex: 0,
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
 
 const PredictMatch = () => {
   const { matchId } = useParams();
@@ -54,65 +111,88 @@ const PredictMatch = () => {
   const [runs, setRuns] = useState(null);
   const [wickets, setWickets] = useState(null);
   const [authError, setAuthError] = useState(false);
-  const [activeSection, setActiveSection] = useState("winner"); // winner | mom | runs | wickets
+  const [activeSection, setActiveSection] = useState("winner");
+  const [predictionDone, setPredictionDone] = useState(false);
+  const [direction, setDirection] = useState(0);
 
   /* ---------------- FETCH MATCH ---------------- */
   const { data, isLoading } = useQuery({
     queryKey: ["match", matchId],
     queryFn: () => getMatchDetails(matchId),
-    onError: (e) => toast.error(e.message),
   });
- 
-   useEffect(() => {
-  if (data?.submission) {
-    setWinner(data.submission.predicted_winner_team_id);
-    setMom(data.submission.predicted_player_of_match_id);
-    setRuns(data.submission.predicted_most_runs_player_id);
-    setWickets(data.submission.predicted_most_wickets_taker_id);
-    setPredictionDone(true);
-  }
-}, [data]);
-    
-    const [predictionDone, setPredictionDone] = useState(false);
-    const teamA = data?.teams?.[0];
-    const teamB = data?.teams?.[1];
 
-        const players = [
-      ...(data?.mom_players || []),
-      ...(data?.run_scorers || []),
-      ...(data?.wicket_takers || [])
-    ];
-  
-     const getPlayerName = (id) => {
-      const player = players.find((p) => p.player_id === id);
-      return player?.player_name || null;
-    };
+  useEffect(() => {
+    if (data?.submission) {
+      setWinner(data.submission.predicted_winner_team_id);
+      setMom(data.submission.predicted_player_of_match_id);
+      setRuns(data.submission.predicted_most_runs_player_id);
+      setWickets(data.submission.predicted_most_wickets_taker_id);
+      setPredictionDone(data?.submission?.is_submitted);
+    }
+  }, [data]);
 
-    const getTeamName = (id) => {
-      if (teamA?.team_id === id) return teamA?.team_name;
-      if (teamB?.team_id === id) return teamB?.team_name;
-      return null;
-    };
+  const teamA = data?.teams?.[0];
+  const teamB = data?.teams?.[1];
+
+  const players = [
+    ...(data?.mom_players || []),
+    ...(data?.run_scorers || []),
+    ...(data?.wicket_takers || [])
+  ];
+
+  const getPlayerName = (id) => {
+    const player = players.find((p) => p.player_id === id);
+    return player?.player_name || null;
+  };
+
+  const getTeamName = (id) => {
+    if (teamA?.team_id === id) return teamA?.team_name;
+    if (teamB?.team_id === id) return teamB?.team_name;
+    return null;
+  };
 
   const winnerName = getTeamName(winner);
   const momName = getPlayerName(mom);
   const runsName = getPlayerName(runs);
   const wicketsName = getPlayerName(wickets);
 
-
-
-
- 
   /* ---------------- SUBMIT ---------------- */
   const { mutate, isPending } = useMutation({
     mutationFn: predictMatch,
-    onSuccess: () => toast.success("Prediction locked 🔒"),
-    onError: (e) => toast.error(e.message),
+    onSuccess: () => {
+      setPredictionDone(true);
+      toast.success("Prediction locked 🔒", {
+        position: "top-center",
+        autoClose: 3000,
+        style: {
+          background: "#0f172a",
+          color: "#fff",
+          border: "1px solid #334155",
+        },
+      });
+    },
+    onError: (e) => {
+      toast.error(e.message, {
+        position: "top-center",
+        style: {
+          background: "#0f172a",
+          color: "#fff",
+          border: "1px solid #ef4444",
+        },
+      });
+    },
   });
 
   const submitPrediction = () => {
     if (!winner || !mom || !runs || !wickets) {
-      toast.error("Complete all predictions");
+      toast.error("Complete all predictions", {
+        position: "top-center",
+        style: {
+          background: "#0f172a",
+          color: "#fff",
+          border: "1px solid #f59e0b",
+        },
+      });
       return;
     }
 
@@ -126,242 +206,341 @@ const PredictMatch = () => {
   };
 
   const sections = [
-    { id: "winner", label: "Winner", icon: Trophy, value: winner },
-    { id: "mom", label: "POTM", icon: Star, value: mom },
-    { id: "runs", label: "Top Scorer", icon: Activity, value: runs },
-    { id: "wickets", label: "Top Wickets", icon: Target, value: wickets },
+    { id: "winner", label: "Winner", icon: Trophy, value: winner, color: "from-amber-400 to-orange-500" },
+    { id: "mom", label: "POTM", icon: Star, value: mom, color: "from-violet-400 to-fuchsia-500" },
+    { id: "runs", label: "Top Scorer", icon: Activity, value: runs, color: "from-emerald-400 to-teal-500" },
+    { id: "wickets", label: "Top Wickets", icon: Target, value: wickets, color: "from-rose-400 to-pink-500" },
   ];
 
   const getTeamColor = (teamName) => {
     const colors = {
       "Chennai Super Kings": "from-yellow-400 to-orange-500",
       "Mumbai Indians": "from-blue-400 to-blue-600",
-      "Royal Challengers Bengaluru": "from-red-500 to-black",
-      "Kolkata Knight Riders": "from-red-500 to-gold-500",
+      "Royal Challengers Bengaluru": "from-red-500 to-red-700",
+      "Kolkata Knight Riders": "from-purple-600 to-yellow-400",
       "Delhi Capitals": "from-blue-400 to-red-500",
-      "Punjab Kings": "from-blue-500 to-blue-500",
-      "Rajasthan Royals": "from-yellow-400 to-orange-500",
-      "Sunrisers Hyderabad": "from-red-500 to-yellow-500",
+      "Punjab Kings": "from-red-500 to-blue-500",
+      "Rajasthan Royals": "from-pink-500 to-blue-500",
+      "Sunrisers Hyderabad": "from-orange-500 to-red-500",
       "Lucknow Super Giants": "from-green-500 to-blue-500",
       "Gujarat Titans": "from-blue-500 to-green-500",
-      // Add more team gradients as needed
     };
-    return colors[teamName] || "from-gray-400 to-gray-600";
+    return colors[teamName] || "from-slate-400 to-slate-600";
+  };
+
+  const handleSectionChange = (newSection) => {
+    const currentIdx = sections.findIndex(s => s.id === activeSection);
+    const newIdx = sections.findIndex(s => s.id === newSection);
+    setDirection(newIdx > currentIdx ? 1 : -1);
+    setActiveSection(newSection);
+  };
+
+  const handleNext = () => {
+    const currentIdx = sections.findIndex(s => s.id === activeSection);
+    if (currentIdx < sections.length - 1) {
+      setDirection(1);
+      setActiveSection(sections[currentIdx + 1].id);
+    }
   };
 
   if (isLoading) {
     return (
       <MainLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <ClipLoader size={50} color="#7c3aed" />
+        <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+          <motion.div
+            animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+            <Sparkles className="w-12 h-12 text-violet-500" />
+          </motion.div>
         </div>
       </MainLayout>
     );
   }
 
+  const progress = (sections.filter(s => s.value).length / sections.length) * 100;
+
   return (
     <MainLayout>
-      <ToastContainer position="top-right" theme="colored" />
-
-      {authError && (
-        <ErrorMessage
-          message="Login required to predict"
-          setCreateError={setAuthError}
-        />
-      )}
-
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-        {/* ================= MATCH HEADER ================= */}
-        {/* <div className="bg-white shadow-sm border-b">
-          <div className="max-w-5xl mx-auto px-4 py-8">
-            <div className="flex items-center justify-center gap-6 md:gap-12">
-              <TeamCard team={teamA} teamImages={teamImages} size="lg" />
-              
-              <div className="text-center">
-                <div className="text-3xl font-black text-slate-300 mb-2">VS</div>
-                <div className="text-sm text-slate-500 font-medium">
-                  {data?.match_date}
-                </div>
-                <div className="text-xs text-slate-400 mt-1">
-                  {data?.match_time}
-                </div>
-              </div>
-
-              <TeamCard team={teamB} teamImages={teamImages} size="lg" />
-            </div>
-          </div>
-        </div> */}
-
-        <div className="max-w-5xl mx-auto px-4 py-8">
-          {/* ================= PROGRESS STEPS ================= */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between bg-white rounded-2xl p-2 shadow-sm">
-              {sections.map((section, idx) => {
-                const Icon = section.icon;
-                const isActive = activeSection === section.id;
-                const isCompleted = section.value;
-                
-                return (
-                  <button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl transition-all duration-300 ${
-                      isActive
-                        ? "bg-slate-900 text-white shadow-lg"
-                        : isCompleted
-                        ? "bg-slate-100 text-slate-700"
-                        : "text-slate-400 hover:bg-slate-50"
-                    }`}
-                  >
-                    <div className={`p-1.5 rounded-lg ${
-                      isActive ? "bg-white/20" : isCompleted ? "bg-green-100" : "bg-slate-200"
-                    }`}>
-                      {isCompleted && !isActive ? (
-                        <Check size={16} className="text-green-600" />
-                      ) : (
-                        <Icon size={16} />
-                      )}
-                    </div>
-                    <span className="hidden sm:block font-medium text-sm">
-                      {section.label}
-                    </span>
-                    {idx < sections.length - 1 && (
-                      <ChevronRight size={16} className="hidden md:block ml-2 opacity-30" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* ================= WINNER SELECTION ================= */}
-          {activeSection === "winner" && (
-            <Section icon={Trophy} title="Select Match Winner">
-              <div className="grid md:grid-cols-2 gap-6">
-                {[teamA, teamB].map((team) => (
-                  <button
-                    key={team?.team_id}
-                    onClick={() => {
-                      setWinner(team?.team_id);
-                      setActiveSection("mom");
-                    }}
-                    className={`group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 ${
-                      winner === team?.team_id
-                        ? "shadow-2xl scale-[1.02]"
-                        : "bg-white shadow-lg hover:shadow-xl hover:scale-[1.02]"
-                    }`}
-                  >
-                    {winner === team?.team_id && (
-                      <div className="absolute top-4 right-4 bg-primary-700 text-white p-2 rounded-full">
-                        <Check size={20} />
-                      </div>
-                    )}
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="relative">
-                        <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(team?.team_name)} opacity-20 blur-2xl rounded-full`} />
-                        <img
-                          src={teamImages[team?.team_name]}
-                          alt={team?.team_name}
-                          className="h-32 w-32 object-contain relative z-10 drop-shadow-2xl"
-                        />
-                      </div>
-                      <div className="text-center">
-                        <h3 className="text-2xl font-bold text-slate-800 mb-1">
-                          {team?.team_name}
-                        </h3>
-                        <p className="text-slate-500 text-sm">Click to select as winner</p>
-                      </div>
-                    </div>
-                    {winner === team?.team_name && (
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-purple-500/10 to-transparent h-32" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </Section>
-          )}
-
-          {/* ================= PLAYER SELECTION (MOM/RUNS/WICKETS) ================= */}
-          {["mom", "runs", "wickets"].includes(activeSection) && (
-            <PlayerSelectionSection
-              type={activeSection}
-              data={data}
-              selected={activeSection === "mom" ? mom : activeSection === "runs" ? runs : wickets}
-              onSelect={(value) => {
-                if (activeSection === "mom") setMom(value);
-                else if (activeSection === "runs") setRuns(value);
-                else setWickets(value);
-                
-                // Auto-advance to next section
-                const currentIdx = sections.findIndex(s => s.id === activeSection);
-                if (currentIdx < sections.length - 1) {
-                  setActiveSection(sections[currentIdx + 1].id);
-                }
-              }}
-              teamA={teamA}
-              teamB={teamB}
-              teamImages={teamImages}
-            />
-          )}
+      <div className="min-h-screen bg-slate-950 text-white pb-32">
+        {/* Background Effects */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 left-1/3 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-3xl" />
         </div>
 
-        {/* ================= STICKY SUMMARY ================= */}
-       <div className="border-t shadow-2xl z-50 bg-white">
-  <div className="max-w-4xl mx-auto px-4 py-4">
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-
-      {/* Summary pills */}
-      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-        <SummaryPill
-          icon={Trophy}
-          label="Winner"
-          value={winnerName}
-          isActive={activeSection === "winner"}
-          onClick={() => setActiveSection("winner")}
-        />
-        <SummaryPill
-          icon={Star}
-          label="POTM"
-          value={momName}
-          isActive={activeSection === "mom"}
-          onClick={() => setActiveSection("mom")}
-        />
-        <SummaryPill
-          icon={Activity}
-          label="Runs"
-          value={runsName}
-          isActive={activeSection === "runs"}
-          onClick={() => setActiveSection("runs")}
-        />
-        <SummaryPill
-          icon={Target}
-          label="Wickets"
-          value={wicketsName}
-          isActive={activeSection === "wickets"}
-          onClick={() => setActiveSection("wickets")}
-        />
-      </div>
-
-      {/* Submit button */}
-      <button
-        onClick={submitPrediction}
-        disabled={predictionDone || isPending || !winner || !mom || !runs || !wickets}
-        className="h-[48px] min-w-[180px] flex items-center justify-center gap-2 
-        bg-[#0f0f1a] hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed 
-        text-white px-6 rounded-xl font-semibold transition shadow-lg hover:shadow-xl"
-      >
-        {isPending ? (
-          <ClipLoader size={18} color="#fff" />
-        ) : (
-          <>
-            <Check size={18} />
-            Lock Prediction
-          </>
+        {/* Auth Error */}
+        {authError && (
+          <ErrorMessage
+            message="Login required to predict"
+            setCreateError={setAuthError}
+          />
         )}
-      </button>
-    </div>
-  </div>
-</div>
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-lg">
+                <Swords className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-black">
+                <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                  Make Prediction
+                </span>
+              </h1>
+            </div>
+            <p className="text-slate-400">Select your predictions for this match</p>
+          </motion.div>
+
+          {/* Match Header Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative overflow-hidden rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-8 mb-8"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 to-fuchsia-600/5" />
+            
+            <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
+              {/* Team A */}
+              <div className="flex-1 flex flex-col items-center text-center">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: -5 }}
+                  className="relative mb-4"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamA?.team_name)} opacity-20 blur-2xl rounded-full`} />
+                  <img
+                    src={teamImages[teamA?.team_name]}
+                    alt={teamA?.team_name}
+                    className="h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
+                  />
+                </motion.div>
+                <h3 className="text-xl font-bold text-white mb-1">{teamA?.team_name}</h3>
+                <p className="text-sm text-slate-500">{teamA?.team_code}</p>
+              </div>
+
+              {/* VS */}
+              <div className="flex flex-col items-center gap-2">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-violet-500 blur-xl opacity-20" />
+                  <div className="relative w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
+                    <span className="text-2xl font-black text-slate-400 italic">VS</span>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-slate-400">{data?.match_date}</p>
+                  <p className="text-xs text-slate-600">{data?.match_time}</p>
+                </div>
+              </div>
+
+              {/* Team B */}
+              <div className="flex-1 flex flex-col items-center text-center">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  className="relative mb-4"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamB?.team_name)} opacity-20 blur-2xl rounded-full`} />
+                  <img
+                    src={teamImages[teamB?.team_name]}
+                    alt={teamB?.team_name}
+                    className="h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
+                  />
+                </motion.div>
+                <h3 className="text-xl font-bold text-white mb-1">{teamB?.team_name}</h3>
+                <p className="text-sm text-slate-500">{teamB?.team_code}</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Progress Bar */}
+          <div className="mb-8">
+            <div className="flex justify-between text-sm text-slate-400 mb-2">
+              <span>Prediction Progress</span>
+              <span>{Math.round(progress)}%</span>
+            </div>
+            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+          </div>
+
+          {/* Step Indicators */}
+          <div className="grid grid-cols-4 gap-2 mb-8">
+            {sections.map((section, idx) => {
+              const Icon = section.icon;
+              const isActive = activeSection === section.id;
+              const isCompleted = section.value;
+              const isLocked = predictionDone;
+              
+              return (
+                <motion.button
+                  key={section.id}
+                  onClick={() => !isLocked && handleSectionChange(section.id)}
+                  whileHover={!isLocked ? { scale: 1.02 } : {}}
+                  className={`relative overflow-hidden rounded-xl p-4 transition-all duration-300 ${
+                    isActive
+                      ? "bg-slate-800 border-2 border-violet-500/50 shadow-lg shadow-violet-500/10"
+                      : isCompleted
+                      ? "bg-slate-900/50 border border-emerald-500/30"
+                      : "bg-slate-900/30 border border-slate-800"
+                  } ${isLocked ? "cursor-not-allowed opacity-80" : "cursor-pointer hover:border-slate-700"}`}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${section.color} opacity-0 ${isActive ? "opacity-10" : ""}`} />
+                  
+                  <div className="relative flex flex-col items-center gap-2">
+                    <div className={`p-2 rounded-lg ${
+                      isActive 
+                        ? "bg-violet-500/20 text-violet-400" 
+                        : isCompleted
+                        ? "bg-emerald-500/20 text-emerald-400"
+                        : "bg-slate-800 text-slate-500"
+                    }`}>
+                      {isCompleted && !isActive ? (
+                        <Check className="w-5 h-5" />
+                      ) : (
+                        <Icon className="w-5 h-5" />
+                      )}
+                    </div>
+                    <span className={`text-xs font-medium ${
+                      isActive ? "text-white" : isCompleted ? "text-emerald-400" : "text-slate-500"
+                    }`}>
+                      {section.label}
+                    </span>
+                  </div>
+
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Content Area */}
+          <div className="relative min-h-[500px]">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeSection}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 },
+                }}
+              >
+                {activeSection === "winner" && (
+                  <WinnerSection 
+                    teamA={teamA} 
+                    teamB={teamB} 
+                    teamImages={teamImages}
+                    winner={winner}
+                    setWinner={setWinner}
+                    onNext={handleNext}
+                    getTeamColor={getTeamColor}
+                    predictionDone={predictionDone}
+                  />
+                )}
+                {["mom", "runs", "wickets"].includes(activeSection) && (
+                  <PlayerSection
+                    type={activeSection}
+                    data={data}
+                    selected={activeSection === "mom" ? mom : activeSection === "runs" ? runs : wickets}
+                    onSelect={(value) => {
+                      if (activeSection === "mom") setMom(value);
+                      else if (activeSection === "runs") setRuns(value);
+                      else setWickets(value);
+                      handleNext();
+                    }}
+                    teamA={teamA}
+                    teamB={teamB}
+                    teamImages={teamImages}
+                    predictionDone={predictionDone}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Sticky Bottom Bar */}
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-xl border-t border-slate-800 z-50">
+          <div className="max-w-6xl mx-auto px-4 py-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              
+              {/* Summary Pills */}
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {sections.map((section) => {
+                  const value = section.id === "winner" ? winnerName : 
+                               section.id === "mom" ? momName : 
+                               section.id === "runs" ? runsName : wicketsName;
+                  
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => handleSectionChange(section.id)}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-full text-xs font-medium transition-all ${
+                        activeSection === section.id
+                          ? "bg-violet-500/20 text-violet-300 border border-violet-500/50"
+                          : value
+                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                          : "bg-slate-900 text-slate-500 border border-slate-800"
+                      }`}
+                    >
+                      <section.icon className="w-3 h-3" />
+                      <span className="hidden sm:inline">{section.label}:</span>
+                      <span className={value ? "font-semibold" : ""}>
+                        {value || "—"}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Submit Button */}
+              <motion.button
+                whileHover={!predictionDone && progress === 100 ? { scale: 1.02 } : {}}
+                whileTap={!predictionDone && progress === 100 ? { scale: 0.98 } : {}}
+                onClick={submitPrediction}
+                disabled={predictionDone || isPending || progress < 100}
+                className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold transition-all ${
+                  predictionDone
+                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 cursor-default"
+                    : progress === 100
+                    ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-lg shadow-violet-500/25"
+                    : "bg-slate-800 text-slate-500 cursor-not-allowed"
+                }`}
+              >
+                {isPending ? (
+                  <ClipLoader size={18} color="#fff" />
+                ) : predictionDone ? (
+                  <>
+                    <Lock className="w-4 h-4" />
+                    Locked
+                  </>
+                ) : (
+                  <>
+                    <Shield className="w-4 h-4" />
+                    Lock Prediction
+                  </>
+                )}
+              </motion.button>
+            </div>
+          </div>
+        </div>
       </div>
     </MainLayout>
   );
@@ -369,42 +548,78 @@ const PredictMatch = () => {
 
 /* ================= SUB COMPONENTS ================= */
 
-const TeamCard = ({ team, teamImages, size = "md" }) => {
-  const sizeClasses = {
-    sm: "h-16 w-16",
-    md: "h-24 w-24",
-    lg: "h-32 w-32"
-  };
-
-  return (
-    <div className="flex flex-col items-center gap-3">
-      <div className={`${sizeClasses[size]} relative`}>
-        <img
-          src={teamImages[team?.team_name]}
-          alt={team?.team_name}
-          className="h-full w-full object-contain drop-shadow-lg"
-        />
-      </div>
-      <span className="font-bold text-slate-800 text-center max-w-[120px] leading-tight">
-        {team?.team_name}
-      </span>
-    </div>
-  );
-};
-
-const Section = ({ icon: Icon, title, children }) => (
-  <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, getTeamColor, predictionDone }) => (
+  <div className="space-y-6">
     <div className="flex items-center gap-3 mb-6">
-      <div className="p-3 bg-primary-800 text-white rounded-2xl">
-        <Icon size={24} />
+      <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl shadow-lg shadow-amber-500/20">
+        <Trophy className="w-6 h-6 text-white" />
       </div>
-      <h2 className="text-2xl font-semibold text-slate-800">{title}</h2>
+      <div>
+        <h2 className="text-2xl font-bold text-white">Select Match Winner</h2>
+        <p className="text-slate-400 text-sm">Choose which team you think will win</p>
+      </div>
     </div>
-    {children}
+
+    <div className="grid md:grid-cols-2 gap-6">
+      {[teamA, teamB].map((team) => (
+        <motion.button
+          key={team?.team_id}
+          whileHover={!predictionDone ? { scale: 1.02, y: -5 } : {}}
+          whileTap={!predictionDone ? { scale: 0.98 } : {}}
+          onClick={() => {
+            if (!predictionDone) {
+              setWinner(team?.team_id);
+              setTimeout(onNext, 300);
+            }
+          }}
+          className={`group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 ${
+            winner === team?.team_id
+              ? "bg-slate-800 border-2 border-amber-500/50 shadow-2xl shadow-amber-500/10"
+              : "bg-slate-900/50 border border-slate-800 hover:border-slate-700"
+          } ${predictionDone ? "cursor-default" : "cursor-pointer"}`}
+        >
+          <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(team?.team_name)} opacity-0 group-hover:opacity-10 transition-opacity`} />
+          
+          {winner === team?.team_id && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="absolute top-4 right-4 bg-amber-500 text-white p-2 rounded-full shadow-lg"
+            >
+              <Crown className="w-5 h-5" />
+            </motion.div>
+          )}
+
+          <div className="relative flex flex-col items-center gap-6">
+            <motion.div 
+              className="relative"
+              animate={winner === team?.team_id ? { y: [0, -10, 0] } : {}}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(team?.team_name)} opacity-30 blur-3xl rounded-full`} />
+              <img
+                src={teamImages[team?.team_name]}
+                alt={team?.team_name}
+                className="h-40 w-40 object-contain relative z-10 drop-shadow-2xl"
+              />
+            </motion.div>
+            
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-white mb-2">{team?.team_name}</h3>
+              <p className="text-slate-500 text-sm">Click to select as winner</p>
+            </div>
+          </div>
+
+          {winner === team?.team_id && (
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+          )}
+        </motion.button>
+      ))}
+    </div>
   </div>
 );
 
-const PlayerSelectionSection = ({ type, data, selected, onSelect, teamA, teamB, teamImages }) => {
+const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImages, predictionDone }) => {
   const players = type === "mom" 
     ? data?.mom_players 
     : type === "runs" 
@@ -418,154 +633,123 @@ const PlayerSelectionSection = ({ type, data, selected, onSelect, teamA, teamB, 
     : "Highest Wicket Taker";
 
   const subtitle = type === "mom" 
-    ? "Choose the standout performer" 
+    ? "The standout performer of the game" 
     : type === "runs" 
-    ? "Pick who will score the most runs" 
-    : "Select the top wicket taker";
+    ? "Who will score the most runs?" 
+    : "Who will take the most wickets?";
 
   const Icon = type === "mom" ? Star : type === "runs" ? Activity : Target;
+  const gradient = type === "mom" ? "from-violet-500 to-fuchsia-500" : type === "runs" ? "from-emerald-500 to-teal-500" : "from-rose-500 to-pink-500";
 
-  // Group players by team
   const teamAPlayers = players?.filter(p => p.team_name === teamA?.team_name) || [];
   const teamBPlayers = players?.filter(p => p.team_name === teamB?.team_name) || [];
 
   return (
-    <div className="animate-in fade-in slide-in-from-right-8 duration-300">
-      <div className="flex items-center gap-3 mb-2">
-        <div className="p-3 bg-gradient-to-br from-primary-700 to-primary-900 text-white rounded-2xl shadow-lg">
-          <Icon size={24} />
+    <div className="space-y-8">
+      <div className="flex items-center gap-3 mb-6">
+        <div className={`p-3 bg-gradient-to-br ${gradient} rounded-xl shadow-lg`}>
+          <Icon className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">{title}</h2>
-          <p className="text-slate-500 text-sm">{subtitle}</p>
+          <h2 className="text-2xl font-bold text-white">{title}</h2>
+          <p className="text-slate-400 text-sm">{subtitle}</p>
         </div>
       </div>
 
-      <div className="space-y-8 mt-6">
-        {/* Team A Section */}
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <img 
-              src={teamImages[teamA?.team_name]} 
-              alt="" 
-              className="h-8 w-8 object-contain"
-            />
-            <h3 className="font-bold text-slate-700">{teamA?.team_name}</h3>
-            <div className="flex-1 h-px bg-slate-200" />
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {teamAPlayers.map((player) => (
-              <PlayerCard
-                key={player.player_id}
-                player={player}
-                isSelected={selected === player.player_id}
-                onClick={() => onSelect(player.player_id)}
-              />
-            ))}
-          </div>
+      {/* Team A */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <img src={teamImages[teamA?.team_name]} alt="" className="h-8 w-8 object-contain" />
+          <h3 className="font-bold text-slate-300">{teamA?.team_name}</h3>
+          <div className="flex-1 h-px bg-slate-800" />
+          <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamAPlayers.length} players</span>
         </div>
-
-        {/* Team B Section */}
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <img 
-              src={teamImages[teamB?.team_name]} 
-              alt="" 
-              className="h-8 w-8 object-contain"
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {teamAPlayers.map((player) => (
+            <PlayerCard
+              key={player.player_id}
+              player={player}
+              isSelected={selected === player.player_id}
+              onClick={() => !predictionDone && onSelect(player.player_id)}
+              gradient={gradient}
+              predictionDone={predictionDone}
             />
-            <h3 className="font-bold text-slate-700">{teamB?.team_name}</h3>
-            <div className="flex-1 h-px bg-slate-200" />
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-            {teamBPlayers.map((player) => (
-              <PlayerCard
-                key={player.player_id}
-                player={player}
-                isSelected={selected === player.player_id}
-                onClick={() => onSelect(player.player_id)}
-              />
-            ))}
-          </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Team B */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <img src={teamImages[teamB?.team_name]} alt="" className="h-8 w-8 object-contain" />
+          <h3 className="font-bold text-slate-300">{teamB?.team_name}</h3>
+          <div className="flex-1 h-px bg-slate-800" />
+          <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamBPlayers.length} players</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {teamBPlayers.map((player) => (
+            <PlayerCard
+              key={player.player_id}
+              player={player}
+              isSelected={selected === player.player_id}
+              onClick={() => !predictionDone && onSelect(player.player_id)}
+              gradient={gradient}
+              predictionDone={predictionDone}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-const PlayerCard = ({ player, isSelected, onClick }) => (
-  <button
+const PlayerCard = ({ player, isSelected, onClick, gradient, predictionDone }) => (
+  <motion.button
+    whileHover={!predictionDone ? { scale: 1.05, y: -2 } : {}}
+    whileTap={!predictionDone ? { scale: 0.95 } : {}}
     onClick={onClick}
-    className={`w-full rounded-xl p-4 text-left transition-all duration-200
-    ${
+    className={`relative overflow-hidden rounded-xl p-4 text-left transition-all duration-200 ${
       isSelected
-        ? "bg-primary-900 text-white shadow-lg ring-2 ring-primary-400"
-        : "bg-white border border-slate-200 hover:border-primary-500 hover:shadow-md"
-    }`}
+        ? `bg-slate-800 border-2 border-transparent shadow-lg`
+        : "bg-slate-900/50 border border-slate-800 hover:border-slate-700"
+    } ${predictionDone ? "cursor-default" : "cursor-pointer"}`}
+    style={isSelected ? {
+      background: `linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)) padding-box, linear-gradient(135deg, var(--tw-gradient-stops)) border-box`,
+    } : {}}
   >
-    <div className="flex items-center gap-3">
-      
-      {/* Avatar */}
-      <div
-        className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold
-        ${
-          isSelected
-            ? "bg-white/20 text-white"
-            : "bg-slate-100 text-slate-600"
-        }`}
-      >
-        {player.player_name
-          .split(" ")
-          .map((n) => n[0])
-          .join("")
-          .slice(0, 2)}
+    {isSelected && (
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-10`} />
+    )}
+    
+    <div className="relative flex items-center gap-3">
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
+        isSelected
+          ? `bg-gradient-to-br ${gradient} text-white`
+          : "bg-slate-800 text-slate-400"
+      }`}>
+        {player.player_name.split(" ").map(n => n[0]).join("").slice(0, 2)}
       </div>
 
-      {/* Player Info */}
-      <div className="flex flex-col flex-1">
-        <p
-          className={`font-semibold text-sm ${
-            isSelected ? "text-white" : "text-slate-800"
-          }`}
-        >
+      <div className="flex-1 min-w-0">
+        <p className={`font-semibold text-sm truncate ${isSelected ? "text-white" : "text-slate-300"}`}>
           {player.player_name}
         </p>
-
-        <p
-          className={`text-xs ${
-            isSelected ? "text-primary-100" : "text-slate-500"
-          }`}
-        >
+        <p className={`text-xs ${isSelected ? "text-slate-400" : "text-slate-600"}`}>
           {player.role || "All-rounder"}
         </p>
       </div>
 
-      {/* Selected indicator */}
       {isSelected && (
-        <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center">
-          <Check size={12} className="text-primary-600" />
-        </div>
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center"
+        >
+          <Check className="w-3 h-3 text-white" />
+        </motion.div>
       )}
     </div>
-  </button>
-);
-
-const SummaryPill = ({ icon: Icon, label, value, isActive, onClick }) => (
-  <button
-    onClick={onClick}
-    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-      isActive
-        ? "bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] text-white shadow-lg"
-        : value
-        ? "bg-green-50 text-green-700 border border-green-200"
-        : "bg-primary-100 text-primary-400 border border-primary-200"
-    }`}
-  >
-    <Icon size={14} />
-    <span className="hidden sm:inline">{label}:</span>
-    <span className={value ? "font-semibold" : ""}>
-      {value || "—"}
-    </span>
-  </button>
+  </motion.button>
 );
 
 export default SectionWrapper(PredictMatch, "PredictMatch");

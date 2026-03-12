@@ -14,7 +14,7 @@ import AboutUsPage from "./pages/AboutUs";
 import Terms from "./pages/Terms";
 import EventsPage from "./pages/events/eventsPage";
 import EventDetailsPage from "./pages/events/eventsDetails";
-
+import './App.css';
 function App() {
   
   const userState = useSelector((state) => state.user);

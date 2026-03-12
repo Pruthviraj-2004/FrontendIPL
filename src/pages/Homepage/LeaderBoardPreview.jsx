@@ -9,8 +9,8 @@ const LeaderboardPreview = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="w-full py-12 bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="w-full lg:py-12">
+      <div className="Lo">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -20,21 +20,21 @@ const LeaderboardPreview = () => {
         >
           {/* Icon */}
           <div className="w-16 h-16 mb-6 rounded-2xl bg-white/10 flex items-center justify-center">
-            <MdLeaderboard size={32} className="text-orange-400" />
+            <MdLeaderboard size={32} className="text-purple-600" />
           </div>
 
           {/* Label */}
-          <p className="text-sm uppercase tracking-widest text-orange-300 font-semibold">
+          <p className="text-sm uppercase tracking-widest text-purple-500 font-semibold">
             Compete & Rank
           </p>
 
           {/* Heading */}
-          <h2 className={`${styles.sectionHeadText} mt-3 text-left text-gray-100`}>
+          <h2 className={`${styles.sectionHeadText} mt-3 text-left text-slate-100`}>
             Leaderboard
           </h2>
 
           {/* Description */}
-          <p className="mt-6 max-w-2xl text-lg text-gray-200 leading-relaxed">
+          <p className="mt-6 max-w-2xl text-lg text-slate-200 leading-relaxed">
             Track your performance against other players and see how your
             predictions stack up. The more accurate your calls, the higher you
             rise on the leaderboard.
@@ -44,7 +44,7 @@ const LeaderboardPreview = () => {
           <div className="mt-10">
             <button
               onClick={() => navigate("/board")}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-orange-500 hover:bg-orange-600 transition font-semibold text-white"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-purple-700 hover:bg-purple-900 transition font-semibold text-white"
             >
               View Leaderboard
               <span className="text-xl">→</span>

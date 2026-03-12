@@ -5,7 +5,7 @@ const EventCard = ({ event, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer bg-gradient-to-br from-[#f5f7ff] via-[#eef1ff] to-[#f9fbff] rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
+      className="group cursor-pointer bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
     >
       {/* Banner placeholder */}
       <div className="h-44 bg-gray-200 flex items-center justify-center">
@@ -19,7 +19,7 @@ const EventCard = ({ event, onClick }) => {
       {/* Content */}
       <div className="p-6">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-purple-700 transition">
+          <h3 className="text-lg font-semibold text-slate-200 group-hover:text-purple-700 transition">
             {event.event_name}
           </h3>
 
@@ -34,7 +34,7 @@ const EventCard = ({ event, onClick }) => {
           </span>
         </div>
 
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-slate-300">
           View fixtures, predict match outcomes, and earn points.
         </p>
 

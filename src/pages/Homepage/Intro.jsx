@@ -89,16 +89,16 @@ const Introo = () => {
       <MainLayout>
         
         <section className="h-full w-screen max-w-screen scrollbar-hide">
-          <div className={` w-screen max-w-screen flex flex-col  `}>
+          <div className={` w-screen max-w-screen flex flex-col bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]`}>
             <div
-              // style={{
-              //   backgroundImage: `url(${images.bg23})`,
-              //   backgroundSize: "cover",
-              //   backgroundPosition: "center",
-              //   backgroundRepeat: "no-repeat",
-              //   height: "screen"
-              // }}
-              className="bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]"
+              // // style={{
+              // //   backgroundImage: `url(${images.bg23})`,
+              // //   backgroundSize: "cover",
+              // //   backgroundPosition: "center",
+              // //   backgroundRepeat: "no-repeat",
+              // //   height: "screen"
+              // // }}
+              // className="bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]"
             >
               <HeroSection />
             </div>
