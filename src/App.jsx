@@ -12,7 +12,9 @@ import Intro from "./pages/Homepage/Intro";
 import { useSelector } from "react-redux";
 import AboutUsPage from "./pages/AboutUs";
 import Terms from "./pages/Terms";
-
+import EventsPage from "./pages/events/eventsPage";
+import EventDetailsPage from "./pages/events/eventsDetails";
+import './App.css';
 function App() {
   
   const userState = useSelector((state) => state.user);
@@ -21,7 +23,7 @@ function App() {
     window.scrollTo(0,0)
   },[])
   return (
-    <div className="App bg-gray-100  w-screen overflow-hidden">
+    <div className="App bg-gray-100  w-screen overflow-hidden inter-regular">
    
         <Routes>
           
@@ -31,6 +33,8 @@ function App() {
           {userState?.userInfo && (
             <Route exact path="/usersubmission" element={<UserSubmission />} />
           )}
+          <Route exact path="/events" element={<EventsPage/>}/>
+          <Route exact path="/events/:eventId" element={<EventDetailsPage />} />
           <Route exact path="/fixtures" element={<FixturePage />} />
           <Route exact path="/fixtures/:matchId" element={<PredictMatch />} />
           <Route exact path="/lbparticipate" element={<LeaderboardForm />} />

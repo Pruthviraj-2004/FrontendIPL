@@ -5,10 +5,9 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaLock } from "react-icons/fa";
 import { MdEmail, MdError, MdLeaderboard } from "react-icons/md";
-import { findInputError, isFormInvalid } from "../utils/motion";
-import { AnimatePresence } from "framer-motion";
 import { IoPersonSharp } from "react-icons/io5";
-import { useFormContext } from "react-hook-form";
+import { AnimatePresence } from "framer-motion";
+import { useWatch } from "react-hook-form";
 
 const Input = ({
   label,
@@ -18,6 +17,8 @@ const Input = ({
   register,
   errors,
   disabled,
+  watch,
+  control
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -26,113 +27,126 @@ const Input = ({
     setShowPassword((prevState) => !prevState);
   };
 
-  const inputError = findInputError(errors, label);
-  const isInvalid = isFormInvalid(inputError);
 
-  useEffect(() => {
-    setIsFocused(false);
-  }, [variant]);
+  const value = useWatch({
+  control,
+  name: id
+  });
 
-  // Function to validate password length
+  const hasValue = !!value;
+  const inputError = errors?.[id];
+  const isInvalid = !!inputError;
+  const shouldFloat = isFocused || hasValue;
+
+  // Validate password length
   const validatePasswordLength = (value) => {
-    if (type === "password" && value.length < 6) {
+    if (type === "password" && value && value.length < 6) {
       return "Password must be at least 6 characters long";
     }
     return true;
   };
 
-  
-  useEffect(() => {
-  // Delay checking watch(id) to ensure form values are populated
-      
-      setIsFocused(true);
+  // Icon mapping with updated colors
+  const getIcon = () => {
+    const iconClass = "w-5 h-5 text-slate-400";
     
-}, []);
-
-
+    if (label === "Name" || label === "Username") {
+      return <IoPersonSharp className={iconClass} />;
+    }
+    if (label === "Email") {
+      return <MdEmail className={iconClass} />;
+    }
+    if (type === "password") {
+      return <FaLock className={iconClass} />;
+    }
+    if (label === "Leaderboard Name" || label === "Company display id") {
+      return <MdLeaderboard className={iconClass} />;
+    }
+    return null;
+  };
 
   return (
-    <div>
-      <AnimatePresence>
+    <div className="relative">
+      {/* Error Message */}
+      <AnimatePresence mode="wait">
         {isInvalid && (
           <InputError
-            message={inputError.error.message}
-            key={inputError.error.message}
+            message={inputError.message}
+            key={inputError.message}
           />
         )}
       </AnimatePresence>
-      <div className="my-2 relative">
-        {(label === "Name" || label === "Username") && (
-          <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <IoPersonSharp color="#3486eb" />
-          </div>
-        )}
-        {label === "Email" && (
-          <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <MdEmail color="#3486eb" />
-          </div>
-        )}
-        {type === "password" && (
-          <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <FaLock color="#3486eb" />
-          </div>
-        )}
-        {label === "Leaderboard Name" && (
-          <div className="absolute inset-y-0 left-0 flex items-center ml-3 cursor-pointer">
-            <MdLeaderboard color="#3486eb" />
-          </div>
-        )}
+
+      <div className="relative my-3">
+        {/* Left Icon */}
+        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+          {getIcon()}
+        </div>
+
+        {/* Floating Label */}
         <motion.label
           htmlFor={id}
           className={clsx(
-            "absolute origin-top-left left-10 top-[-0px] text-md font-medium transition-all duration-200",
-            {
-              "text-gray-500": !isFocused && !errors[id],
-              "text-teal-500 transform -translate-y-[3px] scale-75": isFocused,
-              "text-orange-500": errors[id],
-            }
+            "absolute left-12 font-medium transition-colors duration-200 pointer-events-none",
+            shouldFloat 
+              ? "top-2 text-xs text-violet-400" 
+              : "top-1/2 -translate-y-1/2 text-base text-slate-400",
+            isInvalid && "text-rose-400"
           )}
-          initial={{ y: 0, scale: 1 }}
           animate={{
-            y: isFocused ? -11 : 0,
-            scale: isFocused ? 0.75 : 1,
-            x: isFocused ? 0 : 0,
+            y: shouldFloat ? 0 : -12,
+            scale: shouldFloat ? 0.85 : 1
           }}
-          exit={{ y: 0, scale: 1 }}
+          transition={{ duration: 0.2 }}
         >
           {label}
         </motion.label>
+
+        {/* Input Field */}
         <input
           id={id}
           type={showPassword ? "text" : type}
+          placeholder="none"
+          disabled={disabled}
           {...register(id, {
             required: {
               value: true,
-              message: "required",
+              message: `${label} is required`,
             },
-            validate: validatePasswordLength,
+            validate: type === "password" ? validatePasswordLength : undefined,
           })}
           className={clsx(
-            "form-input block w-full pl-10 rounded-md py-5 text-black ring-black border-gray-300 border-[2px] focus:border-[2px] sm:text-sm sm:leading-6",
-            errors[id] && "focus:ring-rose-500",
-            disabled && "opacity-50"
+            "block w-full rounded-xl py-4 pl-12 pr-4 placeholder-transparent",
+            "bg-slate-900/80 border-2 transition-all duration-200",
+            "focus:outline-none focus:ring-0 sm:text-sm",
+            isInvalid
+              ? "border-rose-500/50 focus:border-rose-500 text-rose-100"
+              : "border-slate-700 text-white focus:border-violet-500/50 hover:border-slate-600",
+            disabled && "opacity-50 cursor-not-allowed",
+            isFocused && "bg-slate-900"
+       
           )}
           onFocus={() => setIsFocused(true)}
-          
+          onBlur={() => setIsFocused(false)}
         />
+
+        {/* Password Toggle */}
         {type === "password" && (
-          <div
-            className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+          <button
+            type="button"
+            className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-300 transition-colors"
             onClick={togglePasswordVisibility}
           >
             {showPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
-          </div>
+          </button>
         )}
       </div>
-      {errors[id] && variant === "REGISTER" && (
-        <div className="text-sm text-left ml-3 text-orange-500">
-          {errors[id].type === "validate" ? errors[id].message : "This field is required"}
-        </div>
+
+      {/* Helper Text for Password */}
+      {type === "password" && variant === "REGISTER" && !isInvalid && (
+        <p className="text-xs text-slate-500 ml-1 mt-1">
+          Must be at least 6 characters
+        </p>
       )}
     </div>
   );
@@ -140,21 +154,16 @@ const Input = ({
 
 const InputError = ({ message }) => {
   return (
-    <motion.p
-      className="flex items-center text-sm gap-1 ml-3 font-semibold text-orange-500 rounded-md"
-      {...framer_error}
+    <motion.div
+      initial={{ opacity: 0, y: -10, height: 0 }}
+      animate={{ opacity: 1, y: 0, height: "auto" }}
+      exit={{ opacity: 0, y: -10, height: 0 }}
+      className="flex items-center gap-1.5 text-sm font-medium text-rose-400 mb-2"
     >
-      <MdError />
-      {message}
-    </motion.p>
+      <MdError className="w-4 h-4 flex-shrink-0" />
+      <span>{message}</span>
+    </motion.div>
   );
-};
-
-const framer_error = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 10 },
-  transition: { duration: 0.2 },
 };
 
 export default Input;

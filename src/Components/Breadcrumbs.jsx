@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 const Breadcrumbs = ({ data, activeName }) => {
   return (
-    <div className="flex items-center overflow-x-auto ml-5 mt-4 z-[1000] whitespace-nowrap py-4">
+    <div className="flex items-center overflow-x-auto px-3 z-[1000] whitespace-nowrap py-4">
       {data.map((item, index) => (
         <div
           className={`${

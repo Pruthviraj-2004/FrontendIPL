@@ -1,52 +1,77 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect, useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import {  slideIn, zoomIn } from "../../utils/motion";
- import { SectionWrapper } from "../../hoc";
- import { useSelector } from "react-redux";
-// import CTA from "../../Components/CTA";
-import { images } from "../../constants";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Trophy, 
+  Star, 
+  Target, 
+  Activity, 
+  ChevronRight, 
+  Check, 
+  Shield,
+  Swords,
+  Zap,
+  Crown,
+  User,
+  Sparkles,
+  Lock,
+  AlertCircle
+} from "lucide-react";
 import ClipLoader from "react-spinners/ClipLoader";
-import MainLayout from "../../Components/MainLayout";
-import { predictMatch } from "../../services/fixtures";
-import { useQuery } from "@tanstack/react-query";
-import { getMatchDetails } from "../../services/fixtures";
-import {teams} from "../../constants";
-import Popup from "../../Components/Popup";
-import { createPortal } from "react-dom";
-import ErrorMessage from "../../Components/Error";
-import Breadcrumbs from "../../Components/Breadcrumbs";
 
+import MainLayout from "../../Components/MainLayout";
+import ErrorMessage from "../../Components/Error";
+import { images } from "../../constants";
+import { getMatchDetails, predictMatch } from "../../services/fixtures";
+import { SectionWrapper } from "../../hoc";
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+const slideVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction) => ({
+    zIndex: 0,
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
 
 const PredictMatch = () => {
-  const userState = useSelector((state)=>state.user)
-  const [completed, isCompleted] = useState(false);
-  const [current,setCurrent] = useState(false);
-  const [popup, setPopup] = useState(false);
   const { matchId } = useParams();
-  const parsedMatchId = parseInt(matchId);
-// console.log(parsedMatchId);
 
-  const Breadcrumbsdata= [
-    {
-      name: "Home",
-      link: "/",
-    },
-    {
-      name: "Fixtures",
-      link: "/fixtures",
-    },
-    {
-      name: `${matchId}`,
-      link: `/${matchId}/`,
-    },
-  ]
-
-  const [errorss,setCreateError]= useState(false);
   const teamImages = {
     "Chennai Super Kings": images.csk1,
     "Delhi Capitals": images.dc1,
@@ -54,502 +79,677 @@ const PredictMatch = () => {
     "Mumbai Indians": images.mi1,
     "Punjab Kings": images.pbks1,
     "Rajasthan Royals": images.rr1,
-    "Royal Challengers Bengaluru": images.rcb1,
+    "Royal Challengers Bangalore": images.rcb1,
     "Sunrisers Hyderabad": images.srh1,
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,
-    
-    "India": images.IND ,
-    "Canada": images.CAN ,
-    "Ireland": images.IRE ,
-    "Pakistan": images.PAK ,
-    "United States": images.USA ,
-
-    "Australia": images.AUS ,
-    "England": images.ENG ,
-    "Namibia": images.NAM ,
-    "Oman": images.OMA ,
-    "Scotland": images.SCO ,
-    
-    "Afghanistan": images.AFG ,
-    "New Zealand": images.NZ ,
-    "Papua New Guinea": images.PNG ,
-    "Uganda": images.UGA ,
-    "West Indies": images.WI ,
-
-    "Bangladesh": images.BAN ,
-    "South Africa": images.SA ,
-    "Sri Lanka": images.SL ,
-    "Nepal": images.NEP ,
-    "Netherlands": images.NED ,
-
+    "India": images.IND,
+    "Canada": images.CAN,
+    "Ireland": images.IRE,
+    "Pakistan": images.PAK,
+    "United States": images.USA,
+    "Australia": images.AUS,
+    "England": images.ENG,
+    "Namibia": images.NAM,
+    "Oman": images.OMA,
+    "Scotland": images.SCO,
+    "Afghanistan": images.AFG,
+    "New Zealand": images.NZ,
+    "Papua New Guinea": images.PNG,
+    "Uganda": images.UGA,
+    "West Indies": images.WI,
+    "Bangladesh": images.BAN,
+    "South Africa": images.SA,
+    "Sri Lanka": images.SL,
+    "Nepal": images.NEP,
+    "Netherlands": images.NED,
   };
-  const teamColors = {
-    "Chennai Super Kings": "yellow", // Yellow
-    "Delhi Capitals": "#136EA4", // Blue
-    "Kolkata Knight Riders": "#3A225D", // Purple
-    "Mumbai Indians": "#005DA0", // Blue
-    "Punjab Kings": "#E41E26", // Red
-    "Rajasthan Royals": "#2D3E8B", // Blue
-    "Royal Challengers Bangalore": "#000000", // Black
-    "Sunrisers Hyderabad": "#FF822A", // Orange
-    "Lucknow Super Giants": "#000080", // Navy
-    "Gujarat Titans": "#008000", // Green
-  };
- 
-  const { data, isLoading: isLoading1, refetch } = useQuery({
-    queryFn: () => {
-        return getMatchDetails(parsedMatchId);
-    },
-    onError: (error) => toast.error(error.message,{
-      position: "top-center",
-      autoClose: 3000,
-      style: {
-        width: "auto",
-        style: "flex justify-center",
-      },
-      closeButton: false,
-      progress: undefined,
-    }),
-    queryKey: ["match", parsedMatchId],
+
+  /* ---------------- STATE ---------------- */
+  const [winner, setWinner] = useState(null);
+  const [mom, setMom] = useState(null);
+  const [runs, setRuns] = useState(null);
+  const [wickets, setWickets] = useState(null);
+  const [authError, setAuthError] = useState(false);
+  const [activeSection, setActiveSection] = useState("winner");
+  const [predictionDone, setPredictionDone] = useState(false);
+  const [direction, setDirection] = useState(0);
+
+  /* ---------------- FETCH MATCH ---------------- */
+  const { data, isLoading } = useQuery({
+    queryKey: ["match", matchId],
+    queryFn: () => getMatchDetails(matchId),
   });
-  
+
   useEffect(() => {
-    refetch();
-  }, [isLoading1]);
-  useEffect(() => {
-    if(data?.match_status === 1){
-      isCompleted(true)
-    } else {
-      isCompleted(false)
+    if (data?.submission) {
+      setWinner(data.submission.predicted_winner_team_id);
+      setMom(data.submission.predicted_player_of_match_id);
+      setRuns(data.submission.predicted_most_runs_player_id);
+      setWickets(data.submission.predicted_most_wickets_taker_id);
+      setPredictionDone(data?.submission?.is_submitted);
     }
-  }, [isLoading1,data]);
-  
+  }, [data]);
 
+  const teamA = data?.teams?.[0];
+  const teamB = data?.teams?.[1];
 
-  const playerss = data ? data["players"] : null;
-  const team_a = data ? data["team_A"] : null;
-  const team_b = data ? data["team_B"] : null;
-  const batters = data ? data["batsmen"] : null;
-  const bowlers = data ? data["bowlers"] : null;
- 
-  const teamByName = teams[team_a?.teamshortform?.toLowerCase()]
-  const teamBByName = teams[team_b?.teamshortform?.toLowerCase()]
+  const players = [
+    ...(data?.mom_players || []),
+    ...(data?.run_scorers || []),
+    ...(data?.wicket_takers || [])
+  ];
 
-  const currentDate = new Date();
+  const getPlayerName = (id) => {
+    const player = players.find((p) => p.player_id === id);
+    return player?.player_name || null;
+  };
 
-  const matchTimeParts = data ? data?.match_time?.split(":") : null; // Split match time into hours and minutes
-  const matchHours = matchTimeParts ? parseInt(matchTimeParts[0], 10) : 0; // Check if matchTimeParts is not null
-  const matchMinutes = matchTimeParts ? parseInt(matchTimeParts[1], 10) : 0; 
-  const matchTime = matchTimeParts ? new Date(currentDate).setHours(matchHours, matchMinutes, 0, 0) : 0; 
+  const getTeamName = (id) => {
+    if (teamA?.team_id === id) return teamA?.team_name;
+    if (teamB?.team_id === id) return teamB?.team_name;
+    return null;
+  };
 
-  const currentTime = currentDate.getTime();
-  // console.log(currentTime)
-  // Compare current time with match time and check if it's before 12 AM
-  if (currentTime > matchTime && currentTime < new Date(currentDate).setHours(0, 0, 0, 0)) {
-   setCurrent(true)
-  }
-  
-  const { mutate,isLoading,isPending } = useMutation({
-    mutationFn: ({
-      predicted_winner_team,
-      predicted_player_of_the_match,
-      predicted_most_runs_scorer,
-      predicted_most_wicket_taker,
-      username,
-      match_id
-    }) => {
-      return predictMatch({
-        predicted_winner_team,
-        predicted_player_of_the_match,
-        predicted_most_runs_scorer,
-        predicted_most_wicket_taker,
-        username,
-        match_id
+  const winnerName = getTeamName(winner);
+  const momName = getPlayerName(mom);
+  const runsName = getPlayerName(runs);
+  const wicketsName = getPlayerName(wickets);
+
+  /* ---------------- SUBMIT ---------------- */
+  const { mutate, isPending } = useMutation({
+    mutationFn: predictMatch,
+    onSuccess: () => {
+      setPredictionDone(true);
+      toast.success("Prediction locked 🔒", {
+        position: "top-center",
+        autoClose: 3000,
+        style: {
+          background: "#0f172a",
+          color: "#fff",
+          border: "1px solid #334155",
+        },
       });
     },
-    onSuccess: (data) => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      toast.success("Prediction successfull!", {
+    onError: (e) => {
+      toast.error(e.message, {
         position: "top-center",
-        autoClose: 3000,
         style: {
-          width: "auto",
-          style: "flex justify-center",
+          background: "#0f172a",
+          color: "#fff",
+          border: "1px solid #ef4444",
         },
-        closeButton: false,
-        progress: undefined,
-      })
-      
-      
-    },
-    onError: (error) => {
-      console.log(error)
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 3000,
-        style: {
-          width: "auto",
-          style: "flex justify-center",
-        },
-        closeButton: false,
-        progress: undefined,
-      })
-    },
-  });
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      team: "",
-      player: "",
-      runs: "",
-      wickets: "",
-      username: userState?.userInfo?.user?.username
-    },
-    mode: "onChange",
-  });
-  const submitHandler = async (data) => {
-    if(userState?.userInfo){
-    try {
-      mutate({
-        predicted_winner_team: data.team,
-        predicted_player_of_the_match: data.player,
-        predicted_most_runs_scorer: data.runs,
-        predicted_most_wicket_taker: data.wickets,
-        username: userState.userInfo.user.username,
-        match_id: matchId,
       });
-    } catch (error) {
-      toast.error("Match has started!", {
+    },
+  });
+
+  const submitPrediction = () => {
+    if (!winner || !mom || !runs || !wickets) {
+      toast.error("Complete all predictions", {
         position: "top-center",
-        autoClose: 3000,
         style: {
-          width: "auto",
-          display: "flex",
-          justifyContent: "center",
+          background: "#0f172a",
+          color: "#fff",
+          border: "1px solid #f59e0b",
         },
-        closeButton: false,
-        progress: undefined,
-      }
-      )
+      });
+      return;
     }
-  } else {
-   setCreateError(true)
+
+    mutate({
+      match_id: matchId,
+      winning_team_id: winner,
+      player_of_match_id: mom,
+      most_runs_player_id: runs,
+      most_wickets_player_id: wickets
+    });
+  };
+
+  const sections = [
+    { id: "winner", label: "Winner", icon: Trophy, value: winner, color: "from-amber-400 to-orange-500" },
+    { id: "mom", label: "POTM", icon: Star, value: mom, color: "from-violet-400 to-fuchsia-500" },
+    { id: "runs", label: "Top Scorer", icon: Activity, value: runs, color: "from-emerald-400 to-teal-500" },
+    { id: "wickets", label: "Top Wickets", icon: Target, value: wickets, color: "from-rose-400 to-pink-500" },
+  ];
+
+  const getTeamColor = (teamName) => {
+    const colors = {
+      "Chennai Super Kings": "from-yellow-400 to-orange-500",
+      "Mumbai Indians": "from-blue-400 to-blue-600",
+      "Royal Challengers Bengaluru": "from-red-500 to-red-700",
+      "Kolkata Knight Riders": "from-purple-600 to-yellow-400",
+      "Delhi Capitals": "from-blue-400 to-red-500",
+      "Punjab Kings": "from-red-500 to-blue-500",
+      "Rajasthan Royals": "from-pink-500 to-blue-500",
+      "Sunrisers Hyderabad": "from-orange-500 to-red-500",
+      "Lucknow Super Giants": "from-green-500 to-blue-500",
+      "Gujarat Titans": "from-blue-500 to-green-500",
+    };
+    return colors[teamName] || "from-slate-400 to-slate-600";
+  };
+
+  const handleSectionChange = (newSection) => {
+    const currentIdx = sections.findIndex(s => s.id === activeSection);
+    const newIdx = sections.findIndex(s => s.id === newSection);
+    setDirection(newIdx > currentIdx ? 1 : -1);
+    setActiveSection(newSection);
+  };
+
+  const handleNext = () => {
+    const currentIdx = sections.findIndex(s => s.id === activeSection);
+    if (currentIdx < sections.length - 1) {
+      setDirection(1);
+      setActiveSection(sections[currentIdx + 1].id);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <MainLayout>
+        <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+          <motion.div
+            animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          >
+            <Sparkles className="w-12 h-12 text-violet-500" />
+          </motion.div>
+        </div>
+      </MainLayout>
+    );
   }
-  };
-  useEffect(() => {
-    // Simulate loading for 2 seconds
-    setTimeout(() => {
-      setPopup(true);
-    }, 1000);
-    
 
-  }, []);
-  const handleClosePopup = () => {
-    setPopup(false);
-  };
-  useEffect(()=> {
-    window.scrollTo(0,0);
-  },[])
-
-  const topRef = useRef(null);
-
-  useEffect(() => {
-    if (topRef.current) {
-      topRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
+  const progress = (sections.filter(s => s.value).length / sections.length) * 100;
 
   return (
-  
-       <>
-      
     <MainLayout>
-
-      <section className="h-full bg-white  overflow-hidden " 
-        style={{
-          backgroundImage: `url(${images.bg1})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      > 
-        <Breadcrumbs data={Breadcrumbsdata} activeName={matchId} />
-        <div className="flex flex-col justify-center items-center md:w-full lg:w-full xs:w-[90%]  overflow-hidden ">
-     
-  
-         {errorss &&  <div className={`fixed z-[10001] top-0 left-0 w-full flex justify-center`}>
-    <ErrorMessage message="You must be logged in!!" setCreateError={setCreateError} />
-  </div>}
-
-
-         <ToastContainer className="z-[100001]"/> 
-          {/* <div className="bg-white text-black p-4 text-center">
-            <p className="text-sm md:text-base">
-            📅 From May 21th to the May 22th, it's the time to earn double points during Playoffs. 💪🏆
-            </p>
-          </div> */}
-          <div  className="w-full flex justify-center items-center text-2xl mt-[80px] font-semibold ">
-            <motion.div
-              variants={slideIn("left", "spring", 0.4, 2)}
-              className="flex flex-col justify-end items-center lg:items-end mx-4  h-40 "
-            >
-              <img
-                src={teamImages[team_a?.teamname]}
-                alt=""
-                className="w-[150px] h-[150px] my-2"
-              />
-              <p className={`text-lg text-center w-[144px] h-18 justify-start text-[${teamColors[team_a?.teamname]}]`}>
-                &nbsp;{team_a?.teamname}
-              </p>
-            </motion.div>
-           <div className="flex justify-center items-center w-[2%]">
-           <motion.p variants={zoomIn(0.4, 1)} className="text-center text-purple-950">
-              &nbsp;vs&nbsp;
-            </motion.p>
-           </div>
-            <motion.div
-              variants={slideIn("right", "spring", 0.4, 2)}
-              className="flex flex-col justify-end lg:items-start items-center mx-4 gap-x-3 h-40 "
-            >
-              <img
-                src={teamImages[team_b?.teamname]}
-                alt=""
-                // className={`${team_b?.teamname === 'Royal Challengers Bangalore' ? "w-[50px]" : "w-[110px]"} h-auto my-2`}
-                className="w-[150px] h-[150px] my-2"
-              />
-              <p className={`text-lg text-center w-[144px] h-18 text-${teamColors[team_b?.teamname]}-600`}>
-                &nbsp;{team_b?.teamname}
-              </p>
-            </motion.div>
-          </div>
-          
-          {!current? <div className="h-fit flex flex-col justify-center items-center bg-white max-w-4xl w-[430px]  rounded-lg  m-5">
-            <motion.p
-              variants={zoomIn(0.4, 1.2)}
-              className="text-2xl uppercase font-bold mt-10"
-            >
-              {!completed ? "Make predictions" : "Results"}
-            </motion.p>
-            <form
-              onSubmit={handleSubmit(submitHandler)}
-              className="w-[300px] my-5  p-2 space-y-6 mx-auto"
-            >
-              <div >
-                <label className="flex flex-col">
-                  <span className="font-semibold text-left w-full">Team</span>
-                  {!completed ? (
-                    <select
-                      {...register("team", {
-                        required: {
-                          value: true,
-                          message: completed ? data?.winner_team : "Select team",
-                        },
-                      })}
-                      type="text"
-                      name="team"
-                      className="form-input border-gray-400 border-2 rounded-md mt-1 block w-full"
-                      required
-                    >
-                      <option value="" disabled>
-                        Select Team
-                      </option>
-
-                      <option value={team_a?.teamname} className="text-black">
-                        {team_a?.teamname}
-                      </option>
-                      <option value={team_b?.teamname} className="text-black">
-                        {team_b?.teamname}
-                      </option>
-                    </select>
-                  ) : (
-                    <div className="form-input border-gray-400 border-2 rounded-md mt-1 text-center block w-full">
-                      {data?.winner_team}
-                    </div>
-                  )}
-                </label>
-              </div>
-              {errors.team?.message && (
-                <p className="ml-3 mt-1 text-xs font-semibold text-red-500">
-                  {errors.team?.message}
-                </p>
-              )}
-
-              <div>
-                <label className="flex flex-col">
-                  <span className="font-semibold text-left w-full">
-                    Player of the match
-                  </span>
-                  {!completed ? (
-                    <select
-                      {...register("player", {
-                        required: {
-                          value: true,
-                          message: "Select a player",
-                        },
-                      })}
-                      type="text"
-                      name="player"
-                      className="form-input border-gray-400 border-2 rounded-md  mt-1 block w-full"
-                      required
-                    >
-                      <option value="" disabled>
-                        Select Player
-                      </option>
-
-                      {playerss?.map((player, index) => (
-                        <option value={player?.name}>{player?.name} ({player?.team})</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <div className="form-input border-gray-400 border-2 rounded-md mt-1 text-center block w-full">
-                      {data?.player_of_match}
-                    </div>
-                  )}
-                </label>
-              </div>
-              {errors.player?.message && (
-                <p className="ml-3 mt-1 text-xs font-semibold text-red-500">
-                  {errors.player?.message}
-                </p>
-              )}
-              <div>
-              <label className="flex flex-col">
-                  <span className="font-semibold text-left w-full">
-                    Leading runs scorer
-                  </span>
-                  {!completed ? (
-                    <select
-                      {...register("runs", {
-                        required: {
-                          value: true,
-                          message: "Select a player",
-                        },
-                      })}
-                      type="text"
-                      name="runs"
-                      className="form-input border-gray-400 border-2 rounded-md  mt-1 block w-full"
-                      required
-                    >
-                      <option value="" disabled>
-                        Select batsman
-                      </option>
-
-                      {batters?.map((batter, index) => (
-                        <option value={batter?.name}>{batter?.name} ({batter?.team})</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <div className="form-input border-gray-400 border-2 rounded-md mt-1 text-center block w-full">
-                      {data?.most_runs_player}
-                    </div>
-                  )}
-                </label>
-              </div>
-              {errors.runs?.message && (
-                <p className="ml-3 mt-1 text-xs font-semibold text-red-500">
-                  {errors.runs?.message}
-                </p>
-              )}
-              <div>
-              <label className="flex flex-col">
-                  <span className="font-semibold text-left w-full">
-                   Leading wicket taker
-                  </span>
-                  {!completed ? (
-                    <select
-                      {...register("wickets", {
-                        required: {
-                          value: true,
-                          message: "Select a player",
-                        },
-                      })}
-                      type="text"
-                      name="wickets"
-                      className="form-input border-gray-400 border-2 rounded-md  mt-1 block w-full"
-                      required
-                    >
-                      <option value="" disabled>
-                        Select bowler
-                      </option>
-
-                      {bowlers?.map((player, index) => (
-                        <option value={player?.name}>{player?.name} ({player?.team})</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <div className="form-input border-gray-400 border-2 rounded-md mt-1 text-center block w-full">
-                      {data?.most_wickets_taker}
-                    </div>
-                  )}
-                </label>
-              </div>
-              {errors.wickets?.message && (
-                <p className="ml-3 mt-1 text-xs font-semibold text-red-500">
-                  {errors.wickets?.message}
-                </p>
-              )}
-
-                    <div className="flex flex-row my-auto">
-                    {!completed && (
-                      <button
-                        type="submit"
-                        // disabled={isLoading}
-                        className="bg-[#29349e] hover:bg-[#10185c] cursor-pointer disabled:cursor-not-allowed disabled:opacity-20 flex mt-5 text-white font-semibold py-2 px-4 rounded-md mx-auto items-center"
-                      >
-                        {/* {isLoading ? "Adding..." : "Predict"} */}
-                        {isPending ? <ClipLoader color="white" size={20} /> : "Predict"}
-                      </button>
-                    )}
-                  </div>
-            </form>
-          </div> : <div></div>}
-          {/* <div className="mt-5 flex flex-col gap-y-4 ">
-            <div className=" mx-8 shadow-lg p-3 rounded-md">
-              <p className="text-left font-semibold my-2 text-xl">
-                 {team_a?.teamshortform} Current squad
-              </p>
-              <div className="text-lg text-left">
-                <b>Wicketkeepers:</b>&nbsp;{teamByName?.Wicketkeepers}
-                <p>
-                  <b>Batters:</b>&nbsp;{teamByName?.Batters}
-                </p>{" "}
-                <p>
-                  <b>All-rounders:</b>&nbsp;{teamByName?.Allrounders}
-                </p>{" "}
-                <p>
-                  <b>Bowlers:</b>&nbsp;{teamByName?.Bowlers}
-                </p>
-              </div> 
-            </div>
-            <div className=" p-3 rounded-md  mx-8 mb-6 my-4 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]">
-              <p className="text-left font-semibold my-2 text-xl">
-                {team_b?.teamshortform} Current squad
-              </p>
-              <div className="text-lg text-left">
-                <b>Wicketkeepers:</b>&nbsp;{teamBByName?.Wicketkeepers}
-                <p>
-                  <b>Batters:</b>&nbsp;{teamBByName?.Batters}
-                </p>{" "}
-                <p>
-                  <b>All-rounders:</b>&nbsp;{teamBByName?.Allrounders}
-                </p>{" "}
-                <p>
-                  <b>Bowlers:</b>&nbsp;{teamBByName?.Bowlers}
-                </p>
-              </div> 
-            </div>
-          </div> */}
+      <div className="min-h-screen bg-slate-950 text-white pb-32">
+        {/* Background Effects */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 left-1/3 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-3xl" />
         </div>
-      </section>
+
+        {/* Auth Error */}
+        {authError && (
+          <ErrorMessage
+            message="Login required to predict"
+            setCreateError={setAuthError}
+          />
+        )}
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-lg">
+                <Swords className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-black">
+                <span className="bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                  Make Prediction
+                </span>
+              </h1>
+            </div>
+            <p className="text-slate-400">Select your predictions for this match</p>
+          </motion.div>
+
+          {/* Match Header Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative overflow-hidden rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-8 mb-8"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 to-fuchsia-600/5" />
+            
+            <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
+              {/* Team A */}
+              <div className="flex-1 flex flex-col items-center text-center">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: -5 }}
+                  className="relative mb-4"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamA?.team_name)} opacity-20 blur-2xl rounded-full`} />
+                  <img
+                    src={teamImages[teamA?.team_name]}
+                    alt={teamA?.team_name}
+                    className="h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
+                  />
+                </motion.div>
+                <h3 className="text-xl font-bold text-white mb-1">{teamA?.team_name}</h3>
+                <p className="text-sm text-slate-500">{teamA?.team_code}</p>
+              </div>
+
+              {/* VS */}
+              <div className="flex flex-col items-center gap-2">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-violet-500 blur-xl opacity-20" />
+                  <div className="relative w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
+                    <span className="text-2xl font-black text-slate-400 italic">VS</span>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-slate-400">{data?.match_date}</p>
+                  <p className="text-xs text-slate-600">{data?.match_time}</p>
+                </div>
+              </div>
+
+              {/* Team B */}
+              <div className="flex-1 flex flex-col items-center text-center">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  className="relative mb-4"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamB?.team_name)} opacity-20 blur-2xl rounded-full`} />
+                  <img
+                    src={teamImages[teamB?.team_name]}
+                    alt={teamB?.team_name}
+                    className="h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
+                  />
+                </motion.div>
+                <h3 className="text-xl font-bold text-white mb-1">{teamB?.team_name}</h3>
+                <p className="text-sm text-slate-500">{teamB?.team_code}</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Progress Bar */}
+          <div className="mb-8">
+            <div className="flex justify-between text-sm text-slate-400 mb-2">
+              <span>Prediction Progress</span>
+              <span>{Math.round(progress)}%</span>
+            </div>
+            <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+          </div>
+
+          {/* Step Indicators */}
+          <div className="grid grid-cols-4 gap-2 mb-8">
+            {sections.map((section, idx) => {
+              const Icon = section.icon;
+              const isActive = activeSection === section.id;
+              const isCompleted = section.value;
+              const isLocked = predictionDone;
+              
+              return (
+                <motion.button
+                  key={section.id}
+                  onClick={() => handleSectionChange(section.id)}
+                  whileHover={!isLocked ? { scale: 1.02 } : {}}
+                  className={`relative overflow-hidden rounded-xl p-4 transition-all duration-300 ${
+                    isActive
+                      ? "bg-slate-800 border-2 border-violet-500/50 shadow-lg shadow-violet-500/10"
+                      : isCompleted
+                      ? "bg-slate-900/50 border border-emerald-500/30"
+                      : "bg-slate-900/30 border border-slate-800"
+                  } ${"cursor-pointer hover:border-slate-700"}`}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${section.color} opacity-0 ${isActive ? "opacity-10" : ""}`} />
+                  
+                  <div className="relative flex flex-col items-center gap-2">
+                    <div className={`p-2 rounded-lg ${
+                      isActive 
+                        ? "bg-violet-500/20 text-violet-400" 
+                        : isCompleted
+                        ? "bg-emerald-500/20 text-emerald-400"
+                        : "bg-slate-800 text-slate-500"
+                    }`}>
+                      {isCompleted && !isActive ? (
+                        <Check className="w-5 h-5" />
+                      ) : (
+                        <Icon className="w-5 h-5" />
+                      )}
+                    </div>
+                    <span className={`text-xs font-medium ${
+                      isActive ? "text-white" : isCompleted ? "text-emerald-400" : "text-slate-500"
+                    }`}>
+                      {section.label}
+                    </span>
+                  </div>
+
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Content Area */}
+          <div className="relative min-h-[500px]">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeSection}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 },
+                }}
+              >
+                {activeSection === "winner" && (
+                  <WinnerSection 
+                    teamA={teamA} 
+                    teamB={teamB} 
+                    teamImages={teamImages}
+                    winner={winner}
+                    setWinner={setWinner}
+                    onNext={handleNext}
+                    getTeamColor={getTeamColor}
+                    predictionDone={predictionDone}
+                  />
+                )}
+                {["mom", "runs", "wickets"].includes(activeSection) && (
+                  <PlayerSection
+                    type={activeSection}
+                    data={data}
+                    selected={activeSection === "mom" ? mom : activeSection === "runs" ? runs : wickets}
+                    onSelect={(value) => {
+                      if (activeSection === "mom") setMom(value);
+                      else if (activeSection === "runs") setRuns(value);
+                      else setWickets(value);
+                      handleNext();
+                    }}
+                    teamA={teamA}
+                    teamB={teamB}
+                    teamImages={teamImages}
+                    predictionDone={predictionDone}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Sticky Bottom Bar */}
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur-xl border-t border-slate-800 z-50">
+          <div className="max-w-6xl mx-auto px-4 py-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              
+              {/* Summary Pills */}
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {sections.map((section) => {
+                  const value = section.id === "winner" ? winnerName : 
+                               section.id === "mom" ? momName : 
+                               section.id === "runs" ? runsName : wicketsName;
+                  
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => handleSectionChange(section.id)}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-full text-xs font-medium transition-all ${
+                        activeSection === section.id
+                          ? "bg-violet-500/20 text-violet-300 border border-violet-500/50"
+                          : value
+                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                          : "bg-slate-900 text-slate-500 border border-slate-800"
+                      }`}
+                    >
+                      <section.icon className="w-3 h-3" />
+                      <span className="hidden sm:inline">{section.label}:</span>
+                      <span className={value ? "font-semibold" : ""}>
+                        {value || "—"}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Submit Button */}
+              <motion.button
+                whileHover={!predictionDone && progress === 100 ? { scale: 1.02 } : {}}
+                whileTap={!predictionDone && progress === 100 ? { scale: 0.98 } : {}}
+                onClick={submitPrediction}
+                disabled={predictionDone || isPending || progress < 100}
+                className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold transition-all ${
+                  predictionDone
+                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 cursor-default"
+                    : progress === 100
+                    ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-lg shadow-violet-500/25"
+                    : "bg-slate-800 text-slate-500 cursor-not-allowed"
+                }`}
+              >
+                {isPending ? (
+                  <ClipLoader size={18} color="#fff" />
+                ) : predictionDone ? (
+                  <>
+                    <Lock className="w-4 h-4" />
+                    Locked
+                  </>
+                ) : (
+                  <>
+                    <Shield className="w-4 h-4" />
+                    Lock Prediction
+                  </>
+                )}
+              </motion.button>
+            </div>
+          </div>
+        </div>
+      </div>
     </MainLayout>
-    </>
-    
   );
 };
 
-export default SectionWrapper(PredictMatch,"PredictMatch");
+/* ================= SUB COMPONENTS ================= */
+
+const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, getTeamColor, predictionDone }) => (
+  <div className="space-y-6">
+    <div className="flex items-center gap-3 mb-6">
+      <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl shadow-lg shadow-amber-500/20">
+        <Trophy className="w-6 h-6 text-white" />
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold text-white">Select Match Winner</h2>
+        <p className="text-slate-400 text-sm">Choose which team you think will win</p>
+      </div>
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-6">
+      {[teamA, teamB].map((team) => (
+        <motion.button
+          key={team?.team_id}
+          whileHover={!predictionDone ? { scale: 1.02, y: -5 } : {}}
+          whileTap={!predictionDone ? { scale: 0.98 } : {}}
+          onClick={() => {
+            if (!predictionDone) {
+              setWinner(team?.team_id);
+              setTimeout(onNext, 300);
+            }
+          }}
+          className={`group relative overflow-hidden rounded-3xl p-8 transition-all duration-300 ${
+            winner === team?.team_id
+              ? "bg-slate-800 border-2 border-amber-500/50 shadow-2xl shadow-amber-500/10"
+              : "bg-slate-900/50 border border-slate-800 hover:border-slate-700"
+          } ${predictionDone ? "cursor-default" : "cursor-pointer"}`}
+        >
+          <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(team?.team_name)} opacity-0 group-hover:opacity-10 transition-opacity`} />
+          
+          {winner === team?.team_id && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="absolute top-4 right-4 bg-amber-500 text-white p-2 rounded-full shadow-lg"
+            >
+              <Crown className="w-5 h-5" />
+            </motion.div>
+          )}
+
+          <div className="relative flex flex-col items-center gap-6">
+            <motion.div 
+              className="relative"
+              animate={winner === team?.team_id ? { y: [0, -10, 0] } : {}}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(team?.team_name)} opacity-30 blur-3xl rounded-full`} />
+              <img
+                src={teamImages[team?.team_name]}
+                alt={team?.team_name}
+                className="h-40 w-40 object-contain relative z-10 drop-shadow-2xl"
+              />
+            </motion.div>
+            
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-white mb-2">{team?.team_name}</h3>
+              <p className="text-slate-500 text-sm">Click to select as winner</p>
+            </div>
+          </div>
+
+          {winner === team?.team_id && (
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+          )}
+        </motion.button>
+      ))}
+    </div>
+  </div>
+);
+
+const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImages, predictionDone }) => {
+  const players = type === "mom" 
+    ? data?.mom_players 
+    : type === "runs" 
+    ? data?.run_scorers 
+    : data?.wicket_takers;
+
+  const title = type === "mom" 
+    ? "Player of the Match" 
+    : type === "runs" 
+    ? "Highest Run Scorer" 
+    : "Highest Wicket Taker";
+
+  const subtitle = type === "mom" 
+    ? "The standout performer of the game" 
+    : type === "runs" 
+    ? "Who will score the most runs?" 
+    : "Who will take the most wickets?";
+
+  const Icon = type === "mom" ? Star : type === "runs" ? Activity : Target;
+  const gradient = type === "mom" ? "from-violet-500 to-fuchsia-500" : type === "runs" ? "from-emerald-500 to-teal-500" : "from-rose-500 to-pink-500";
+
+  const teamAPlayers = players?.filter(p => p.team_name === teamA?.team_name) || [];
+  const teamBPlayers = players?.filter(p => p.team_name === teamB?.team_name) || [];
+
+  return (
+    <div className="space-y-8">
+      <div className="flex items-center gap-3 mb-6">
+        <div className={`p-3 bg-gradient-to-br ${gradient} rounded-xl shadow-lg`}>
+          <Icon className="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-white">{title}</h2>
+          <p className="text-slate-400 text-sm">{subtitle}</p>
+        </div>
+      </div>
+
+      {/* Team A */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <img src={teamImages[teamA?.team_name]} alt="" className="h-8 w-8 object-contain" />
+          <h3 className="font-bold text-slate-300">{teamA?.team_name}</h3>
+          <div className="flex-1 h-px bg-slate-800" />
+          <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamAPlayers.length} players</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {teamAPlayers.map((player) => (
+            <PlayerCard
+              key={player.player_id}
+              player={player}
+              isSelected={selected === player.player_id}
+              onClick={() => !predictionDone && onSelect(player.player_id)}
+              gradient={gradient}
+              predictionDone={predictionDone}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Team B */}
+      <div>
+        <div className="flex items-center gap-3 mb-4">
+          <img src={teamImages[teamB?.team_name]} alt="" className="h-8 w-8 object-contain" />
+          <h3 className="font-bold text-slate-300">{teamB?.team_name}</h3>
+          <div className="flex-1 h-px bg-slate-800" />
+          <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamBPlayers.length} players</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {teamBPlayers.map((player) => (
+            <PlayerCard
+              key={player.player_id}
+              player={player}
+              isSelected={selected === player.player_id}
+              onClick={() => !predictionDone && onSelect(player.player_id)}
+              gradient={gradient}
+              predictionDone={predictionDone}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PlayerCard = ({ player, isSelected, onClick, gradient, predictionDone }) => (
+  <motion.button
+    whileHover={!predictionDone ? { scale: 1.05, y: -2 } : {}}
+    whileTap={!predictionDone ? { scale: 0.95 } : {}}
+    onClick={onClick}
+    className={`relative overflow-hidden rounded-xl p-4 text-left transition-all duration-200 ${
+      isSelected
+        ? `bg-slate-800 border-2 border-transparent shadow-lg`
+        : "bg-slate-900/50 border border-slate-800 hover:border-slate-700"
+    } ${predictionDone ? "cursor-default" : "cursor-pointer"}`}
+    style={isSelected ? {
+      background: `linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)) padding-box, linear-gradient(135deg, var(--tw-gradient-stops)) border-box`,
+    } : {}}
+  >
+    {isSelected && (
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-10`} />
+    )}
+    
+    <div className="relative flex items-center gap-3">
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
+        isSelected
+          ? `bg-gradient-to-br ${gradient} text-white`
+          : "bg-slate-800 text-slate-400"
+      }`}>
+        {player.player_name.split(" ").map(n => n[0]).join("").slice(0, 2)}
+      </div>
+
+      <div className="flex-1 min-w-0">
+        <p className={`font-semibold text-sm truncate ${isSelected ? "text-white" : "text-slate-300"}`}>
+          {player.player_name}
+        </p>
+        <p className={`text-xs ${isSelected ? "text-slate-400" : "text-slate-600"}`}>
+          {player.role || "All-rounder"}
+        </p>
+      </div>
+
+      {isSelected && (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center"
+        >
+          <Check className="w-3 h-3 text-white" />
+        </motion.div>
+      )}
+    </div>
+  </motion.button>
+);
+
+export default SectionWrapper(PredictMatch, "PredictMatch");

@@ -76,7 +76,7 @@ const FixturePage = () => {
         <ToastContainer/>
         
         <div className="container mx-auto" >
-        <Breadcrumbs data={Breadcrumbsdata} activeName="Fixtures" />
+        {/* <Breadcrumbs data={Breadcrumbsdata} activeName="Fixtures" /> */}
           <div className="flex flex-col lg:flex-row justify-center items-center my-auto mx-3" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
             <div className="flex flex-col lg:text-secondary justify-center items-center h-[220px] lg:h-[200px] lg:w-[90%] lg:mx-auto lg:my-4">
               <div>

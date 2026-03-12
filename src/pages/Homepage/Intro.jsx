@@ -12,6 +12,12 @@ import HeroSection from "./Hero";
 import News from "./News";
 import Card from './Card'
 import Quote from "./Quote";
+import HowItWorks from "./HowItWorks";
+import FeaturedEvents from "./FeaturedEvents";
+import AboutPredictivePlay from "./About";
+import TodaysFixtures from "./Fixtures";
+import PointsSystem from "./PointSystem";
+import LeaderboardPreview from "./LeaderBoardPreview";
 
 const textss = [
   { index: 1, title: "Browse the upcoming matches and make your predictions." },
@@ -26,7 +32,7 @@ const rivalryweek = [
 
 const additionalRules = [
   { id: 1, text: "The Global Leaderboard reward is given to the winners of the entire tournament, up until the final match." },
-  { id: 2, text: "1st Prize - Rs.2500 worth Amazon Gift Voucher." },
+  { id: 2, text: "1st Prize - Rs.2500 worth Amazon Gift Voucher.." },
   { id: 3, text: "2nd Prize - Rs.1500 worth Amazon Gift Voucher." },
   { id: 4, text: "3rd Prize - Rs.1000 worth Amazon Gift Voucher." },
 
@@ -35,7 +41,7 @@ const additionalRules = [
 ];
 
 const Points = [
-  { id: 1, text: "Winner Team - 4 Base Points." },
+  { id: 1, text: "Winner Team - 4 Base Points..." },
   { id: 2, text: "Player of the Match - 3 Base Points." },
   { id: 3, text: "Most Runs Scorer of the Match - 3 Base Points." },
   { id: 4, text: "Most Economical Wicket Taker of the Match - 3 Base Points." },
@@ -83,21 +89,29 @@ const Introo = () => {
       <MainLayout>
         
         <section className="h-full w-screen max-w-screen scrollbar-hide">
-          <div className={` w-screen max-w-screen flex flex-col  `}>
+          <div className={` w-screen max-w-screen flex flex-col bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]`}>
             <div
-              style={{
-                backgroundImage: `url(${images.bg23})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }}
+              // // style={{
+              // //   backgroundImage: `url(${images.bg23})`,
+              // //   backgroundSize: "cover",
+              // //   backgroundPosition: "center",
+              // //   backgroundRepeat: "no-repeat",
+              // //   height: "screen"
+              // // }}
+              // className="bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]"
             >
               <HeroSection />
             </div>
+            
+            <div className="">
+              <TodaysFixtures matches={dataaa}/>
+            </div>
 
+            <div>
+              <FeaturedEvents/>
+            </div>
             
-            
-            <div className=" w-screen max-w-screen my-5">
+            {/* <div className=" w-screen max-w-screen my-5">
               <motion.h2
                 variants={fadeIn("right", "spring", 0.5, 1)}
                 whileInView="show"
@@ -144,14 +158,15 @@ const Introo = () => {
                 </div>
               </div>
              
-            </div>
+            </div> */}
+
             
           {/* <div className=" w-screen max-w-screen">
               <Quote />
              
             </div> */}
             
-           <div className=" w-screen max-w-screen mx-auto px-5 lg:px-10  my-5">
+           {/* <div className=" w-screen max-w-screen mx-auto px-5 lg:px-10  my-5">
              <motion.div
               animate="show"
               initial="hidden"
@@ -184,9 +199,12 @@ const Introo = () => {
               </div>
             
             </motion.div>
+           </div> */}
+           <div>
+            <AboutPredictivePlay/>
            </div>
 
-            <div
+            {/* <div
               className="w-screen max-w-screen bg-[#eeedf0] mx-auto px-5 lg:px-10 my-5 ">
               <div className="">
                 <h2 className={`${styles.sectionHeadText} mt-5 text-left`}>
@@ -209,9 +227,14 @@ const Introo = () => {
                 </div>
               </div>
              
+            </div> */}
+            <div>
+              <HowItWorks/>
             </div>
             
-            <div className=" mx-5 my-5">
+            
+            {/* <div
+              className="w-screen max-w-screen bg-[#eeedf0] mx-auto px-5 lg:px-10 my-5 ">
              <h2 className={`${styles.sectionHeadText} mt-5 text-left`}>Points System:</h2>
               <div className="flex">
                 <ol>
@@ -229,9 +252,12 @@ const Introo = () => {
                   ))}
                 </ol>
               </div>
+            </div> */}
+            <div>
+              <PointsSystem points={Points} />
             </div>
 
-            <div
+            {/* <div
               className="w-screen max-w-screen mx-auto px-5 lg:px-10 my-5"
             >
               <motion.div>
@@ -258,6 +284,9 @@ const Introo = () => {
                   accurate your predictions, the higher you'll climb!
                 </p>
               </motion.div>
+            </div> */}
+            <div>
+              <LeaderboardPreview/>
             </div>
             {/* <div className="w-screen max-w-screen lg:mx-0 mx-5">
               <p className={`${styles.sectionHeadText} mt-5 text-left lg:ml-10`}>News</p>
