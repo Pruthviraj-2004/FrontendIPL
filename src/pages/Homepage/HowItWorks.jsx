@@ -33,8 +33,8 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="w-full lg:py-10 ">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="w-full py-10">
+      <div className="max-w-7xl mx-auto px-6">
 
         {/* Section Header */}
         <div className="text-left mb-10">

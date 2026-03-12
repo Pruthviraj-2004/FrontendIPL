@@ -17,11 +17,11 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="hero lg:min-h-screen lg:h-[700px] py-4 w-full relative overflow-hidden lg:py-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+    <section className="hero lg:min-h-screen lg:h-[500px] py-4 w-full relative overflow-hidden lg:py-0">
+      <div className="max-w-7xl mx-auto px-6 sm:px-6 h-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
         {/* LEFT CONTENT */}
-        <div className="z-10 text-white text-center lg:text-left order-1">
+        <div className="z-10 text-white text-center order-1">
           <h1 className={`${styles.heroHeadText} text-3xl sm:text-4xl lg:text-5xl xl:text-6xl`}>
             Predict. Play. Win!
           </h1>
@@ -31,7 +31,7 @@ const HeroSection = () => {
             leaderboard. Compete with others and showcase your cricket instincts.
           </p>
 
-          <button onClick={navigate("/events")} className="mt-6 lg:mt-8 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 transition font-semibold text-sm sm:text-base">
+          <button className="mt-6 lg:mt-8 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 transition font-semibold text-sm sm:text-base">
             Start Predicting
           </button>
         </div>

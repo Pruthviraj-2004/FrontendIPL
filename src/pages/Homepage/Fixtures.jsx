@@ -34,7 +34,7 @@ const TodaysFixtures = ({ matches }) => {
 
   return (
     <section className="w-full py-10 ">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
         <motion.div

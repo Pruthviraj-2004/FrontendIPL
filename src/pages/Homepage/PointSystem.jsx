@@ -10,8 +10,8 @@ const PointsSystem = ({ points }) => {
   const tieBreakRules = points.slice(4);
 
   return (
-    <section className="w-full py-16 lg:py-20 ">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="w-full py-10 ">
+      <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
         <motion.div
