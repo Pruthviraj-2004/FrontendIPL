@@ -74,7 +74,7 @@ const EventsPage = () => {
   <div className="relative py-20">
           <ToastContainer />
 
-          <div className="max-w-7xl mx-auto px-2">
+          <div className="max-w-7xl mx-auto px-4">
            
 
             {/* Page Header */}

@@ -28,8 +28,8 @@ const FeaturedEvents = () => {
   ];
 
   return (
-    <section className="w-full lg:py-10 ">
-      <div className="max-w-7xl mx-auto px-2">
+    <section className="w-full py-4 lg:py-10 ">
+      <div className="max-w-7xl mx-auto px-4">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12">

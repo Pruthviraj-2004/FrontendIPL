@@ -10,7 +10,7 @@ const LeaderboardPreview = () => {
 
   return (
     <section className="w-full lg:py-12">
-      <div className="max-w-7xl mx-auto px-2">
+      <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial="hidden"
           whileInView="show"
