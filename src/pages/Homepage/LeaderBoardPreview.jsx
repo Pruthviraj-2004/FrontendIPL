@@ -9,8 +9,8 @@ const LeaderboardPreview = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="w-full lg:py-12">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="w-full py-10">
+      <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial="hidden"
           whileInView="show"

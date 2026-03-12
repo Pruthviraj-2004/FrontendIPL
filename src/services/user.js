@@ -74,3 +74,15 @@ export const signout = async ({ username, password1 }) => {
   }
 };
 
+export const refreshToken = async () => {
+  try {
+    const response = await api.post("/api/v2/refresh/");
+    console.log("Token refreshed successfully", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error refreshing token:", error);
+    throw error;
+  } finally {
+    console.log("Token refresh attempt completed");
+  }   
+};
