@@ -305,7 +305,7 @@ const PredictMatch = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 to-fuchsia-600/5" />
             
-            <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="relative flex flex-col md:flex-row items-center justify-between gap-4">
               {/* Team A */}
               <div className="flex-1 flex flex-col items-center text-center">
                 <motion.div 
@@ -316,7 +316,7 @@ const PredictMatch = () => {
                   <img
                     src={teamImages[teamA?.team_name]}
                     alt={teamA?.team_name}
-                    className="h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
+                    className="lg:h-28 lg:w-28 w-24 h-24 object-contain relative z-10 drop-shadow-2xl"
                   />
                 </motion.div>
                 <h3 className="text-xl font-bold text-white mb-1">{teamA?.team_name}</h3>
@@ -347,7 +347,7 @@ const PredictMatch = () => {
                   <img
                     src={teamImages[teamB?.team_name]}
                     alt={teamB?.team_name}
-                    className="h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
+                    className="lg:h-28 lg:w-28 w-24 h-24 object-contain relative z-10 drop-shadow-2xl"
                   />
                 </motion.div>
                 <h3 className="text-xl font-bold text-white mb-1">{teamB?.team_name}</h3>
@@ -600,7 +600,7 @@ const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, ge
               <img
                 src={teamImages[team?.team_name]}
                 alt={team?.team_name}
-                className="h-40 w-40 object-contain relative z-10 drop-shadow-2xl"
+                className="lg:h-40 lg:w-40 h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
               />
             </motion.div>
             

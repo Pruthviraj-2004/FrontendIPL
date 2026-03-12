@@ -18,7 +18,7 @@ const HeroSection = () => {
 
   return (
     <section className="hero lg:min-h-screen lg:h-[700px] py-4 w-full relative overflow-hidden lg:py-0">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 h-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
         {/* LEFT CONTENT */}
         <div className="z-10 text-white text-center lg:text-left order-1">

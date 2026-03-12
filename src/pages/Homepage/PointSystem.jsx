@@ -11,7 +11,7 @@ const PointsSystem = ({ points }) => {
 
   return (
     <section className="w-full py-16 lg:py-20 ">
-      <div className="max-w-7xl mx-auto px-2">
+      <div className="max-w-7xl mx-auto px-4">
 
         {/* Header */}
         <motion.div

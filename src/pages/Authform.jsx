@@ -25,7 +25,7 @@ const Authform = () => {
   const [message, setMessage] = useState("");
   const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending, isLoading } = useMutation({
     mutationFn: ({ username, name, email, password, repeat_password }) => {
       return signup({ username, name, email, password, repeat_password });
     },
@@ -60,7 +60,7 @@ const Authform = () => {
       
     },
   });
-  const { mutate: mutatesignin } = useMutation({
+  const { mutate: mutatesignin, isPending: isSigningIn } = useMutation({
     mutationFn: ({ company_display_id,email,username, password }) => {
       return signin({ company_display_id,email,username, password });
     },
@@ -308,7 +308,7 @@ const Authform = () => {
                       <div className="ml-3 text-sm text-orange-500">Passwords do not match</div>
                     )}
                   <Button disabled={isLoading} fullWidth type="submit">
-                    {isLoading ? <ClipLoader size={20}/> : variant === "LOGIN" ? "SIGN IN" : "REGISTER"}
+                    {(isSigningIn || isPending) ? <ClipLoader size={20}/> : variant === "LOGIN" ? "SIGN IN" : "REGISTER"}
                   </Button>
                 </form>
                 <ToastContainer className="z-[100001]"/>
