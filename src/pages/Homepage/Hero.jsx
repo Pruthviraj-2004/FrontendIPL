@@ -31,7 +31,7 @@ const HeroSection = () => {
             leaderboard. Compete with others and showcase your cricket instincts.
           </p>
 
-          <button onClick={navigate("/events")} className="mt-6 lg:mt-8 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 transition font-semibold text-sm sm:text-base">
+          <button className="mt-6 lg:mt-8 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 transition font-semibold text-sm sm:text-base">
             Start Predicting
           </button>
         </div>
