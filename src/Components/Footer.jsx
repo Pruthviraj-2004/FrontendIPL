@@ -25,7 +25,7 @@ const CTA = () => {
                 <button onClick={()=> navigate("/register")}>Register</button>
                 </li>
                 <li class=" text-indigo-500 font-semibold transition-colors duration-200 hover:text-indigo-800">
-                <button onClick={()=> navigate("/fixtures")}>Fixtures</button>
+                <button onClick={()=> navigate("/events")}>Fixtures</button>
                 </li>
                 <li class=" text-indigo-500 font-semibold transition-colors duration-200 hover:text-indigo-800 ">
                   <button onClick={()=> navigate("/terms")}>Terms</button>
