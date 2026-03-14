@@ -25,6 +25,8 @@ import ErrorMessage from "../../Components/Error";
 import { images } from "../../constants";
 import { getMatchDetails, predictMatch } from "../../services/fixtures";
 import { SectionWrapper } from "../../hoc";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 // Animation variants
 const containerVariants = {
@@ -115,12 +117,26 @@ const PredictMatch = () => {
   const [predictionDone, setPredictionDone] = useState(false);
   const [direction, setDirection] = useState(0);
 
+  
   /* ---------------- FETCH MATCH ---------------- */
   const { data, isLoading } = useQuery({
     queryKey: ["match", matchId],
     queryFn: () => getMatchDetails(matchId),
   });
 
+  const isPredictionLocked = () => {
+  if (!data?.match_date) return false;
+
+  const matchDate = new Date(data.match_date);
+
+  const now = new Date();
+
+  // Set match day 7 PM IST
+  const lockTime = new Date(matchDate);
+  lockTime.setHours(19, 0, 0, 0);
+
+  return now >= lockTime;
+};
   useEffect(() => {
     if (data?.submission) {
       setWinner(data.submission.predicted_winner_team_id);
@@ -183,27 +199,29 @@ const PredictMatch = () => {
     },
   });
 
-  const submitPrediction = () => {
-    if (!winner || !mom || !runs || !wickets) {
-      toast.error("Complete all predictions", {
-        position: "top-center",
-        style: {
-          background: "#0f172a",
-          color: "#fff",
-          border: "1px solid #f59e0b",
-        },
-      });
-      return;
-    }
-
-    mutate({
-      match_id: matchId,
-      winning_team_id: winner,
-      player_of_match_id: mom,
-      most_runs_player_id: runs,
-      most_wickets_player_id: wickets
+const submitPrediction = () => {
+  if (predictionLocked) {
+    toast.error("Predictions locked after 7 PM IST on match day", {
+      position: "top-center",
     });
-  };
+    return;
+  }
+
+  if (!winner || !mom || !runs || !wickets) {
+    toast.error("Complete all predictions", {
+      position: "top-center",
+    });
+    return;
+  }
+
+  mutate({
+    match_id: matchId,
+    winning_team_id: winner,
+    player_of_match_id: mom,
+    most_runs_player_id: runs,
+    most_wickets_player_id: wickets
+  });
+};
 
   const sections = [
     { id: "winner", label: "Winner", icon: Trophy, value: winner, color: "from-amber-400 to-orange-500" },
@@ -260,8 +278,11 @@ const PredictMatch = () => {
 
   const progress = (sections.filter(s => s.value).length / sections.length) * 100;
 
+  // const predictionLocked = isPredictionLocked();
+  const predictionLocked = false; // Disable locking for testing
   return (
     <MainLayout>
+      <ToastContainer/>
       <div className="min-h-screen bg-slate-950 text-white pb-32">
         {/* Background Effects */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -278,6 +299,65 @@ const PredictMatch = () => {
         )}
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+          {/* Match header*/}
+                    {/* <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative overflow-hidden mx-auto rounded-3xl max-w-64 md:max-w-lg bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-4 mb-8"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 to-fuchsia-600/5" />
+            
+            <div className="relative flex flex-row items-center justify-between gap-2 md:gap-4">
+        
+              <div className="flex flex-row items-end text-center">
+
+
+                                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: -5 }}
+                  className="relative mb-4"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamA?.team_name)} opacity-20 blur-2xl rounded-full`} />
+                  <img
+                    src={teamImages[teamA?.team_name]}
+                    alt={teamA?.team_name}
+                    className="lg:h-28 lg:w-28 w-12 h-12 object-contain relative z-10 drop-shadow-2xl"
+                  />
+                </motion.div>
+                                <h3 className=" text-lg md:text-xl font-bold text-white mb-1">{teamA?.team_name}</h3>
+                <p className="text-sm text-slate-500">{teamA?.team_code}</p>
+              </div>
+
+           
+              <div className="flex flex-col items-center gap-2">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-violet-500 blur-xl opacity-20" />
+                  <div className="relative w-8 h-8 md:w-20 md:h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
+                    <span className=" text-lg md:text-2xl font-black text-slate-400 italic">VS</span>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-slate-400">{data?.match_date}</p>
+                  <p className="text-xs text-slate-600">{data?.match_time}</p>
+                </div>
+              </div>
+
+              <div className="flex flex-row items-start text-center">
+                <motion.div 
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  className="relative mb-4"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamB?.team_name)} opacity-20 blur-2xl rounded-full`} />
+                  <img
+                    src={teamImages[teamB?.team_name]}
+                    alt={teamB?.team_name}
+                    className="lg:h-28 lg:w-28 w-12 h-12 object-contain relative z-10 drop-shadow-2xl"
+                  />
+                </motion.div>
+                <h3 className=" text-lg md:text-xl font-bold text-white mb-1">{teamB?.team_name}</h3>
+                <p className="text-sm text-slate-500">{teamB?.team_code}</p>
+              </div>
+            </div>
+          </motion.div> */}
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -295,66 +375,16 @@ const PredictMatch = () => {
               </h1>
             </div>
             <p className="text-slate-400">Select your predictions for this match</p>
+            {predictionLocked && (
+  <div className="flex items-center gap-2 text-amber-400 text-sm mb-4">
+    <Lock size={16} />
+    Predictions locked after 7 PM IST
+  </div>
+)}
           </motion.div>
 
           {/* Match Header Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="relative overflow-hidden rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-8 mb-8"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 to-fuchsia-600/5" />
-            
-            <div className="relative flex flex-row items-center justify-between gap-2 md:gap-4">
-              {/* Team A */}
-              <div className="flex-1 flex flex-col items-center text-center">
-                <motion.div 
-                  whileHover={{ scale: 1.05, rotate: -5 }}
-                  className="relative mb-4"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamA?.team_name)} opacity-20 blur-2xl rounded-full`} />
-                  <img
-                    src={teamImages[teamA?.team_name]}
-                    alt={teamA?.team_name}
-                    className="lg:h-28 lg:w-28 w-20 h-20 object-contain relative z-10 drop-shadow-2xl"
-                  />
-                </motion.div>
-                <h3 className=" text-lg md:text-xl font-bold text-white mb-1">{teamA?.team_name}</h3>
-                <p className="text-sm text-slate-500">{teamA?.team_code}</p>
-              </div>
 
-              {/* VS */}
-              <div className="flex flex-col items-center gap-2">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-violet-500 blur-xl opacity-20" />
-                  <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
-                    <span className="text-2xl font-black text-slate-400 italic">VS</span>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm font-medium text-slate-400">{data?.match_date}</p>
-                  <p className="text-xs text-slate-600">{data?.match_time}</p>
-                </div>
-              </div>
-
-              {/* Team B */}
-              <div className="flex-1 flex flex-col items-center text-center">
-                <motion.div 
-                  whileHover={{ scale: 1.05, rotate: 5 }}
-                  className="relative mb-4"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(teamB?.team_name)} opacity-20 blur-2xl rounded-full`} />
-                  <img
-                    src={teamImages[teamB?.team_name]}
-                    alt={teamB?.team_name}
-                    className="lg:h-28 lg:w-28 w-20 h-20 object-contain relative z-10 drop-shadow-2xl"
-                  />
-                </motion.div>
-                <h3 className=" text-lg md:text-xl font-bold text-white mb-1">{teamB?.team_name}</h3>
-                <p className="text-sm text-slate-500">{teamB?.team_code}</p>
-              </div>
-            </div>
-          </motion.div>
 
           {/* Progress Bar */}
           <div className="mb-8">
@@ -378,7 +408,7 @@ const PredictMatch = () => {
               const Icon = section.icon;
               const isActive = activeSection === section.id;
               const isCompleted = section.value;
-              const isLocked = predictionDone;
+              const isLocked = predictionLocked;
               
               return (
                 <motion.button
@@ -452,6 +482,7 @@ const PredictMatch = () => {
                     onNext={handleNext}
                     getTeamColor={getTeamColor}
                     predictionDone={predictionDone}
+                    predictionLocked={predictionLocked}
                   />
                 )}
                 {["mom", "runs", "wickets"].includes(activeSection) && (
@@ -469,6 +500,7 @@ const PredictMatch = () => {
                     teamB={teamB}
                     teamImages={teamImages}
                     predictionDone={predictionDone}
+                    predictionLocked={predictionLocked}
                   />
                 )}
               </motion.div>
@@ -512,12 +544,12 @@ const PredictMatch = () => {
 
               {/* Submit Button */}
               <motion.button
-                whileHover={!predictionDone && progress === 100 ? { scale: 1.02 } : {}}
-                whileTap={!predictionDone && progress === 100 ? { scale: 0.98 } : {}}
+                whileHover={!predictionLocked && progress === 100 ? { scale: 1.02 } : {}}
+                whileTap={!predictionLocked && progress === 100 ? { scale: 0.98 } : {}}
                 onClick={submitPrediction}
-                disabled={predictionDone || isPending || progress < 100}
+                disabled={predictionLocked || isPending || progress < 100}
                 className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold transition-all ${
-                  predictionDone
+                  predictionLocked
                     ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 cursor-default"
                     : progress === 100
                     ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-lg shadow-violet-500/25"
@@ -526,7 +558,7 @@ const PredictMatch = () => {
               >
                 {isPending ? (
                   <ClipLoader size={18} color="#fff" />
-                ) : predictionDone ? (
+                ) : predictionLocked ? (
                   <>
                     <Lock className="w-4 h-4" />
                     Locked
@@ -548,7 +580,7 @@ const PredictMatch = () => {
 
 /* ================= SUB COMPONENTS ================= */
 
-const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, getTeamColor, predictionDone }) => (
+const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, getTeamColor, predictionLocked }) => (
   <div className="space-y-6">
     <div className="flex items-center gap-3 mb-6">
       <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl shadow-lg shadow-amber-500/20">
@@ -560,14 +592,14 @@ const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, ge
       </div>
     </div>
 
-    <div className="grid md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-2 gap-6">
       {[teamA, teamB].map((team) => (
         <motion.button
           key={team?.team_id}
-          whileHover={!predictionDone ? { scale: 1.02, y: -5 } : {}}
-          whileTap={!predictionDone ? { scale: 0.98 } : {}}
+          whileHover={!predictionLocked ? { scale: 1.02, y: -5 } : {}}
+          whileTap={!predictionLocked ? { scale: 0.98 } : {}}
           onClick={() => {
-            if (!predictionDone) {
+            if (!predictionLocked) {
               setWinner(team?.team_id);
               setTimeout(onNext, 300);
             }
@@ -576,7 +608,7 @@ const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, ge
             winner === team?.team_id
               ? "bg-slate-800 border-2 border-amber-500/50 shadow-2xl shadow-amber-500/10"
               : "bg-slate-900/50 border border-slate-800 hover:border-slate-700"
-          } ${predictionDone ? "cursor-default" : "cursor-pointer"}`}
+          } ${predictionLocked ? "cursor-default" : "cursor-pointer"}`}
         >
           <div className={`absolute inset-0 bg-gradient-to-br ${getTeamColor(team?.team_name)} opacity-0 group-hover:opacity-10 transition-opacity`} />
           
@@ -590,7 +622,7 @@ const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, ge
             </motion.div>
           )}
 
-          <div className="relative flex flex-col items-center gap-6">
+          <div className="relative flex flex-col items-center gap-4 md:gap-6">
             <motion.div 
               className="relative"
               animate={winner === team?.team_id ? { y: [0, -10, 0] } : {}}
@@ -600,12 +632,12 @@ const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, ge
               <img
                 src={teamImages[team?.team_name]}
                 alt={team?.team_name}
-                className="lg:h-40 lg:w-40 h-28 w-28 object-contain relative z-10 drop-shadow-2xl"
+                className="lg:h-40 lg:w-40 h-20 w-20 object-contain relative z-10 drop-shadow-2xl"
               />
             </motion.div>
             
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-white mb-2">{team?.team_name}</h3>
+              <h3 className=" text-lg md:text-2xl font-bold text-white mb-2">{team?.team_name}</h3>
               <p className="text-slate-500 text-sm">Click to select as winner</p>
             </div>
           </div>
@@ -619,7 +651,7 @@ const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, ge
   </div>
 );
 
-const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImages, predictionDone }) => {
+const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImages, predictionDone, predictionLocked }) => {
   const players = type === "mom" 
     ? data?.mom_players 
     : type === "runs" 
@@ -676,9 +708,11 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
               key={player.player_id}
               player={player}
               isSelected={selected === player.player_id}
-              onClick={() => !predictionDone && onSelect(player.player_id)}
+              onClick={() => !predictionLocked && onSelect(player.player_id)}
               gradient={gradient}
               predictionDone={predictionDone}
+              predictionLocked={predictionLocked}
+              disabled={predictionLocked}
             />
           ))}
         </div>
@@ -708,9 +742,10 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
               key={player.player_id}
               player={player}
               isSelected={selected === player.player_id}
-              onClick={() => !predictionDone && onSelect(player.player_id)}
+              onClick={() => !predictionLocked && onSelect(player.player_id)}
               gradient={gradient}
               predictionDone={predictionDone}
+              predictionLocked={predictionLocked}
             />
           ))}
         </div>
@@ -729,16 +764,16 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
   );
 };
 
-const PlayerCard = ({ player, isSelected, onClick, gradient, predictionDone }) => (
+const PlayerCard = ({ player, isSelected, onClick, gradient, predictionLocked }) => (
   <motion.button
-    whileHover={!predictionDone ? { scale: 1.05, y: -2 } : {}}
-    whileTap={!predictionDone ? { scale: 0.95 } : {}}
+    whileHover={!predictionLocked ? { scale: 1.05, y: -2 } : {}}
+    whileTap={!predictionLocked ? { scale: 0.95 } : {}}
     onClick={onClick}
     className={`relative overflow-hidden rounded-xl p-4 text-left transition-all duration-200 ${
       isSelected
         ? `bg-slate-800 border-2 border-transparent shadow-lg`
         : "bg-slate-900/50 border border-slate-800 hover:border-slate-700"
-    } ${predictionDone ? "cursor-default" : "cursor-pointer"}`}
+    } ${predictionLocked ? "cursor-default" : "cursor-pointer"}`}
     style={isSelected ? {
       background: `linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)) padding-box, linear-gradient(135deg, var(--tw-gradient-stops)) border-box`,
     } : {}}
