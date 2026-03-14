@@ -32,9 +32,9 @@ api.interceptors.response.use(
 
     // Ignore auth endpoints
     if (
-      originalRequest.url.includes("/login") ||
-      originalRequest.url.includes("/register") ||
-      originalRequest.url.includes("/refresh")
+      originalRequest.url.includes("api/v2/login") ||
+      originalRequest.url.includes("api/v2/register") ||
+      originalRequest.url.includes("api/v2/refresh")
     ) {
       return Promise.reject(error);
     }

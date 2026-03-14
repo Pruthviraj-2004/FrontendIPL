@@ -278,8 +278,8 @@ const submitPrediction = () => {
 
   const progress = (sections.filter(s => s.value).length / sections.length) * 100;
 
-  // const predictionLocked = isPredictionLocked();
-  const predictionLocked = false; // Disable locking for testing
+  const predictionLocked = isPredictionLocked();
+  // const predictionLocked = false; // Disable locking for testing
   return (
     <MainLayout>
       <ToastContainer/>
