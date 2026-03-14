@@ -305,7 +305,7 @@ const PredictMatch = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 to-fuchsia-600/5" />
             
-            <div className="relative flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="relative flex flex-row items-center justify-between gap-2 md:gap-4">
               {/* Team A */}
               <div className="flex-1 flex flex-col items-center text-center">
                 <motion.div 
@@ -316,10 +316,10 @@ const PredictMatch = () => {
                   <img
                     src={teamImages[teamA?.team_name]}
                     alt={teamA?.team_name}
-                    className="lg:h-28 lg:w-28 w-24 h-24 object-contain relative z-10 drop-shadow-2xl"
+                    className="lg:h-28 lg:w-28 w-20 h-20 object-contain relative z-10 drop-shadow-2xl"
                   />
                 </motion.div>
-                <h3 className="text-xl font-bold text-white mb-1">{teamA?.team_name}</h3>
+                <h3 className=" text-lg md:text-xl font-bold text-white mb-1">{teamA?.team_name}</h3>
                 <p className="text-sm text-slate-500">{teamA?.team_code}</p>
               </div>
 
@@ -327,7 +327,7 @@ const PredictMatch = () => {
               <div className="flex flex-col items-center gap-2">
                 <div className="relative">
                   <div className="absolute inset-0 bg-violet-500 blur-xl opacity-20" />
-                  <div className="relative w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
+                  <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center">
                     <span className="text-2xl font-black text-slate-400 italic">VS</span>
                   </div>
                 </div>
@@ -347,10 +347,10 @@ const PredictMatch = () => {
                   <img
                     src={teamImages[teamB?.team_name]}
                     alt={teamB?.team_name}
-                    className="lg:h-28 lg:w-28 w-24 h-24 object-contain relative z-10 drop-shadow-2xl"
+                    className="lg:h-28 lg:w-28 w-20 h-20 object-contain relative z-10 drop-shadow-2xl"
                   />
                 </motion.div>
-                <h3 className="text-xl font-bold text-white mb-1">{teamB?.team_name}</h3>
+                <h3 className=" text-lg md:text-xl font-bold text-white mb-1">{teamB?.team_name}</h3>
                 <p className="text-sm text-slate-500">{teamB?.team_code}</p>
               </div>
             </div>
@@ -644,6 +644,12 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
   const teamAPlayers = players?.filter(p => p.team_name === teamA?.team_name) || [];
   const teamBPlayers = players?.filter(p => p.team_name === teamB?.team_name) || [];
 
+  const [showAllA, setShowAllA] = useState(false);
+  const [showAllB, setShowAllB] = useState(false);
+
+  const visibleTeamAPlayers = showAllA ? teamAPlayers : teamAPlayers.slice(0, 8);
+  const visibleTeamBPlayers = showAllB ? teamBPlayers : teamBPlayers.slice(0, 8);
+
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-3 mb-6">
@@ -665,7 +671,7 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
           <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamAPlayers.length} players</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {teamAPlayers.map((player) => (
+          {visibleTeamAPlayers.map((player) => (
             <PlayerCard
               key={player.player_id}
               player={player}
@@ -676,6 +682,16 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
             />
           ))}
         </div>
+        {teamAPlayers.length > 8 && (
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => setShowAllA(!showAllA)}
+            className="text-sm text-slate-400 hover:text-white"
+          >
+            {showAllA ? "Show Less" : "Show More"}
+          </button>
+        </div>
+      )}
       </div>
 
       {/* Team B */}
@@ -687,7 +703,7 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
           <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamBPlayers.length} players</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {teamBPlayers.map((player) => (
+          {visibleTeamBPlayers.map((player) => (
             <PlayerCard
               key={player.player_id}
               player={player}
@@ -698,6 +714,16 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
             />
           ))}
         </div>
+        {teamBPlayers.length > 8 && (
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => setShowAllB(!showAllB)}
+            className="text-sm text-slate-400 hover:text-white"
+          >
+            {showAllB ? "Show Less" : "Show More"}
+          </button>
+        </div>
+      )}
       </div>
     </div>
   );

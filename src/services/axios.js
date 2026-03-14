@@ -1,21 +1,20 @@
 import axios from "axios";
+import { logout } from "../store/actions/user";
+import store from "../store";
 
 const api = axios.create({
   baseURL: "https://predictiveplaybackendpractice.pythonanywhere.com",
   withCredentials: true,
 });
 
-// Track refresh state globally to prevent multiple simultaneous refresh attempts
 let isRefreshing = false;
 let refreshSubscribers = [];
 
-// Function to notify all subscribers that token is refreshed
 const onTokenRefreshed = () => {
   refreshSubscribers.forEach((callback) => callback());
   refreshSubscribers = [];
 };
 
-// Function to add request to queue while refreshing
 const addRefreshSubscriber = (callback) => {
   refreshSubscribers.push(callback);
 };
@@ -25,17 +24,30 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Only handle 401 errors that haven't been retried yet
-    if (error.response?.status !== 401 || originalRequest._retry) {
+    if (!error.response) {
       return Promise.reject(error);
     }
 
-    // If already refreshing, queue this request
+    const { status } = error.response;
+
+    // Ignore auth endpoints
+    if (
+      originalRequest.url.includes("/login") ||
+      originalRequest.url.includes("/register") ||
+      originalRequest.url.includes("/refresh")
+    ) {
+      return Promise.reject(error);
+    }
+
+    // Only handle 401 once
+    if (status !== 401 || originalRequest._retry) {
+      return Promise.reject(error);
+    }
+
+    // If refresh already happening, queue request
     if (isRefreshing) {
       return new Promise((resolve) => {
-        addRefreshSubscriber(() => {
-          resolve(api(originalRequest));
-        });
+        addRefreshSubscriber(() => resolve(api(originalRequest)));
       });
     }
 
@@ -44,20 +56,25 @@ api.interceptors.response.use(
 
     try {
       await api.post("/api/v2/refresh/");
-      
-      // Notify all queued requests to retry
-      onTokenRefreshed();
+
       isRefreshing = false;
-      
-      // Retry the original request
+      onTokenRefreshed();
+
       return api(originalRequest);
-      
     } catch (refreshError) {
       isRefreshing = false;
       refreshSubscribers = [];
-      console.log("Token refresh failed:", refreshError);
-      console.log("Refresh failed");
-      window.location.href = "/register";
+
+      // Clear redux auth state
+      store.dispatch(logout());
+
+      const currentPath = window.location.pathname;
+
+      // Prevent redirect loops
+      if (currentPath !== "/login" && currentPath !== "/register") {
+        window.location.replace("/#/register");
+      }
+
       return Promise.reject(refreshError);
     }
   }

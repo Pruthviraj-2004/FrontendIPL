@@ -183,7 +183,7 @@ export const getLeaderboardsByEvent = async (eventId) => {
     // console.log(username)
     try {
       // console.log(user)
-      const { data } = await api.get(`/api/v2/my-submissions/`);
+      const { data } = await api.get(`/api/v2/my-submissions/event/b68329a5-9e1b-4e1f-a239-488a3672b521/`);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message)
@@ -199,7 +199,7 @@ export const getUserSubmission = async ({username}) => {
       },
     };
     try {
-      const { data } = await api.get(`/api/v2/my-submissions/`, config);
+      const { data } = await api.get(`/api/v2/my-submissions/event/b68329a5-9e1b-4e1f-a239-488a3672b521/`, config);
       console.log("User submission response:", data);
       return data;
     } catch (error) {
