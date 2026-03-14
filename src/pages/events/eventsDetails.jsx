@@ -8,15 +8,11 @@ import Loading from "../../Components/loading";
 import { ToastContainer, toast } from "react-toastify";
 import { getEventDetails } from "../../services/events";
 import Card from "../Homepage/Card";
+import { useSelector } from "react-redux";
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
   const [activeTab, setActiveTab] = useState("upcoming");
-
-  const Breadcrumbsdata = [
-    { name: "Home", link: "/" },
-    { name: "Events", link: "/events" },
-  ];
 
   const { data, isLoading } = useQuery({
     queryKey: ["event-details", eventId],
@@ -34,7 +30,17 @@ const EventDetailsPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+      const userState = useSelector((state) => state.user);
 
+    if (!userState?.userInfo) {
+  return (
+    <MainLayout>
+      <AuthRequired message="Sign in to view and participate in events." />
+    </MainLayout>
+  );
+}
+
+   console.log(isLoading)
     if (isLoading) {
     return (
       <MainLayout>

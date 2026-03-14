@@ -3,7 +3,7 @@ import LeaderboardSelector from "./LeaderboardSelector";
 import LeaderboardHeader from "./LeaderboardHeader";
 import LeaderboardTopThree from "./LeaderboardTopThree";
 import LeaderboardTable from "./LeaderboardTable";
-import Loading from "../../Components/loading";
+import { Info } from "lucide-react";
 import { getLeaderboardRankings } from "../../services/leaderboard";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -96,14 +96,40 @@ if (isError) {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Leaderboard Selector Dropdown */}
-        <div className="mb-6">
-          <LeaderboardSelector
-            eventId={eventId}
-            currentLeaderboardId={currentLeaderboardId}
-            onSelect={handleLeaderboardChange}
-          />
-        </div>
 
+
+<div className="mb-6 flex items-center justify-between">
+  <LeaderboardSelector
+    eventId={eventId}
+    currentLeaderboardId={currentLeaderboardId}
+    onSelect={handleLeaderboardChange}
+  />
+
+  <div className="relative group">
+    <Info className="w-8 h-8 text-slate-400 cursor-pointer hover:text-white" />
+
+    <div className="absolute right-0 z-[1000] w-72 p-3 text-sm bg-slate-900 text-white rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+      <div className="space-y-1">
+        <div className="flex justify-between">
+          <span>Winner Team</span>
+          <span>+4 pts</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Player of the Match</span>
+          <span>+3 pts</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Most Runs Scorer of the Match</span>
+          <span>+3 pts</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Most Economical Wicket Taker of the Match</span>
+          <span>+3 pts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         {/* Loading State */}
         {loading && (
           <div className="flex items-center justify-center py-20">

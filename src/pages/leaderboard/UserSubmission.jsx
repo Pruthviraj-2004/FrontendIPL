@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,6 +23,7 @@ import {
   Crown,
   Medal,
   Sparkles,
+  ChevronDown,
 } from "lucide-react";
 import { getUserSubmission } from "../../services/leaderboard";
 import MainLayout from "../../Components/MainLayout";
@@ -110,9 +111,9 @@ const PredictionBadge = ({ label, predicted, actual, points, isCorrect, icon: Ic
   );
 };
 
-const MatchCard = ({ submission, index }) => {
+const MatchCard = ({ submission, index, isLast }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  
+  const cardRef = React.useRef(null);
   const totalPossiblePoints = 40; // Assuming 10 points per category
   const accuracyPercentage = Math.round((submission.total_points / totalPossiblePoints) * 100);
   
@@ -122,7 +123,13 @@ const MatchCard = ({ submission, index }) => {
     if (accuracyPercentage > 0) return "from-orange-400 to-rose-500";
     return "from-slate-400 to-slate-600";
   };
-
+ 
+  const scrollToNext = () => {
+  const nextCard = cardRef.current?.nextElementSibling;
+  if (nextCard) {
+    nextCard.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  };
   const getMatchStatus = () => {
     // Check if match is completed by looking if any actual results exist
     const hasResults = submission.flag_winner !== null || 
@@ -136,6 +143,7 @@ const MatchCard = ({ submission, index }) => {
   return (
     <motion.div
       variants={cardVariants}
+      ref={cardRef}
       layout
       className="group relative"
     >
@@ -209,6 +217,7 @@ const MatchCard = ({ submission, index }) => {
                 <span className="text-[10px] text-slate-500 uppercase">pts</span>
               </div>
             </div>
+
           </div>
 
           {/* Teams */}
@@ -246,7 +255,7 @@ const MatchCard = ({ submission, index }) => {
               <PredictionBadge
                 label="Winner"
                 predicted={submission.predicted_winner_team}
-                actual={submission.flag_winner !== null ? (submission.flag_winner ? submission.predicted_winner_team : "Other") : null}
+                actual={submission.flag_winner !== null ? (submission.flag_winner ? submission.predicted_winner_team : submission.actual_winner_team) : null}
                 points={submission.points_winner}
                 isCorrect={submission.flag_winner}
                 icon={Trophy}
@@ -254,7 +263,7 @@ const MatchCard = ({ submission, index }) => {
               <PredictionBadge
                 label="Player of Match"
                 predicted={submission.predicted_player_of_match}
-                actual={submission.flag_mom !== null ? (submission.flag_mom ? submission.predicted_player_of_match : "Other") : null}
+                actual={submission.flag_mom !== null ? (submission.flag_mom ? submission.predicted_player_of_match : submission.actual_player_of_match) : null}
                 points={submission.points_mom}
                 isCorrect={submission.flag_mom}
                 icon={User}
@@ -262,7 +271,7 @@ const MatchCard = ({ submission, index }) => {
               <PredictionBadge
                 label="Most Runs"
                 predicted={submission.predicted_most_runs}
-                actual={submission.flag_mruns !== null ? (submission.flag_mruns ? submission.predicted_most_runs : "Other") : null}
+                actual={submission.flag_mruns !== null ? (submission.flag_mruns ? submission.predicted_most_runs : submission.actual_most_runs_player) : null}
                 points={submission.points_runs}
                 isCorrect={submission.flag_mruns}
                 icon={Activity}
@@ -270,7 +279,7 @@ const MatchCard = ({ submission, index }) => {
               <PredictionBadge
                 label="Most Wickets"
                 predicted={submission.predicted_most_wickets}
-                actual={submission.flag_mwickets !== null ? (submission.flag_mwickets ? submission.predicted_most_wickets : "Other") : null}
+                actual={submission.flag_mwickets !== true ? (submission.flag_mwickets ? submission.predicted_most_wickets : submission.actual_most_wickets_taker) : null}
                 points={submission.points_wickets}
                 isCorrect={submission.flag_mwickets}
                 icon={Zap}
@@ -279,6 +288,14 @@ const MatchCard = ({ submission, index }) => {
           </motion.div>
         </AnimatePresence>
 
+        {!isLast && (
+          <button
+            onClick={scrollToNext}
+            className="absolute bottom-3 right-3 p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition"
+          >
+            <ChevronDown className="w-5 h-5 text-slate-300" />
+          </button>
+        )}
         {/* Footer */}
         <div className="px-6 py-3 bg-slate-950/30 border-t border-slate-800 flex justify-between items-center">
           <div className="flex items-center gap-2 text-xs text-slate-500">
@@ -353,8 +370,7 @@ const UserSubmission = () => {
     queryFn: () => getUserSubmission({ username: userState?.userInfo?.user?.username }),
     queryKey: ["usersubmissions"],
   });
- 
-  console.log("User submission data:", data);
+  const cardRefs = useRef([]);
   const submissions = data?.submissions || [];
   
   // Calculate stats
@@ -508,8 +524,20 @@ const UserSubmission = () => {
                 className="grid grid-cols-1 lg:grid-cols-2 gap-6"
               >
                 {paginatedSubmissions.map((submission, index) => (
-                  <MatchCard key={submission.match_id} submission={submission} index={index} />
-                ))}
+  <MatchCard
+    key={submission.match_id}
+    submission={submission}
+    index={index}
+    isLast={index === paginatedSubmissions.length - 1}
+    cardRef={(el) => (cardRefs.current[index] = el)}
+    scrollToNext={() => {
+      cardRefs.current[index + 1]?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }}
+  />
+))}
               </motion.div>
 
               {/* Pagination */}
