@@ -71,7 +71,7 @@ const EventsPage = () => {
   <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-purple-700 opacity-20 blur-[150px] rounded-full"></div>
   <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
 
-  <div className="relative py-20">
+  <div className="relative py-5">
           <ToastContainer />
 
           <div className="max-w-7xl mx-auto px-6">

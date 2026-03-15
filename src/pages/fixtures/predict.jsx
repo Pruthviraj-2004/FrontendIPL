@@ -720,7 +720,7 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
         <div className="flex justify-center mt-4">
           <button
             onClick={() => setShowAllA(!showAllA)}
-            className="text-sm text-slate-400 hover:text-white"
+            className="text-sm text-slate-400 hover:text-white bg-purple-900/50 border border-purple-800 hover:border-purple-700 p-3 rounded-lg"
           >
             {showAllA ? "Show Less" : "Show More"}
           </button>
@@ -753,7 +753,7 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
         <div className="flex justify-center mt-4">
           <button
             onClick={() => setShowAllB(!showAllB)}
-            className="text-sm text-slate-400 hover:text-white"
+            className="text-sm text-slate-400 hover:text-white bg-purple-900/50 border border-purple-800 hover:border-purple-700 p-3 rounded-lg"
           >
             {showAllB ? "Show Less" : "Show More"}
           </button>
