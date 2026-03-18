@@ -32,7 +32,6 @@ export const signup = async ({ username, name, email, password1, password2 }) =>
 
 export const signin = async ({ company_display_id, email, username, password }) => {
   try {
-    console.log({ company_display_id, email, username, password })
     const response = await api.post(
       "https://predictiveplaybackendpractice.pythonanywhere.com/api/v2/login/",
       // "http://localhost:8000/ipl2/login_user/",
@@ -40,8 +39,9 @@ export const signin = async ({ company_display_id, email, username, password }) 
     );
     return response.data;
   } catch (error) {
+    console.error("Login error:", error);
     if (error.response && error.response.data.error) {
-    
+      console.error("Login error response:", error);
       throw new Error(error.response.data.error);
     } else if (error.message) {
   

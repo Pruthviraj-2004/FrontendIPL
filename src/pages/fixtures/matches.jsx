@@ -80,7 +80,7 @@ const Matches = ({ data, id, status, className }) => {
             <span className="mt-1">
               <FaLocationDot size={15} />
             </span>
-            <span className="w-full truncate">
+            <span className="w-full text-white truncate">
               {data.location}
             </span>
           </p>

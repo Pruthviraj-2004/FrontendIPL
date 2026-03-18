@@ -7,13 +7,14 @@ import { logout } from "../store/actions/user";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../services/user";
 import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import {toast} from "react-toastify";
 import { MdLeaderboard, MdLogin, MdLogout } from "react-icons/md";
 import { BiSolidCricketBall } from "react-icons/bi";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 
 import { useMediaQuery } from "@react-hook/media-query";
+import { ToastContainer } from "react-toastify";
 
 const Headers = () => {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ const Headers = () => {
       return signout({});
     },
     onSuccess: (data) => {
+      toast.success("Logout successful")
       console.log("Logout successful");
     },
     onError: (error) => {
@@ -142,6 +144,7 @@ const Headers = () => {
   return (
     <>
       <section className="sticky left-0 right-0 top-0 m-0 z-[3000] bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] w-full max-w-screen px-4 lg:px-8">
+        <ToastContainer/>
         <header className="container mx-auto my-0 flex items-center justify-between px-5 sm:px-0">
           <div className="left-0 text-xl py-3 flex flex-row justify-center items-center gap-x-5 my-auto">
             <div className=" flex flex-row">

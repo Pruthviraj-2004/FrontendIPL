@@ -17,7 +17,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="hero lg:min-h-screen lg:h-[500px] py-4 w-full relative overflow-hidden lg:py-0">
+    <section className="hero lg:min-h-[85vh] lg:h-[450px] py-4 w-full relative overflow-hidden lg:py-0">
       <div className="max-w-7xl mx-auto px-6 sm:px-6 h-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
         {/* LEFT CONTENT */}

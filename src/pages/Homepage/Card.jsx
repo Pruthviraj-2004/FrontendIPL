@@ -51,7 +51,6 @@ const Card = ({ data }) => {
     return date.toLocaleDateString("en-GB");
   };
 
-  // console.log(data)
 
   const formatTime = (timeString) => {
     const [hours, minutes] = timeString.split(":");
@@ -67,8 +66,8 @@ const Card = ({ data }) => {
       
       {/* Location */}
       <div className="flex items-center gap-2 text-sm text-blue-700 mb-4 truncate">
-        <FaLocationDot size={14} color="white" />
-        <span className="truncate">{data.location}</span>
+        <FaLocationDot size={14} color="purple" />
+        <span className="truncate font-medium text-purple-100">{data.stadium}, {data.location}</span>
       </div>
 
       {/* Teams */}

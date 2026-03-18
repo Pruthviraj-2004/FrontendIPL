@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 const Breadcrumbs = ({ data, activeName }) => {
   return (
-    <div className="flex items-center overflow-x-auto px-3 z-[1000] whitespace-nowrap py-4">
+    <div className="flex items-center overflow-x-auto px-3 z-[1000] whitespace-nowrap py-2">
       {data.map((item, index) => (
         <div
           className={`${
-            item.name === activeName ? "text-primary" : "text-black"
-          } text-sm text-black font-semibold md:text-sm `}
+            item.name === activeName ? "text-purple-400" : "text-white"
+          } text-sm font-semibold md:text-sm `}
         >
           <Link to={item.link}>{item.name}</Link>
           {index !== data.length - 1 && <span className="px-3">/</span>}

@@ -200,7 +200,6 @@ export const getUserSubmission = async ({username}) => {
     };
     try {
       const { data } = await api.get(`/api/v2/my-submissions/event/b68329a5-9e1b-4e1f-a239-488a3672b521/`, config);
-      console.log("User submission response:", data);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message)

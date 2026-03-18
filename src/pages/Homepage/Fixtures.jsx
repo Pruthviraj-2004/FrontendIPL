@@ -28,12 +28,11 @@ const TodaysFixtures = ({ matches }) => {
   // });
   const todayMatches = matches
 
-  // console.log("Filtered today's matches:", todayMatches);
 
   if (todayMatches.length === 0) return null;
 
   return (
-    <section className="w-full py-10 ">
+    <section className="w-full py-10">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
@@ -54,7 +53,7 @@ const TodaysFixtures = ({ matches }) => {
 
         {/* Scrollable Match Cards */}
         <div className="relative">
-          <div className="scrollbar-hide no-scrollbar flex gap-6 overflow-x-auto pb-6">
+          <div className="scrollbar-hide no-scrollbar flex gap-6 overflow-x-auto">
             {todayMatches.map((match, index) => (
               <div key={index} className="min-w-[280px]">
                 <Card data={match} />

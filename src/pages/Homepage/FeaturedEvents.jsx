@@ -28,7 +28,7 @@ const FeaturedEvents = () => {
   ];
 
   return (
-    <section className="w-full py-10 ">
+    <section className="w-full py-0 lg:py-10 ">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}
@@ -58,7 +58,7 @@ const FeaturedEvents = () => {
           {events.map((event) => (
             <div
               key={event.id}
-              onClick={() => navigate(`/events/${event.id}`)}
+              onClick={() => (event.id !== 2 || event.id !== 3) && navigate(`/events/${event.id}`)}
               className="group cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-slate-900/80 border backdrop-blur-xl border-slate-800"
             >
               {/* Image Placeholder */}

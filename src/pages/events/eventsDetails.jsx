@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { getEventDetails } from "../../services/events";
 import Card from "../Homepage/Card";
 import { useSelector } from "react-redux";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
@@ -40,7 +41,6 @@ const EventDetailsPage = () => {
   );
 }
 
-   console.log(isLoading)
     if (isLoading) {
     return (
       <MainLayout>
@@ -63,10 +63,7 @@ const EventDetailsPage = () => {
 
   return (
     <MainLayout>
-        {/* <Breadcrumbs
-            data={Breadcrumbsdata}
-            activeName={event?.event_name}
-          /> */}
+
       <ToastContainer />
 
       <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
@@ -76,9 +73,17 @@ const EventDetailsPage = () => {
   <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
 
   <div className="relative max-w-6xl mx-auto py-5">
+
         <div className="max-w-7xl mx-auto px-6">
 
-          
+                         <Breadcrumbs
+                   data={[
+                     { name: "Home", link: "/" },
+                     { name: "Events", link: "/events" },
+                     { name: event?.event_name || "Event Details", link: `/events/${eventId}` },
+                   ]}
+                   activeName={`${event?.event_name}`}
+                 />
 
           {/* Event Header */}
           <div className="mt-8 mb-12">

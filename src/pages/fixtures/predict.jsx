@@ -27,6 +27,7 @@ import { getMatchDetails, predictMatch } from "../../services/fixtures";
 import { SectionWrapper } from "../../hoc";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 
 // Animation variants
 const containerVariants = {
@@ -124,29 +125,35 @@ const PredictMatch = () => {
     queryFn: () => getMatchDetails(matchId),
   });
 
-  const isPredictionLocked = () => {
-  if (!data?.match_date) return false;
+const isPredictionLocked = () => {
+  if (!data?.match?.match_date) return false;
 
-  const matchDate = new Date(data.match_date);
+  const matchDateStr = data.match.match_date;   // "YYYY-MM-DD"
+  const matchTimeStr = data.match.match_time || "19:00"; // fallback
+
+  // Combine date + time properly
+  const matchDateTime = new Date(`${matchDateStr}T${matchTimeStr}`);
 
   const now = new Date();
 
-  // Set match day 7 PM IST
-  const lockTime = new Date(matchDate);
+  // Lock at 7 PM IST on match day
+  const lockTime = new Date(matchDateTime);
   lockTime.setHours(19, 0, 0, 0);
+
+
 
   return now >= lockTime;
 };
+
   useEffect(() => {
     if (data?.submission) {
       setWinner(data.submission.predicted_winner_team_id);
       setMom(data.submission.predicted_player_of_match_id);
       setRuns(data.submission.predicted_most_runs_player_id);
       setWickets(data.submission.predicted_most_wickets_taker_id);
-      setPredictionDone(data?.submission?.is_submitted);
+      setPredictionDone(data?.match?.status_id === "Completed" ? true : false);
     }
   }, [data]);
-
   const teamA = data?.teams?.[0];
   const teamB = data?.teams?.[1];
 
@@ -155,6 +162,8 @@ const PredictMatch = () => {
     ...(data?.run_scorers || []),
     ...(data?.wicket_takers || [])
   ];
+
+
 
   const getPlayerName = (id) => {
     const player = players.find((p) => p.player_id === id);
@@ -299,6 +308,14 @@ const submitPrediction = () => {
         )}
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+                        <Breadcrumbs
+                   data={[
+                     { name: "Home", link: "/" },
+                     { name: "Fixtures", link: "/events/b68329a5-9e1b-4e1f-a239-488a3672b521" },
+                     { name: `${teamA?.team_name || "Team A"} vs ${teamB?.team_name || "Team B"}`, link: `/fixtures/${matchId}` },
+                   ]}
+                   activeName={`${teamA?.team_name || "Team A"} vs ${teamB?.team_name || "Team B"}`}
+                 />
           {/* Match header*/}
                     {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -362,7 +379,7 @@ const submitPrediction = () => {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
+            className="my-6"
           >
             <div className="flex items-center gap-3 mb-2">
               <div className="p-2 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-lg">
@@ -408,7 +425,7 @@ const submitPrediction = () => {
               const Icon = section.icon;
               const isActive = activeSection === section.id;
               const isCompleted = section.value;
-              const isLocked = predictionLocked;
+              const isLocked = predictionLocked || predictionDone;
               
               return (
                 <motion.button
@@ -580,7 +597,7 @@ const submitPrediction = () => {
 
 /* ================= SUB COMPONENTS ================= */
 
-const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, getTeamColor, predictionLocked }) => (
+const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, getTeamColor,predictionDone, predictionLocked }) => (
   <div className="space-y-6">
     <div className="flex items-center gap-3 mb-6">
       <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl shadow-lg shadow-amber-500/20">
@@ -596,10 +613,10 @@ const WinnerSection = ({ teamA, teamB, teamImages, winner, setWinner, onNext, ge
       {[teamA, teamB].map((team) => (
         <motion.button
           key={team?.team_id}
-          whileHover={!predictionLocked ? { scale: 1.02, y: -5 } : {}}
-          whileTap={!predictionLocked ? { scale: 0.98 } : {}}
+          whileHover={!predictionLocked && !predictionDone ? { scale: 1.02, y: -5 } : {}}
+          whileTap={!predictionLocked && !predictionDone ? { scale: 0.98 } : {}}
           onClick={() => {
-            if (!predictionLocked) {
+            if (!predictionLocked && !predictionDone) {
               setWinner(team?.team_id);
               setTimeout(onNext, 300);
             }
@@ -694,25 +711,26 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
         </div>
       </div>
 
-      {/* Team A */}
+     <div className="flex flex-row gap-x-2">
+            {/* Team A */}
       <div>
         <div className="flex items-center gap-3 mb-4">
           <img src={teamImages[teamA?.team_name]} alt="" className="h-8 w-8 object-contain" />
           <h3 className="font-bold text-slate-300">{teamA?.team_name}</h3>
-          <div className="flex-1 h-px bg-slate-800" />
-          <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamAPlayers.length} players</span>
+          {/* <div className="flex-1 h-px bg-slate-800" /> */}
+          {/* <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamAPlayers.length} players</span> */}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {visibleTeamAPlayers.map((player) => (
             <PlayerCard
               key={player.player_id}
               player={player}
               isSelected={selected === player.player_id}
-              onClick={() => !predictionLocked && onSelect(player.player_id)}
+              onClick={() => !predictionDone && !predictionLocked && onSelect(player.player_id)}
               gradient={gradient}
               predictionDone={predictionDone}
               predictionLocked={predictionLocked}
-              disabled={predictionLocked}
+              disabled={predictionLocked || predictionDone}
             />
           ))}
         </div>
@@ -733,19 +751,19 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
         <div className="flex items-center gap-3 mb-4">
           <img src={teamImages[teamB?.team_name]} alt="" className="h-8 w-8 object-contain" />
           <h3 className="font-bold text-slate-300">{teamB?.team_name}</h3>
-          <div className="flex-1 h-px bg-slate-800" />
-          <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamBPlayers.length} players</span>
+          {/* <div className="flex-1 h-px bg-slate-800" />
+          <span className="text-xs text-slate-600 bg-slate-900 px-2 py-1 rounded-full">{teamBPlayers.length} players</span> */}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {visibleTeamBPlayers.map((player) => (
             <PlayerCard
               key={player.player_id}
               player={player}
               isSelected={selected === player.player_id}
-              onClick={() => !predictionLocked && onSelect(player.player_id)}
+              onClick={() => !predictionLocked && !predictionDone && onSelect(player.player_id)}
               gradient={gradient}
               predictionDone={predictionDone}
-              predictionLocked={predictionLocked}
+              predictionLocked={predictionLocked || predictionDone}
             />
           ))}
         </div>
@@ -760,20 +778,21 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
         </div>
       )}
       </div>
+     </div>
     </div>
   );
 };
 
-const PlayerCard = ({ player, isSelected, onClick, gradient, predictionLocked }) => (
+const PlayerCard = ({ player, isSelected, onClick, gradient, predictionLocked, predictionDone }) => (
   <motion.button
     whileHover={!predictionLocked ? { scale: 1.05, y: -2 } : {}}
     whileTap={!predictionLocked ? { scale: 0.95 } : {}}
     onClick={onClick}
-    className={`relative overflow-hidden rounded-xl p-4 text-left transition-all duration-200 ${
+    className={`relative overflow-hidden rounded-xl p-4 mx-2 lg:mx-0 text-left transition-all duration-200 ${
       isSelected
         ? `bg-slate-800 border-2 border-transparent shadow-lg`
         : "bg-slate-900/50 border border-slate-800 hover:border-slate-700"
-    } ${predictionLocked ? "cursor-default" : "cursor-pointer"}`}
+    } ${predictionLocked || predictionDone ? "cursor-default" : "cursor-pointer"}`}
     style={isSelected ? {
       background: `linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)) padding-box, linear-gradient(135deg, var(--tw-gradient-stops)) border-box`,
     } : {}}
