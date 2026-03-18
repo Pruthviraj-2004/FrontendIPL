@@ -90,7 +90,7 @@ const Leaderboard = () => {
       />
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl text-white font-bold">IPL 2025 Leaderboard</h1>
+          <h1 className="text-3xl text-white font-bold">IPL 2026 Leaderboard</h1>
           <p className="text-gray-300 mt-2">
             Compete, predict, and climb the ranks
           </p>

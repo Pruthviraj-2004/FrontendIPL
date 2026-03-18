@@ -149,6 +149,7 @@ if (isError) {
               title={eventInfo?.leaderboard_name} 
               totalUsers={eventInfo?.user_count || leaderboardData.length}
               matchNumber={eventInfo?.match_number}
+              currentUserRank={currentUserRank}
             />
             
             <LeaderboardTopThree users={leaderboardData.slice(0, 3)} />
