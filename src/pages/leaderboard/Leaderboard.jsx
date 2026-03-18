@@ -9,6 +9,7 @@ import {
   getLeaderboardRankings,
 } from "../../services/leaderboard";
 import LeaderboardUI from "./LeaderboardPage";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 
 const Leaderboard = () => {
   const userState = useSelector((state) => state.user);
@@ -71,13 +72,7 @@ const Leaderboard = () => {
 
   return (
     <MainLayout>
-      {/* <Breadcrumbs
-        data={[
-          { name: "Home", link: "/" },
-          { name: "Leaderboard", link: "/board" },
-        ]}
-        activeName="Leaderboard"
-      /> */}
+
       
 <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
   
@@ -85,10 +80,17 @@ const Leaderboard = () => {
   <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-purple-700 opacity-20 blur-[150px] rounded-full"></div>
   <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
 
-  <div className="relative max-w-6xl mx-auto px-6 py-20">
+  <div className="relative max-w-6xl mx-auto px-6 py-10">
+          <Breadcrumbs
+        data={[
+          { name: "Home", link: "/" },
+          { name: "Leaderboard", link: "/board" },
+        ]}
+        activeName="Leaderboard"
+      />
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl text-white font-bold">IPL 2025 Leaderboard</h1>
+          <h1 className="text-3xl text-white font-bold">IPL 2026 Leaderboard</h1>
           <p className="text-gray-300 mt-2">
             Compete, predict, and climb the ranks
           </p>

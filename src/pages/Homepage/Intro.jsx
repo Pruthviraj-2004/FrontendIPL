@@ -44,7 +44,7 @@ const Points = [
   { id: 1, text: "Winner Team - 4 Base Points..." },
   { id: 2, text: "Player of the Match - 3 Base Points." },
   { id: 3, text: "Most Runs Scorer of the Match - 3 Base Points." },
-  { id: 4, text: "Most Economical Wicket Taker of the Match - 3 Base Points." },
+  { id: 4, text: "Most Wicket Taker of the Match - 3 Base Points." },
   // { id: 5, text: "Bonus weeks with 2x and 3x Bonus Points." },
 
   { id: 5, text: "In case of players with same runs then Strike Rate is taken under consideration." },
@@ -103,7 +103,7 @@ const Introo = () => {
               <HeroSection />
             </div>
             
-            <div className="">
+            <div>
               <TodaysFixtures matches={dataaa}/>
             </div>
 

@@ -45,7 +45,6 @@ const Authform = () => {
       localStorage.setItem("account", JSON.stringify(data));
     },
     onError: (error) => {
-      console.log(error)
       toast.error("Username or email already exists", {
         position: "top-center",
         autoClose: 3000,
@@ -79,7 +78,6 @@ const Authform = () => {
         dispatch(userActions.setUserInfo(data));
       localStorage.setItem("account", JSON.stringify(data));
       },3000)
-      console.log(data)
       // navigate("/");
     },
     onError: (error) => {
@@ -279,7 +277,7 @@ const Authform = () => {
                       variant={variant}
                       control={control}
                     />
-                  {/* // )}  */}
+                   {/* )}  */}
                   <Input
                     label="Password"
                     id="password"

@@ -44,7 +44,6 @@ const LeaderboardSelector = ({
     queryFn: () => getLeaderboardsByEvent(eventId),
     enabled: !!eventId,
   });
-  console.log("Fetched leaderboards:", data);
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -66,7 +65,6 @@ const LeaderboardSelector = ({
     setIsOpen(false);
   };
   
-  console.log(data.leaderboards, "Leaderboards fetched for event:", eventId);
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -110,7 +108,6 @@ const LeaderboardSelector = ({
           overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="p-2">
             {data.leaderboards.map((leaderboard) => {
-              // console.log("Rendering leaderboard option:", leaderboard);
               return (
               <button
                 key={leaderboard.leaderboard_id}

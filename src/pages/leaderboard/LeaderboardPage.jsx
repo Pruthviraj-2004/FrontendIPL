@@ -13,6 +13,7 @@ const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
   const [eventInfo, setEventInfo] = useState(null);
   const [currentLeaderboardId, setCurrentLeaderboardId] = useState(initialLeaderboardId);
   const [loading, setLoading] = useState(false);
+  const [currentUserRank, setCurrentUserRank] = useState(null);
   // const [error, setError] = useState(null);
 
   // Fetch rankings when leaderboard changes
@@ -56,10 +57,6 @@ const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
   enabled: !!currentLeaderboardId
 });
 
-  console.log("Selected leaderboard ID:", currentLeaderboardId);
-  console.log("Leaderboard rankings data:", data);
-  console.log("Loading state:", isLoading);
-  console.log("Error state:", isError, error);
   const handleLeaderboardChange = (leaderboard) => {
     setCurrentLeaderboardId(leaderboard.leaderboard_id);
   };
@@ -74,6 +71,7 @@ const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
     event_id: data.event_id,
     user_count: data.user_count
   });
+  setCurrentUserRank(data.current_user_rank);
 }, [data]);
 
   if (!eventId) {
@@ -123,7 +121,7 @@ if (isError) {
           <span>+3 pts</span>
         </div>
         <div className="flex justify-between">
-          <span>Most Economical Wicket Taker of the Match</span>
+          <span>Most Wicket Taker of the Match</span>
           <span>+3 pts</span>
         </div>
       </div>
@@ -151,11 +149,12 @@ if (isError) {
               title={eventInfo?.leaderboard_name} 
               totalUsers={eventInfo?.user_count || leaderboardData.length}
               matchNumber={eventInfo?.match_number}
+              currentUserRank={currentUserRank}
             />
             
             <LeaderboardTopThree users={leaderboardData.slice(0, 3)} />
             
-            <LeaderboardTable users={leaderboardData} />
+            <LeaderboardTable users={leaderboardData} currentUserRank={currentUserRank} />
           </>
         )}
 

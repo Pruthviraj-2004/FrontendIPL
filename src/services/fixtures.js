@@ -38,7 +38,6 @@ export const predictMatch = async ({
       "Content-Type": "application/json",
     },
   };
-  console.log("Predicting with body:", body);
   try {
     const { data } = await api.post(
       `/api/v2/match/${match_id}/`,

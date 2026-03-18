@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import AuthRequired from "../../Components/AuthRequired";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 const EventsPage = () => {
   const navigate = useNavigate();
 
@@ -30,8 +31,7 @@ const EventsPage = () => {
     },
   });
   
-  console.log("Events data:", data);
-  console.log("Loading state:", isLoading);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -63,20 +63,26 @@ const EventsPage = () => {
      }
   return (
     <MainLayout>
-       {/* <Breadcrumbs data={Breadcrumbsdata} activeName="Events" /> */}
+
 
              <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
-  
+   
   {/* Glow effects */}
   <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-purple-700 opacity-20 blur-[150px] rounded-full"></div>
   <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
 
   <div className="relative py-5">
           <ToastContainer />
-
+                          
           <div className="max-w-7xl mx-auto px-6">
-           
-
+            
+            <Breadcrumbs
+                   data={[
+                     { name: "Home", link: "/" },
+                     { name: "Events", link: "/events" },
+                   ]}
+                   activeName="Events"
+                 />
             {/* Page Header */}
             <div className="mt-8 mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-200">

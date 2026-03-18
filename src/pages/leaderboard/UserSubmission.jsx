@@ -132,9 +132,10 @@ const MatchCard = ({ submission, index, isLast }) => {
   };
   const getMatchStatus = () => {
     // Check if match is completed by looking if any actual results exist
-    const hasResults = submission.flag_winner !== null || 
-                      submission.flag_mom !== null || 
-                      submission.flag_mruns !== null;
+    const hasResults = submission.actual_most_runs_player !== null || 
+                      submission.actual_most_wickets_taker !== null || 
+                      submission.actual_player_of_match !== null ||
+                      submission.actual_winner_team !== null;
     return hasResults ? "completed" : "pending";
   };
 
@@ -165,7 +166,7 @@ const MatchCard = ({ submission, index, isLast }) => {
                 </span>
                 <span className="text-slate-500 text-xs flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
-                  {new Date(submission.updated_at).toLocaleDateString('en-US', {
+                  {new Date(submission.match_date).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
                     hour: '2-digit',
@@ -179,7 +180,8 @@ const MatchCard = ({ submission, index, isLast }) => {
               <p className="text-slate-400 text-sm mt-0.5">{submission.event_name}</p>
             </div>
             
-            {/* Score Circle */}
+<div className="flex flex-row gap-x-8">
+              {/* Score Circle */}
             <div className="relative">
               <svg className="w-16 h-16 transform -rotate-90">
                 <circle
@@ -215,9 +217,21 @@ const MatchCard = ({ submission, index, isLast }) => {
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className="text-lg font-bold text-white">{submission.total_points}</span>
                 <span className="text-[10px] text-slate-500 uppercase">pts</span>
+                
               </div>
+              
             </div>
-
+                    <div>
+                      {!isLast && (
+          <button
+            onClick={scrollToNext}
+            className="absolute my-auto right-3 p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition"
+          >
+            <ChevronDown className="w-5 h-5 text-slate-300" />
+          </button>
+        )}
+                    </div>
+</div>
           </div>
 
           {/* Teams */}
@@ -279,7 +293,7 @@ const MatchCard = ({ submission, index, isLast }) => {
               <PredictionBadge
                 label="Most Wickets"
                 predicted={submission.predicted_most_wickets}
-                actual={submission.flag_mwickets !== true ? (submission.flag_mwickets ? submission.predicted_most_wickets : submission.actual_most_wickets_taker) : null}
+                actual={submission.flag_mwickets !== null ? (submission.flag_mwickets ? submission.predicted_most_wickets : submission.actual_most_wickets_taker) : null}
                 points={submission.points_wickets}
                 isCorrect={submission.flag_mwickets}
                 icon={Zap}
@@ -288,21 +302,14 @@ const MatchCard = ({ submission, index, isLast }) => {
           </motion.div>
         </AnimatePresence>
 
-        {!isLast && (
-          <button
-            onClick={scrollToNext}
-            className="absolute bottom-3 right-3 p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition"
-          >
-            <ChevronDown className="w-5 h-5 text-slate-300" />
-          </button>
-        )}
+
         {/* Footer */}
         <div className="px-6 py-3 bg-slate-950/30 border-t border-slate-800 flex justify-between items-center">
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <Clock className="w-3 h-3" />
             <span>Submitted {new Date(submission.updated_at).toLocaleTimeString()}</span>
           </div>
-          <button
+          {/* <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-xs font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1"
           >
@@ -313,7 +320,7 @@ const MatchCard = ({ submission, index, isLast }) => {
             >
               <ChevronRight className="w-4 h-4" />
             </motion.span>
-          </button>
+          </button> */}
         </div>
       </div>
     </motion.div>
@@ -370,6 +377,8 @@ const UserSubmission = () => {
     queryFn: () => getUserSubmission({ username: userState?.userInfo?.user?.username }),
     queryKey: ["usersubmissions"],
   });
+
+
   const cardRefs = useRef([]);
   const submissions = data?.submissions || [];
   
@@ -378,6 +387,7 @@ const UserSubmission = () => {
   const completedMatches = submissions.filter(s => s.flag_winner !== null).length;
   const totalPoints = submissions.reduce((acc, s) => acc + s.total_points, 0);
   const averagePoints = totalSubmissions > 0 ? (totalPoints / totalSubmissions).toFixed(1) : 0;
+  const streak = data?.kpis?.streak;
 
   // Filter submissions
   const filteredSubmissions = submissions.filter(sub => {
@@ -424,12 +434,13 @@ const UserSubmission = () => {
 
         <div className="relative max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 pt-8">
           {/* Breadcrumbs */}
-          {/* <Breadcrumbs
+          <Breadcrumbs
             data={[
               { name: "Home", link: "/" },
               { name: "My Submissions", link: "/usersubmission" },
             ]}
-          /> */}
+            activeName="My Submissions"
+          />
 
           {/* Header */}
           <motion.div
@@ -461,13 +472,6 @@ const UserSubmission = () => {
                 subtitle="All time submissions"
               />
               <StatCard
-                title="Completed Matches"
-                value={completedMatches}
-                icon={CheckCircle2}
-                color="from-emerald-600 to-teal-600"
-                subtitle={`${Math.round((completedMatches/totalSubmissions)*100) || 0}% completion rate`}
-              />
-              <StatCard
                 title="Total Points"
                 value={totalPoints}
                 icon={Trophy}
@@ -475,9 +479,16 @@ const UserSubmission = () => {
                 subtitle="Lifetime earnings"
               />
               <StatCard
+                title="Streak"
+                value={streak}
+                icon={TrendingUp}
+                color="from-emerald-600 to-teal-600"
+                subtitle="Current winning streak"
+              />
+              <StatCard
                 title="Avg. Points"
                 value={averagePoints}
-                icon={TrendingUp}
+                icon={CheckCircle2}
                 color="from-rose-600 to-pink-600"
                 subtitle="Per match average"
               />
