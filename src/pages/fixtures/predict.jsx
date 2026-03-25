@@ -126,23 +126,24 @@ const PredictMatch = () => {
   });
 
 const isPredictionLocked = () => {
-  if (!data?.match?.match_date) return false;
+  // if (!data?.match?.match_date) return false;
 
-  const matchDateStr = data.match.match_date;   // "YYYY-MM-DD"
-  const matchTimeStr = data.match.match_time || "19:00"; // fallback
+  // const matchDateStr = data.match.match_date;   // "YYYY-MM-DD"
+  // const matchTimeStr = data.match.match_time || "19:00"; // fallback
 
-  // Combine date + time properly
-  const matchDateTime = new Date(`${matchDateStr}T${matchTimeStr}`);
+  // // Combine date + time properly
+  // const matchDateTime = new Date(`${matchDateStr}T${matchTimeStr}`);
 
-  const now = new Date();
+  // const now = new Date();
 
-  // Lock at 7 PM IST on match day
-  const lockTime = new Date(matchDateTime);
-  lockTime.setHours(19, 0, 0, 0);
+  // // Lock at 7 PM IST on match day
+  // const lockTime = new Date(matchDateTime);
+  // lockTime.setHours(19, 0, 0, 0);
 
 
 
-  return now >= lockTime;
+  // return now >= lockTime;
+  return false;
 };
 
   useEffect(() => {

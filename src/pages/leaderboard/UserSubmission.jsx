@@ -29,6 +29,7 @@ import { getUserSubmission } from "../../services/leaderboard";
 import MainLayout from "../../Components/MainLayout";
 import Breadcrumbs from "../../Components/Breadcrumbs";
 import { useNavigate } from "react-router-dom";
+import UpcomingMatchesCard from "./UpcomingMatchesCard";
 
 // Animation variants
 const containerVariants = {
@@ -346,27 +347,30 @@ const StatCard = ({ title, value, icon: Icon, color, subtitle }) => (
   </motion.div>
 );
 
-const EmptyState = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    className="text-center py-20"
-  >
-    <div className="relative inline-block mb-6">
-      <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 blur-2xl opacity-20" />
-      <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-full p-6">
-        <Target className="w-12 h-12 text-slate-400" />
+const EmptyState = () => {
+  const navigate = useNavigate();
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-center py-20"
+    >
+      <div className="relative inline-block mb-6">
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 blur-2xl opacity-20" />
+        <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-full p-6">
+          <Target className="w-12 h-12 text-slate-400" />
+        </div>
       </div>
-    </div>
-    <h3 className="text-2xl font-bold text-white mb-2">No Submissions Yet</h3>
-    <p className="text-slate-400 max-w-md mx-auto mb-6">
-      You haven't made any predictions yet. Start predicting matches to see your submission history here!
-    </p>
-    <button className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl transition-all transform hover:scale-105">
-      Make Your First Prediction
-    </button>
-  </motion.div>
-);
+      <h3 className="text-2xl font-bold text-white mb-2">No Submissions Yet</h3>
+      <p className="text-slate-400 max-w-md mx-auto mb-6">
+        You haven't made any predictions yet. Start predicting matches to see your submission history here!
+      </p>
+      <button onClick={()=> navigate("/events")} className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl transition-all transform hover:scale-105">
+        Make Your First Prediction
+      </button>
+    </motion.div>
+  );
+};
 
 const UserSubmission = () => {
   const userState = useSelector((state) => state.user);
@@ -388,6 +392,7 @@ const UserSubmission = () => {
   const totalPoints = submissions.reduce((acc, s) => acc + s.total_points, 0);
   const averagePoints = totalSubmissions > 0 ? (totalPoints / totalSubmissions).toFixed(1) : 0;
   const streak = data?.kpis?.streak;
+  const upcomingMatches = data?.upcoming_matches_display_card;
 
   // Filter submissions
   const filteredSubmissions = submissions.filter(sub => {
@@ -524,9 +529,9 @@ const UserSubmission = () => {
           )}
 
           {/* Content */}
-          {filteredSubmissions.length === 0 ? (
+          {filteredSubmissions.length === 0 && filter !== "pending" ? (
             <EmptyState />
-          ) : (
+          ) : filteredSubmissions.length > 0 ? (
             <>
               <motion.div
                 variants={containerVariants}
@@ -588,7 +593,7 @@ const UserSubmission = () => {
                 </div>
               )}
             </>
-          )}
+          ) : <UpcomingMatchesCard matches={upcomingMatches} />}
         </div>
       </div>
     </MainLayout>
