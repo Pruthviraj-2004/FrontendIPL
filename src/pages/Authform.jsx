@@ -309,7 +309,7 @@ const Authform = () => {
                     {(isSigningIn || isPending) ? <ClipLoader size={20}/> : variant === "LOGIN" ? "SIGN IN" : "REGISTER"}
                   </Button>
                 </form>
-                <ToastContainer className="z-[100001]"/>
+                {/* <ToastContainer className="z-[100001]"/> */}
                 <div className="flex gap-2 justify-center text-md mt-6 px-2 text-slate-200">
                   {variant === "REGISTER"
                     ? "Already have an account?"

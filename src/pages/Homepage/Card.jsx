@@ -3,7 +3,7 @@ import { images } from "../../constants";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ data }) => {
+const Card = ({ data, profile }) => {
   const teamImages = {
     "Chennai Super Kings": images.csk1,
     "Delhi Capitals": images.dc1,
@@ -102,12 +102,12 @@ const Card = ({ data }) => {
       </div>
 
       {/* CTA */}
-      <button
+      {!profile && <button
         onClick={() => navigate(`/fixtures/${data.match_id}`)}
         className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-lg shadow-violet-500/25 my-3 py-2 rounded-md"
       >
         Make Prediction
-      </button>
+      </button>}
     </div>
   );
 };
