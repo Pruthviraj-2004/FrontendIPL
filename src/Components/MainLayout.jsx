@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Headers from "../headers/header";
 import CTA from "./Footer";
 import { useEffect } from "react";
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, page }) => {
   const topRef = useRef(null);
   useEffect(() => {
     if (topRef.current) {
@@ -14,7 +14,7 @@ const MainLayout = ({ children }) => {
     <div ref={topRef} className="">
       <Headers />
       {children}
-      <CTA/>
+      {page !== "predict" && <CTA />}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const LeaderboardTable = ({ users, currentUserRank }) => {
         <div className="col-span-2 text-center">Rank</div>
         <div className="col-span-5 text-center">Player</div>
         <div className="col-span-2 text-center">Trend</div>
-        <div className="col-span-2 text-right">Points</div>
+        <div className="col-span-3 text-center">Points</div>
       </div>
 
       {/* Table Body */}
@@ -54,10 +54,10 @@ const LeaderboardTable = ({ users, currentUserRank }) => {
 
               {/* Player Info */}
               <div className="col-span-5 flex justify-center gap-3">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm
+                {/* <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm
                   ${isTop3 ? "bg-gradient-to-br from-purple-500 to-indigo-600" : "bg-slate-700"}`}>
                   {user.username.charAt(0).toUpperCase()}
-                </div>
+                </div> */}
                 <div className="min-w-0">
                   <p className={`font-semibold truncate ${isTop3 ? "text-white" : "text-slate-300"}`}>
                     {user.username}

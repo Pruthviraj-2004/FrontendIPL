@@ -101,10 +101,15 @@ const Terms = () => {
 
   return (
     <MainLayout>
-      <div className="lg:w-screen  max-w-screen bg-[#eeedf0]  mt-[90px] lg:mt-[105px] lg:px-10 px-5 mt-5">
-        <div className="">
+      <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f]">
+  
+  {/* Glow effects */}
+  <div className="absolute top-[-200px] left-[-200px] w-[500px] h-[500px] bg-purple-700 opacity-20 blur-[150px] rounded-full"></div>
+  <div className="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-blue-600 opacity-20 blur-[150px] rounded-full"></div>
+
+        <div className=" px-10">
           <div className="">
-            <h2 className="text-2xl font-bold pt-8 text-left">How it works?</h2>
+            <h2 className="text-2xl text-slate-200 font-bold pt-8 text-left">How it works?</h2>
             <div className="flex">
               <ol>
                 {rules.map((rule) => (
@@ -112,7 +117,7 @@ const Terms = () => {
                     <p className="flex flex-row justify-start">
                       <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen  bg-none font-bold text-pink-900 ">
                         {rule.id}.&nbsp;&nbsp;
-                        <span className="font-medium text-black">
+                        <span className="font-medium text-slate-300">
                           {rule.text}
                         </span>
                       </p>
@@ -124,7 +129,7 @@ const Terms = () => {
           </div>
 
           <div className="mt-5">
-            <h2 className="text-2xl font-bold text-left">
+            <h2 className="text-2xl font-bold text-left text-slate-200">
               Terms and Conditions:
             </h2>
             <div className="flex">
@@ -134,7 +139,7 @@ const Terms = () => {
                     <p className="flex flex-row justify-start">
                       <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
                         {rule.id}.&nbsp;&nbsp;
-                        <span className="font-medium text-black">
+                        <span className="font-medium text-slate-300">
                           {rule.text}
                         </span>
                       </p>
@@ -146,7 +151,7 @@ const Terms = () => {
           </div>
 
           <div className="mt-5">
-            <h2 className="text-2xl font-bold text-left">Benefits:</h2>
+            <h2 className="text-2xl font-bold text-left text-slate-200">Benefits:</h2>
             <div className="flex">
               <ol>
                 {benefits.map((rule) => (
@@ -154,7 +159,7 @@ const Terms = () => {
                     <p className="flex flex-row justify-start">
                       <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
                         {rule.id}.&nbsp;&nbsp;
-                        <span className="font-medium text-black">
+                        <span className="font-medium text-slate-300">
                           {rule.text}
                         </span>
                       </p>
@@ -166,7 +171,7 @@ const Terms = () => {
           </div>
 
           <div className="mt-5">
-            <h2 className="text-2xl font-bold text-left">Disclaimer</h2>
+            <h2 className="text-2xl font-bold text-left text-slate-200">Disclaimer</h2>
             <div className="flex">
               <ol>
                 {disclaimer.map((rule) => (
@@ -174,7 +179,7 @@ const Terms = () => {
                     <p className="flex flex-row justify-start">
                       <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
                         {rule.id}.&nbsp;&nbsp;
-                        <span className="font-medium text-black">
+                        <span className="font-medium text-slate-300">
                           {rule.text}
                         </span>
                       </p>
@@ -186,7 +191,7 @@ const Terms = () => {
           </div>
 
           <div className="mt-5">
-            <h2 className="text-2xl font-bold text-left">Points System:</h2>
+            <h2 className="text-2xl font-bold text-left text-slate-200">Points System:</h2>
             <div className="flex">
               <ol>
                 {Points.map((rule) => (
@@ -194,7 +199,7 @@ const Terms = () => {
                     <p className="flex flex-row justify-start">
                       <p className="rounded-full text-start lg:mr-2 justify-center w-full lg:w-screen bg-none font-bold text-pink-900 ">
                         {rule.id}.&nbsp;&nbsp;
-                        <span className="font-medium text-black">
+                        <span className="font-medium text-slate-300">
                           {rule.text}
                         </span>
                       </p>
@@ -244,7 +249,7 @@ const Terms = () => {
           </div> */}
 
         </div>
-      </div>
+      </section>
     </MainLayout>
   );
 };

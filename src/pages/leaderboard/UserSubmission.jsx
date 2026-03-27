@@ -115,7 +115,7 @@ const PredictionBadge = ({ label, predicted, actual, points, isCorrect, icon: Ic
 const MatchCard = ({ submission, index, isLast }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const cardRef = React.useRef(null);
-  const totalPossiblePoints = 40; // Assuming 10 points per category
+  const totalPossiblePoints = 11; // Assuming 10 points per category
   const accuracyPercentage = Math.round((submission.total_points / totalPossiblePoints) * 100);
   
   const getAccuracyColor = () => {
@@ -126,21 +126,26 @@ const MatchCard = ({ submission, index, isLast }) => {
   };
  
   const scrollToNext = () => {
-  const nextCard = cardRef.current?.nextElementSibling;
-  if (nextCard) {
-    nextCard.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+    const nextCard = cardRef.current?.nextElementSibling;
+    if (nextCard) {
+      nextCard.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
-  const getMatchStatus = () => {
-    // Check if match is completed by looking if any actual results exist
-    const hasResults = submission.actual_most_runs_player !== null || 
-                      submission.actual_most_wickets_taker !== null || 
-                      submission.actual_player_of_match !== null ||
-                      submission.actual_winner_team !== null;
-    return hasResults ? "completed" : "pending";
-  };
+  // const getMatchStatus = () => {
+  //   // Check if match is completed by looking if any actual results exist
+  //   const hasResults = submission.actual_most_runs_player !== null || 
+  //                     submission.actual_most_wickets_taker !== null || 
+  //                     submission.actual_player_of_match !== null ||
+  //                     submission.actual_winner_team !== null;
+  //   return hasResults ? "completed" : "pending";
+  // };
 
-  const status = getMatchStatus();
+  const status = submission.match_status;
+
+  // Circle configuration
+  const radius = 28;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (circumference * accuracyPercentage) / 100;
 
   return (
     <motion.div
@@ -178,83 +183,79 @@ const MatchCard = ({ submission, index, isLast }) => {
               <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all">
                 {submission.match_name}
               </h3>
-              <p className="text-slate-400 text-sm mt-0.5">{submission.event_name}</p>
+              <p className="text-slate-400 text-sm mt-0.5">{submission.event_short_name}</p>
             </div>
             
-<div className="flex flex-row gap-x-8">
-              {/* Score Circle */}
-            <div className="relative">
-              <svg className="w-16 h-16 transform -rotate-90">
-                <circle
-                  cx="32"
-                  cy="32"
-                  r="28"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  fill="transparent"
-                  className="text-slate-800"
-                />
-                <motion.circle
-                  cx="32"
-                  cy="32"
-                  r="28"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  fill="transparent"
-                  strokeDasharray={175.9}
-                  strokeDashoffset={175.9 - (175.9 * accuracyPercentage) / 100}
-                  className={`text-transparent stroke-[url(#gradient-${index})]`}
-                  initial={{ strokeDashoffset: 175.9 }}
-                  animate={{ strokeDashoffset: 175.9 - (175.9 * accuracyPercentage) / 100 }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                />
-                <defs>
-                  <linearGradient id={`gradient-${index}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" className={`text-${getAccuracyColor().split(' ')[1].replace('from-', '')}`} />
-                    <stop offset="100%" className={`text-${getAccuracyColor().split(' ')[2]}`} />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-lg font-bold text-white">{submission.total_points}</span>
-                <span className="text-[10px] text-slate-500 uppercase">pts</span>
-                
+            <div className="flex flex-row gap-x-8 items-center">
+              {/* Score Circle - Green Progress Bar */}
+              <div className="relative">
+                <svg className="w-16 h-16 transform -rotate-90">
+                  {/* Background track */}
+                  <circle
+                    cx="32"
+                    cy="32"
+                    r={radius}
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="transparent"
+                    className="text-slate-800"
+                  />
+                  {/* Green progress circle */}
+                  <motion.circle
+                    cx="32"
+                    cy="32"
+                    r={radius}
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    fill="transparent"
+                    strokeLinecap="round"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    className="text-emerald-500"
+                    initial={{ strokeDashoffset: circumference }}
+                    animate={{ strokeDashoffset }}
+                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                  />
+                </svg>
+                {/* Center text */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-lg font-bold text-white">{submission.total_points}</span>
+                  <span className="text-[10px] text-slate-500 uppercase">pts</span>
+                </div>
               </div>
               
+              {/* Scroll to next button */}
+              {!isLast && (
+                <button
+                  onClick={scrollToNext}
+                  className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition"
+                >
+                  <ChevronDown className="w-5 h-5 text-slate-300" />
+                </button>
+              )}
             </div>
-                    <div>
-                      {!isLast && (
-          <button
-            onClick={scrollToNext}
-            className="absolute my-auto right-3 p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition"
-          >
-            <ChevronDown className="w-5 h-5 text-slate-300" />
-          </button>
-        )}
-                    </div>
-</div>
           </div>
 
           {/* Teams */}
           <div className="flex items-center justify-between bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
             <div className="flex-1 text-center">
               <p className="text-sm font-semibold text-slate-300">{submission.team1}</p>
-              {submission.predicted_winner_team === submission.team1 && (
+              {/* {submission.predicted_winner_team === submission.team1 && (
                 <span className="inline-flex items-center gap-1 text-[10px] text-amber-400 mt-1">
                   <Crown className="w-3 h-3" /> Your Pick
                 </span>
-              )}
+              )} */}
             </div>
             <div className="px-4">
               <span className="text-2xl font-black text-slate-600 italic">VS</span>
             </div>
             <div className="flex-1 text-center">
               <p className="text-sm font-semibold text-slate-300">{submission.team2}</p>
-              {submission.predicted_winner_team === submission.team2 && (
+              {/* {submission.predicted_winner_team === submission.team2 && (
                 <span className="inline-flex items-center gap-1 text-[10px] text-amber-400 mt-1">
                   <Crown className="w-3 h-3" /> Your Pick
                 </span>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -303,25 +304,12 @@ const MatchCard = ({ submission, index, isLast }) => {
           </motion.div>
         </AnimatePresence>
 
-
         {/* Footer */}
         <div className="px-6 py-3 bg-slate-950/30 border-t border-slate-800 flex justify-between items-center">
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <Clock className="w-3 h-3" />
             <span>Submitted {new Date(submission.updated_at).toLocaleTimeString()}</span>
           </div>
-          {/* <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="text-xs font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1"
-          >
-            {isExpanded ? "Show Less" : "Details"}
-            <motion.span
-              animate={{ rotate: isExpanded ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronRight className="w-4 h-4" />
-            </motion.span>
-          </button> */}
         </div>
       </div>
     </motion.div>
@@ -458,7 +446,7 @@ const UserSubmission = () => {
                 My Predictions
               </span>
             </h1>
-            <p className="text-slate-400 text-lg">Track your performance and submission history</p>
+            <p className="text-slate-400 text-lg">Track your Performance and Submission History</p>
           </motion.div>
 
           {/* Stats Grid */}

@@ -19,12 +19,12 @@ const LeaderboardHeader = ({ title, totalUsers, matchNumber, currentUserRank }) 
             <span className="text-white font-semibold">{totalUsers}</span>
             <span className="hidden md:block text-slate-400">players</span>
           </div>
-          {matchNumber && (
+          {/* {matchNumber && (
             <div className="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center gap-2">
               <Target className="w-4 h-4 text-green-400" />
               <span className="text-white font-semibold">#{matchNumber}</span>
             </div>
-          )}
+          )} */}
           {currentUserRank && (
             <div className="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 flex items-center gap-2">
               <Award className="w-4 h-4 text-white" />

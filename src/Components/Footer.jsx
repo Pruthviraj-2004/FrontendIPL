@@ -1,56 +1,52 @@
 import React from "react";
-import SocialMediaShare from "./SocialMediaShare";
 import { useNavigate } from "react-router-dom";
+import { Trophy, UserPlus, Calendar, FileText, Users } from "lucide-react";
 
 const CTA = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const links = [
+    { name: "LeaderBoard", path: "/board", icon: Trophy },
+    { name: "Register", path: "/register", icon: UserPlus },
+    { name: "Fixtures", path: "/fixtures/b68329a5-9e1b-4e1f-a239-488a3672b521", icon: Calendar },
+    { name: "Terms", path: "/terms", icon: FileText },
+    { name: "AboutUs", path: "/aboutus", icon: Users },
+  ];
+
   return (
-    <footer class="bottom-0 left-0  bg-slate-950 w-screen max-w-screen pt-[1px] pb-8 border-t-[1px] border-gray-800 z-[1000] xl:pt-8">
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-1/3 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-3xl" />
-        </div>
-      <div class="max-w-screen-lg px-4 mx-auto text-black xl:max-w-screen-xl sm:px-6 md:px-8 dark:text-gray-300">
-        <ul class="flex flex-col  lg:flex-row lg:justify-center justify-start items-start pb-2 text-md font-light">
-          <li class="w-full mx-auto lg:mx-0 md:w-1/3 lg:w-1/3">
-            <div class=" font-semibold text-black">
-              <p class="text-indigo-100 hover:text-indigo-200 font-semibold mt-4 text-md text-center uppercase mb-3 ">
-                Links
-              </p>
-              <ul className="flex lg:flex-row flex-col justify-center items-center gap-x-20">
-                <li class="   text-indigo-500 font-semibold transition-colors duration-200 hover:text-indigo-800 ">
-                <button onClick={()=> navigate("/board")}>LeaderBoard</button>
-                </li>
-                <li class="  text-indigo-500 font-semibold transition-colors duration-200 hover:text-indigo-800 ">
-                <button onClick={()=> navigate("/register")}>Register</button>
-                </li>
-                <li class=" text-indigo-500 font-semibold transition-colors duration-200 hover:text-indigo-800">
-                <button onClick={()=> navigate("/events")}>Fixtures</button>
-                </li>
-                <li class=" text-indigo-500 font-semibold transition-colors duration-200 hover:text-indigo-800 ">
-                  <button onClick={()=> navigate("/terms")}>Terms</button>
-                </li>
-                <li class=" text-indigo-500 font-semibold transition-colors duration-200 hover:text-indigo-800 ">
-                  <button onClick={()=> navigate("/aboutus")}>AboutUs</button>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-        {/* <div className="mx-auto mt-7 flex w-full flex-col content-center items-center text-center">
-          <h2 className="mx-auto my-5 text-center font-bold">Share on:</h2>
-          <SocialMediaShare
-            url={encodeURI(window.location.href)}
-            title={encodeURI(window.location.href)}
-          />
-        </div> */}
+    <footer className="relative bg-slate-950 border-t border-slate-800">
+      {/* Subtle Background Glow */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/3 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-3xl" />
       </div>
-      <div className="w-screen bottom-0 left-0">
-        <p className="text-blue mt-4 text-center text-sm font-semibold">
-          {"@" +
-            new Date().getFullYear() +
-            " PREDICTIVE PLAY. ALL RIGHTS RESERVED"}
-        </p>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-4 py-12">
+        
+        {/* Simple Navigation */}
+        <div className="flex flex-wrap justify-center gap-8 mb-10">
+          {links.map((link) => {
+            const Icon = link.icon;
+            return (
+              <button
+                key={link.name}
+                onClick={() => navigate(link.path)}
+                className="group flex items-center gap-2 text-slate-400 hover:text-indigo-300 transition-colors duration-200"
+              >
+                <Icon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="font-medium">{link.name}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Brand & Copyright */}
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-white mb-2">Predictive Play</h3>
+          <p className="text-slate-500 text-sm">
+            © {new Date().getFullYear()} Predictive Play. All rights reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );

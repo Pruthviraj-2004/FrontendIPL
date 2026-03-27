@@ -72,9 +72,9 @@ const Headers = () => {
       icon: <MdLeaderboard color="#111fbd" />,
     },
     {
-      name: "Events",
+      name: "Fixtures",
       type: "link",
-      href: "/events",
+      href: "/events/b68329a5-9e1b-4e1f-a239-488a3672b521",
       icon: <BiSolidCricketBall color="#111fbd" />,
     },
     {

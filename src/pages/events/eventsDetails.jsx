@@ -10,6 +10,7 @@ import { getEventDetails } from "../../services/events";
 import Card from "../Homepage/Card";
 import { useSelector } from "react-redux";
 import Breadcrumbs from "../../Components/Breadcrumbs";
+import AuthRequired from "../../Components/AuthRequired";
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
