@@ -81,9 +81,9 @@ const EventDetailsPage = () => {
                    data={[
                      { name: "Home", link: "/" },
                      { name: "Events", link: "/events" },
-                     { name: event?.event_name || "Event Details", link: `/events/${eventId}` },
+                     { name: event?.event_short_name || "Event Details", link: `/events/${eventId}` },
                    ]}
-                   activeName={`${event?.event_name}`}
+                   activeName={`${event?.event_short_name}`}
                  />
 
           {/* Event Header */}

@@ -1,23 +1,21 @@
 import axios from "axios";
 import api from "./axios";
 
-export const signup = async ({ username, name, email, password1, password2 }) => {
+export const signup = async ({ username, full_name, company_display_id, email, password }) => {
   try {
-    const response = await axios.post(
+    const response = await api.post(
       "https://predictiveplaybackendpractice.pythonanywhere.com/api/v2/register/",
-      // "http://localhost:8000/ipl2/register_user1/",
-      // "http://localhost:8000/ipl2/register_user/",
-
       { 
         username: username,
-        name: name,
+        full_name: full_name,
+        company_display_id: company_display_id,
         email: email,
-        password1: password1,
-        password2: password2
+        password: password,
       }
     );
     return response.data;
   } catch (error) {
+    console.error("Signup error:", error);
     if (error.response && error.response.data.error) {
       throw new Error(error.response.data.error);
     } else if (error.message) {

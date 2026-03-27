@@ -24,8 +24,8 @@ const Authform = () => {
   const dispatch = useDispatch();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ username, name, email, password, repeat_password }) => {
-      return signup({ username, name, email, password, repeat_password });
+    mutationFn: ({ username, full_name, company_display_id, email, password, repeat_password }) => {
+      return signup({ username, full_name, company_display_id, email, password, repeat_password });
     },
     onSuccess: (data) => {
       toast.success("Registration successful!", {
@@ -33,12 +33,11 @@ const Authform = () => {
         autoClose: 3000,
         closeButton: false,
       });
-      navigate("/lbparticipate");
       setTimeout(() => dispatch(userActions.setUserInfo(data)), 3000);
       localStorage.setItem("account", JSON.stringify(data));
     },
     onError: (error) => {
-      toast.error(error.message, {
+      toast.error(error.response?.data?.detail || "An error occurred during registration.", {
         position: "top-center",
         autoClose: 3000,
         closeButton: false,
@@ -89,7 +88,8 @@ const Authform = () => {
   } = useForm({
     defaultValues: {
       username: "",
-      name: "",
+      full_name: "",
+      company_display_id: "",
       email: "",
       password: "",
       repeat_password: "",
@@ -103,7 +103,8 @@ const Authform = () => {
 
   const onSubmit = (data) => {
     if (variant === "REGISTER") {
-      const { username, name, email, password, repeat_password } = data;
+      const { username, full_name,company_display_id, email, password, repeat_password } = data;
+      console.log("Form Data:", data); // Debugging log
       if (password !== repeat_password) {
         toast.error("Passwords do not match", {
           position: "top-center",
@@ -111,7 +112,7 @@ const Authform = () => {
           closeButton: false,
         });
       } else {
-        mutate({ username, name, email, password, repeat_password });
+        mutate({ username, full_name, company_display_id, email, password });
       }
     } else {
       const { email, company_display_id, username, password } = data;
@@ -188,7 +189,7 @@ const Authform = () => {
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                  {/* <Input
+                  <Input
                     label="Username"
                     id="username"
                     type="text"
@@ -197,7 +198,7 @@ const Authform = () => {
                     disabled={isPending || isSigningIn}
                     variant={variant}
                     control={control}
-                  /> */}
+                  />
                   
                   <Input
                     label="Company Display ID"
@@ -212,8 +213,8 @@ const Authform = () => {
 
                   {variant === "REGISTER" && (
                     <Input
-                      label="Name"
-                      id="name"
+                      label="Full Name"
+                      id="full_name"
                       type="text"
                       register={register}
                       errors={errors}

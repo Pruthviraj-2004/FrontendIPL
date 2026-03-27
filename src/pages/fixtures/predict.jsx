@@ -309,7 +309,7 @@ const submitPrediction = () => {
           />
         )}
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-8">
                         <Breadcrumbs
                    data={[
                      { name: "Home", link: "/" },
@@ -698,8 +698,8 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
   const [showAllA, setShowAllA] = useState(false);
   const [showAllB, setShowAllB] = useState(false);
 
-  const visibleTeamAPlayers = showAllA ? teamAPlayers : teamAPlayers.slice(0, 8);
-  const visibleTeamBPlayers = showAllB ? teamBPlayers : teamBPlayers.slice(0, 8);
+  const visibleTeamAPlayers = showAllA ? teamAPlayers : teamAPlayers.slice(0, 12);
+  const visibleTeamBPlayers = showAllB ? teamBPlayers : teamBPlayers.slice(0, 12);
 
   return (
     <div className="space-y-8">
