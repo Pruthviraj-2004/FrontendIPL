@@ -67,7 +67,6 @@ const Card = ({ data, profile }) => {
 
   const borderClass = isToday ? "border-2 border-yellow-500" : "border border-slate-800";
 
-  console.log(data);
   return (
     <div onClick={() => navigate(`/fixtures/${data.match_id}`)} className={`cursor-pointer bg-slate-900/80 backdrop-blur-xl ${borderClass} rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-5 flex flex-col justify-between`}>
       

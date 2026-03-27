@@ -7,8 +7,8 @@ const CTA = () => {
 
   const links = [
     { name: "LeaderBoard", path: "/board", icon: Trophy },
-    { name: "Register", path: "/register", icon: UserPlus },
-    { name: "Fixtures", path: "/fixtures/b68329a5-9e1b-4e1f-a239-488a3672b521", icon: Calendar },
+    // { name: "Register", path: "/register", icon: UserPlus },
+    { name: "Fixtures", path: "/events/b68329a5-9e1b-4e1f-a239-488a3672b521", icon: Calendar },
     { name: "Terms", path: "/terms", icon: FileText },
     { name: "AboutUs", path: "/aboutus", icon: Users },
   ];
@@ -41,12 +41,12 @@ const CTA = () => {
         </div>
 
         {/* Brand & Copyright */}
-        <div className="text-center">
+        {/* <div className="text-center">
           <h3 className="text-xl font-bold text-white mb-2">Predictive Play</h3>
           {/* <p className="text-slate-500 text-sm">
             © {new Date().getFullYear()} Predictive Play. All rights reserved.
           </p> */}
-        </div>
+        {/* </div> */} 
       </div>
     </footer>
   );
