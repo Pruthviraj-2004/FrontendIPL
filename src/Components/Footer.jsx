@@ -43,9 +43,9 @@ const CTA = () => {
         {/* Brand & Copyright */}
         <div className="text-center">
           <h3 className="text-xl font-bold text-white mb-2">Predictive Play</h3>
-          <p className="text-slate-500 text-sm">
+          {/* <p className="text-slate-500 text-sm">
             © {new Date().getFullYear()} Predictive Play. All rights reserved.
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>

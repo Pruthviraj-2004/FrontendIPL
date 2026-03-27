@@ -1,22 +1,19 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { createPortal } from "react-dom";
+import ClipLoader from "react-spinners/ClipLoader";
+import { Trophy, Target, Sparkles } from "lucide-react";
 import Input from "../Components/Input";
 import Button from "../Components/Button";
 import { images } from "../constants";
-import { useSelector } from "react-redux";
-import { useMutation } from "@tanstack/react-query";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import MainLayout from "../Components/MainLayout";
+import ErrorMessage from "../Components/Error";
 import { userActions } from "../store/reducers/userReducers";
 import { signup, signin } from "../services/user";
-import MainLayout from "../Components/MainLayout";
-import { createPortal } from "react-dom";
-import ErrorMessage from "../Components/Error";
-import ClipLoader from "react-spinners/ClipLoader";
-import { useWatch } from "react-hook-form";
 
 const Authform = () => {
   const navigate = useNavigate();
@@ -25,72 +22,50 @@ const Authform = () => {
   const [message, setMessage] = useState("");
   const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { mutate, isPending, isLoading } = useMutation({
+
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ username, name, email, password, repeat_password }) => {
       return signup({ username, name, email, password, repeat_password });
     },
     onSuccess: (data) => {
-      toast.success("Registration successfull!!", {
+      toast.success("Registration successful!", {
         position: "top-center",
         autoClose: 3000,
-        style: {
-          width: "auto",
-          style: "flex justify-center",
-        },
         closeButton: false,
-        progress: undefined,
       });
       navigate("/lbparticipate");
-      setTimeout(()=>dispatch(userActions.setUserInfo(data),3000));
+      setTimeout(() => dispatch(userActions.setUserInfo(data)), 3000);
       localStorage.setItem("account", JSON.stringify(data));
-    },
-    onError: (error) => {
-      toast.error("Username or email already exists", {
-        position: "top-center",
-        autoClose: 3000,
-        style: {
-          width: "auto",
-          display: "flex",
-          justifyContent: "center",
-        },
-        closeButton: false,
-        progress: undefined,
-      });
-      
-    },
-  });
-  const { mutate: mutatesignin, isPending: isSigningIn } = useMutation({
-    mutationFn: ({ company_display_id,email,username, password }) => {
-      return signin({ company_display_id,email,username, password });
-    },
-    onSuccess: (data) => {
-      toast.success("Login successfull!", {
-        position: "top-center",
-        autoClose: 1000,
-        style: {
-          width: "auto",
-          style: "flex justify-center",
-        },
-        closeButton: false,
-        progress: undefined,
-      });
-      setTimeout(()=>{
-        dispatch(userActions.setUserInfo(data));
-      localStorage.setItem("account", JSON.stringify(data));
-      },3000)
-      // navigate("/");
     },
     onError: (error) => {
       toast.error(error.message, {
         position: "top-center",
         autoClose: 3000,
-        style: {
-          width: "auto",
-          display: "flex",
-          justifyContent: "center",
-        },
         closeButton: false,
-        progress: undefined,
+      });
+    },
+  });
+
+  const { mutate: mutatesignin, isPending: isSigningIn } = useMutation({
+    mutationFn: ({ company_display_id, email, username, password }) => {
+      return signin({ company_display_id, email, username, password });
+    },
+    onSuccess: (data) => {
+      toast.success("Login successful!", {
+        position: "top-center",
+        autoClose: 1000,
+        closeButton: false,
+      });
+      setTimeout(() => {
+        dispatch(userActions.setUserInfo(data));
+        localStorage.setItem("account", JSON.stringify(data));
+      }, 1000);
+    },
+    onError: (error) => {
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        closeButton: false,
       });
     },
   });
@@ -100,19 +75,17 @@ const Authform = () => {
       navigate("/");
     }
   }, [navigate, userState?.userInfo]);
+
   const toggleVariant = useCallback(() => {
-    if (variant === "LOGIN") {
-      setVariant("REGISTER");
-    } else {
-      setVariant("LOGIN");
-    }
-  }, [variant]);
+    setVariant((prev) => (prev === "LOGIN" ? "REGISTER" : "LOGIN"));
+  }, []);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-    control
+    control,
   } = useForm({
     defaultValues: {
       username: "",
@@ -123,32 +96,34 @@ const Authform = () => {
     },
     mode: "onChange",
   });
+
   useEffect(() => {
     reset();
   }, [reset, variant]);
+
   const onSubmit = (data) => {
     if (variant === "REGISTER") {
-      const { company_display_id, username, name, email, password, repeat_password } = data;
+      const { username, name, email, password, repeat_password } = data;
       if (password !== repeat_password) {
         toast.error("Passwords do not match", {
           position: "top-center",
           autoClose: 3000,
-          style: {
-            width: "auto",
-            display: "flex",
-            justifyContent: "center",
-          },
           closeButton: false,
-          progress: undefined,
         });
-    
-      } else 
-      mutate({ username, name, email, password, repeat_password });
+      } else {
+        mutate({ username, name, email, password, repeat_password });
+      }
     } else {
       const { email, company_display_id, username, password } = data;
       mutatesignin({ email, company_display_id, username, password });
     }
   };
+
+  const features = [
+    { icon: Trophy, text: "Compete on leaderboards" },
+    { icon: Target, text: "Make predictions" },
+    { icon: Sparkles, text: "Win rewards" },
+  ];
 
   return (
     <>
@@ -159,100 +134,81 @@ const Authform = () => {
         )}
 
       <MainLayout>
-        <section className="bg-gray-400 overflow-hidden w-screen h-full lg:w-screen scrollbar-hide">
-          <div
-            className={`${
-              variant === "LOGIN" ? "lg:h-[40%] h-[90vh]" : "lg:h-[90%] "
-            } flex  rounded-lg w-[100%] justify-center bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] items-center overflow-y-auto`}
-            // style={{
-            //   backgroundImage: `url(${images.bg20})`,
-            //   backgroundSize: "cover",
-            //   backgroundPosition: "center",
-            //   backgroundRepeat: "no-repeat",
-            // }}
-          >
-           
-            <div
-              className={`${
-                variant === "LOGIN" ? "" : "my-24 "
-              } lg:my-24  flex flex-row  lg:h-[90%] bg-slate-900/80 backdrop-blur-xl border border-slate-800 w-[90%] lg:w-[60%] rounded-lg w-100 mx-auto font-sans  shadow-2xl shadow-black `}
-            >
-              <div
-                className={`${
-                  variant === "LOGIN" ? "lg:h-[68vh] h-[50vh]" : ""
-                } w-[50%] hidden lg:flex overflow-hidden px-10 justify-center items-center`}
-              >
-                <div className="flex flex-col items-center">
-                  <div className="">
-                    <p className="text-2xl my-3 text-purple-800 text-center font-bold">
-                      Let's get started
-                    </p>
+        <section className="py-8 md:min-h-screen bg-gradient-to-br from-[#0f0f1a] via-[#151530] to-[#0c0c1f] flex items-center justify-center p-4">
+          <div className="w-full max-w-4xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-2xl overflow-hidden shadow-2xl shadow-black/50">
+            <div className="flex flex-col lg:flex-row">
+              {/* Left Side - Fixed Layout */}
+              <div className="hidden lg:flex lg:w-1/2  p-8 flex-col justify-between relative overflow-hidden">
+                {/* Background decoration */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                
+                <div className="relative z-10">
+                  <h2 className="text-3xl font-bold text-white mb-2">
+                    {variant === "LOGIN" ? "Welcome Back!" : "Join the Game!"}
+                  </h2>
+                  <p className="text-slate-300 text-lg">
+                    {variant === "LOGIN" 
+                      ? "Sign in to continue your journey" 
+                      : "Create an account to start predicting"}
+                  </p>
+                </div>
 
-                    <p className="text-lg text-white">
-                      Create an account or login if you already have one
-                    </p>
-                  </div>
-                  <div>
-                    <img
-                      src={images.sigin}
-                      alt="signform"
-                      className={`${
-                        variant === "LOGIN" ? "h-[45vh]" : "h-[50vh]"
-                      } `}
-                    />
-                  </div>
+                <div className="relative z-10 flex-1 flex items-center justify-center py-8">
+                  <img
+                    src={images.sigin}
+                    alt="Authentication"
+                    className={`${variant === "LOGIN" ? "w-full max-w-[300px]" : "w-full max-w-sm"} object-contain drop-shadow-2xl`}
+                  />
                 </div>
+
+                {variant === "REGISTER" && (<div className="relative z-10 space-y-3">
+                  {features.map(({ icon: Icon, text }, idx) => (
+                    <div key={idx} className="flex items-center gap-3 text-slate-300">
+                      <div className="p-2 rounded-lg bg-slate-800/50">
+                        <Icon className="w-4 h-4 text-violet-400" />
+                      </div>
+                      <span className="text-sm font-medium">{text}</span>
+                    </div>
+                  ))}
+                </div>)}
               </div>
-              <div
-                className={`${
-                  variant === "LOGIN" ? "lg:h-[50%] lg:py-4 py-0" : "lg:h-[100%]"
-                }  w-[100%]   lg:w-[50%] px-4 py-8 my-auto sm:rounded-lg rounded-lg `}
-              >
-                <div className="flex flex-row justify-evenly mb-4">
-                  {variant === "LOGIN" && (
-                    <div className={`  w-[100%] cursor-pointer h-18`}>
-                      <p className="my-2 text-xl ml-2 font-bold text-left text-purple-700">
-                        SIGN IN
-                      </p>
-                      <p className="lg:my-0 my-2 mb-2 text-slate-200 text-md ml-2 font-medium text-left">
-                        Sign in below
-                      </p>
-                    </div>
-                  )}
-                  {variant === "REGISTER" && (
-                    <div className={` w-[100%] cursor-pointer h-14`}>
-                      <p className="my-2 text-xl ml-2 font-bold text-left text-purple-700">
-                        SIGN UP
-                      </p>
-                      <p className="my-2 mb-2 text-md ml-2 font-medium text-left">
-                        Sign up below
-                      </p>
-                    </div>
-                  )}
+
+              {/* Right Side - Form */}
+              <div className="w-full lg:w-1/2 p-6 lg:p-8">
+                <div className="mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-1">
+                    {variant === "LOGIN" ? "Sign In" : "Create Account"}
+                  </h3>
+                  <p className="text-slate-400 text-sm">
+                    {variant === "LOGIN" 
+                      ? "Enter your credentials to access your account" 
+                      : "Fill in your details to get started"}
+                  </p>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className="h-full">
-                  <Input
+
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                  {/* <Input
                     label="Username"
                     id="username"
                     type="text"
                     register={register}
                     errors={errors}
-                    disabled={isLoading}
+                    disabled={isPending || isSigningIn}
                     variant={variant}
                     control={control}
-
-                  />
+                  /> */}
+                  
                   <Input
-                    label="Company display id"
+                    label="Company Display ID"
                     id="company_display_id"
                     type="text"
                     register={register}
                     errors={errors}
-                    disabled={isLoading}
+                    disabled={isPending || isSigningIn}
                     variant={variant}
                     control={control}
                   />
-                  
 
                   {variant === "REGISTER" && (
                     <Input
@@ -261,72 +217,76 @@ const Authform = () => {
                       type="text"
                       register={register}
                       errors={errors}
-                      disabled={isLoading}
+                      disabled={isPending || isSigningIn}
                       variant={variant}
                       control={control}
                     />
                   )}
-                  {/* {variant === "REGISTER" && ( */}
-                    <Input
-                      label="Email"
-                      id="email"
-                      type="email"
-                      register={register}
-                      errors={errors}
-                      disabled={isLoading}
-                      variant={variant}
-                      control={control}
-                    />
-                   {/* )}  */}
+
+                  <Input
+                    label="Email"
+                    id="email"
+                    type="email"
+                    register={register}
+                    errors={errors}
+                    disabled={isPending || isSigningIn}
+                    variant={variant}
+                    control={control}
+                  />
+
                   <Input
                     label="Password"
                     id="password"
                     type="password"
                     register={register}
                     errors={errors}
-                    disabled={isLoading}
+                    disabled={isPending || isSigningIn}
                     variant={variant}
                     control={control}
                   />
+
                   {variant === "REGISTER" && (
                     <Input
-                      label="Confirm password"
+                      label="Confirm Password"
                       id="repeat_password"
                       type="password"
                       register={register}
                       errors={errors}
-                      disabled={isLoading}
+                      disabled={isPending || isSigningIn}
                       variant={variant}
                       control={control}
                     />
                   )}
 
-                  {variant === "REGISTER" &&
-                    errors.repeat_password?.type === "validate" && (
-                      <div className="ml-3 text-sm text-orange-500">Passwords do not match</div>
+                  <Button 
+                    disabled={isPending || isSigningIn} 
+                    fullWidth 
+                    type="submit"
+                    className="mt-2"
+                  >
+                    {isPending || isSigningIn ? (
+                      <ClipLoader size={20} color="#fff" />
+                    ) : variant === "LOGIN" ? (
+                      "Sign In"
+                    ) : (
+                      "Create Account"
                     )}
-                  <Button disabled={isLoading} fullWidth type="submit">
-                    {(isSigningIn || isPending) ? <ClipLoader size={20}/> : variant === "LOGIN" ? "SIGN IN" : "REGISTER"}
                   </Button>
                 </form>
-                {/* <ToastContainer className="z-[100001]"/> */}
-                <div className="flex gap-2 justify-center text-md mt-6 px-2 text-slate-200">
-                  {variant === "REGISTER"
-                    ? "Already have an account?"
-                    : "New here ?"}
 
-                  <div
-                    onClick={toggleVariant}
-                    className="underline cursor-pointer text-md font-medium text-purple-600"
-                  >
-                    {variant === "LOGIN" ? "Create an account" : "Login"}
-                  </div>
+                <div className="mt-6 text-center">
+                  <p className="text-slate-400 text-sm">
+                    {variant === "REGISTER" 
+                      ? "Already have an account? " 
+                      : "New here? "}
+                    <button
+                      onClick={toggleVariant}
+                      className="text-violet-400 hover:text-violet-300 font-medium underline-offset-4 hover:underline transition-all"
+                    >
+                      {variant === "LOGIN" ? "Create an account" : "Sign in"}
+                    </button>
+                  </p>
                 </div>
-                {/* <div className="flex gap-2 justify-center font-semibold text-sm mt-4 px-2 text-slate-200">
-                  <p>
-                   Forgot password? <a className="text-purple-600  underline" href="https://practicehost1.pythonanywhere.com/ipl2/password_reset/">Click here</a>
-                   </p>
-              </div> */}
               </div>
             </div>
           </div>

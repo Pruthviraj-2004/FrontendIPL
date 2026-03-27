@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -17,8 +17,7 @@ const Input = ({
   register,
   errors,
   disabled,
-  watch,
-  control
+  control,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -27,10 +26,9 @@ const Input = ({
     setShowPassword((prevState) => !prevState);
   };
 
-
   const value = useWatch({
-  control,
-  name: id
+    control,
+    name: id,
   });
 
   const hasValue = !!value;
@@ -46,11 +44,11 @@ const Input = ({
     return true;
   };
 
-  // Icon mapping with updated colors
+  // Icon mapping - returns null if no icon needed
   const getIcon = () => {
     const iconClass = "w-5 h-5 text-slate-400";
     
-    if (label === "Name" || label === "Username") {
+    if (label === "Name" || label === "Username" || label === "Full Name") {
       return <IoPersonSharp className={iconClass} />;
     }
     if (label === "Email") {
@@ -59,54 +57,63 @@ const Input = ({
     if (type === "password") {
       return <FaLock className={iconClass} />;
     }
-    if (label === "Leaderboard Name" || label === "Company display id") {
+    if (label === "Leaderboard Name" || label === "Company Display ID") {
       return <MdLeaderboard className={iconClass} />;
     }
     return null;
   };
+
+  const icon = getIcon();
+  const hasIcon = !!icon;
+  const leftPadding = hasIcon ? "pl-12" : "pl-4";
+  const labelLeftPosition = hasIcon ? "left-12" : "left-4";
 
   return (
     <div className="relative">
       {/* Error Message */}
       <AnimatePresence mode="wait">
         {isInvalid && (
-          <InputError
-            message={inputError.message}
-            key={inputError.message}
-          />
+          <InputError message={inputError.message} key={inputError.message} />
         )}
       </AnimatePresence>
 
       <div className="relative my-3">
-        {/* Left Icon */}
-        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-          {getIcon()}
-        </div>
+        {/* Left Icon - only render if exists */}
+        {hasIcon && (
+          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+            {icon}
+          </div>
+        )}
 
-        {/* Floating Label */}
+        {/* Floating Label - position based on icon presence */}
         <motion.label
           htmlFor={id}
           className={clsx(
-            "absolute left-12 font-medium transition-colors duration-200 pointer-events-none",
-            shouldFloat 
-              ? "top-2 text-xs text-violet-400" 
-              : "top-1/2 -translate-y-1/2 text-base text-slate-400",
-            isInvalid && "text-rose-400"
+            "absolute font-medium transition-colors duration-200 pointer-events-none",
+            labelLeftPosition,
+            shouldFloat
+              ? "top-2 text-xs text-violet-400"
+              : "top-4 -translate-y-1/2 text-base text-slate-400",
+            isInvalid && shouldFloat && "text-rose-400",
+            isInvalid && !shouldFloat && "text-rose-400"
           )}
           animate={{
-            y: shouldFloat ? 0 : -12,
-            scale: shouldFloat ? 0.85 : 1
+            y: shouldFloat ? 0 : 0, // Remove the -12 offset that was causing issues
+            scale: shouldFloat ? 0.85 : 1,
           }}
           transition={{ duration: 0.2 }}
+          style={{
+            transformOrigin: "left center",
+          }}
         >
           {label}
         </motion.label>
 
-        {/* Input Field */}
+        {/* Input Field - padding based on icon presence */}
         <input
           id={id}
           type={showPassword ? "text" : type}
-          placeholder="none"
+          placeholder=" "
           disabled={disabled}
           {...register(id, {
             required: {
@@ -116,7 +123,8 @@ const Input = ({
             validate: type === "password" ? validatePasswordLength : undefined,
           })}
           className={clsx(
-            "block w-full rounded-xl py-4 pl-12 pr-4 placeholder-transparent",
+            "block w-full rounded-xl py-4 pr-4 placeholder-transparent",
+            leftPadding,
             "bg-slate-900/80 border-2 transition-all duration-200",
             "focus:outline-none focus:ring-0 sm:text-sm",
             isInvalid
@@ -124,7 +132,6 @@ const Input = ({
               : "border-slate-700 text-white focus:border-violet-500/50 hover:border-slate-600",
             disabled && "opacity-50 cursor-not-allowed",
             isFocused && "bg-slate-900"
-       
           )}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
