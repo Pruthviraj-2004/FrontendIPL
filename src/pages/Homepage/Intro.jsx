@@ -106,10 +106,10 @@ const Introo = () => {
             <div>
               <TodaysFixtures matches={dataaa}/>
             </div>
-
+{/* 
             <div>
               <FeaturedEvents/>
-            </div>
+            </div> */}
             
             {/* <div className=" w-screen max-w-screen my-5">
               <motion.h2

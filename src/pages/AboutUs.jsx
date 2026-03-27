@@ -9,7 +9,7 @@ import MainLayout from '../Components/MainLayout';
 const AboutUs = () => {
   return (
     <MainLayout>
-    <section class="bg-white mt-24 dark:bg-gray-900">
+    <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-5 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
       <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
           <h2 class="mb-4 text-2xl tracking-tight font-extrabold text-gray-900 dark:text-white">The Team Behind Predictive Play</h2>

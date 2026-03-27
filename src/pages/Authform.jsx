@@ -322,11 +322,11 @@ const Authform = () => {
                     {variant === "LOGIN" ? "Create an account" : "Login"}
                   </div>
                 </div>
-                <div className="flex gap-2 justify-center font-semibold text-sm mt-4 px-2 text-slate-200">
+                {/* <div className="flex gap-2 justify-center font-semibold text-sm mt-4 px-2 text-slate-200">
                   <p>
                    Forgot password? <a className="text-purple-600  underline" href="https://practicehost1.pythonanywhere.com/ipl2/password_reset/">Click here</a>
                    </p>
-              </div>
+              </div> */}
               </div>
             </div>
           </div>

@@ -10,11 +10,17 @@ import {
 } from "../../services/leaderboard";
 import LeaderboardUI from "./LeaderboardPage";
 import Breadcrumbs from "../../Components/Breadcrumbs";
+import AuthRequired from "../../Components/AuthRequired";
 
 const Leaderboard = () => {
   const userState = useSelector((state) => state.user);
-  const username = userState?.userInfo?.user?.username;
-
+    if (!userState?.userInfo) {
+  return (
+    <MainLayout>
+      <AuthRequired message="Sign in to view Leaderboard." />
+    </MainLayout>
+  );
+}
   // 🔹 For now hardcode IPL event id
   const eventId = "b68329a5-9e1b-4e1f-a239-488a3672b521";
 
@@ -65,9 +71,8 @@ const Leaderboard = () => {
       );
     }
   
-  const rows = rankings?.rows || [];
-  const topThree = rows.slice(0, 3);
-  const rest = rows.slice(3);
+
+
 
 
   return (

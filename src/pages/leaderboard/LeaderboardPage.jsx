@@ -154,7 +154,7 @@ if (isError) {
             
             <LeaderboardTopThree users={leaderboardData.slice(0, 3)} />
             
-            <LeaderboardTable users={leaderboardData} currentUserRank={currentUserRank} />
+            <LeaderboardTable users={leaderboardData.slice(3)} currentUserRank={currentUserRank} />
           </>
         )}
 

@@ -290,8 +290,9 @@ const submitPrediction = () => {
 
   const predictionLocked = isPredictionLocked();
   // const predictionLocked = false; // Disable locking for testing
+  console.log(teamA)
   return (
-    <MainLayout>
+    <MainLayout page="predict">
       <ToastContainer/>
       <div className="min-h-screen bg-slate-950 text-white pb-32">
         {/* Background Effects */}
@@ -313,9 +314,9 @@ const submitPrediction = () => {
                    data={[
                      { name: "Home", link: "/" },
                      { name: "Fixtures", link: "/events/b68329a5-9e1b-4e1f-a239-488a3672b521" },
-                     { name: `${teamA?.team_name || "Team A"} vs ${teamB?.team_name || "Team B"}`, link: `/fixtures/${matchId}` },
+                     { name: `${teamA?.team_short_name || "Team A"} vs ${teamB?.team_short_name || "Team B"}`, link: `/fixtures/${matchId}` },
                    ]}
-                   activeName={`${teamA?.team_name || "Team A"} vs ${teamB?.team_name || "Team B"}`}
+                   activeName={`${teamA?.team_short_name || "Team A"} vs ${teamB?.team_short_name || "Team B"}`}
                  />
           {/* Match header*/}
                     {/* <motion.div
@@ -392,7 +393,7 @@ const submitPrediction = () => {
                 </span>
               </h1>
             </div>
-            <p className="text-slate-400">Select your predictions for this match</p>
+            <p className="text-slate-400">Select your Predictions for this Match</p>
             {predictionLocked && (
   <div className="flex items-center gap-2 text-amber-400 text-sm mb-4">
     <Lock size={16} />
@@ -683,7 +684,7 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
     : "Highest Wicket Taker";
 
   const subtitle = type === "mom" 
-    ? "The standout performer of the game" 
+    ? "The Standout Performer of the match" 
     : type === "runs" 
     ? "Who will score the most runs?" 
     : "Who will take the most wickets?";
@@ -712,7 +713,7 @@ const PlayerSection = ({ type, data, selected, onSelect, teamA, teamB, teamImage
         </div>
       </div>
 
-     <div className="flex flex-row gap-x-2">
+  <div className="grid grid-cols-2 gap-4">
             {/* Team A */}
       <div>
         <div className="flex items-center gap-3 mb-4">
@@ -803,7 +804,7 @@ const PlayerCard = ({ player, isSelected, onClick, gradient, predictionLocked, p
     )}
     
     <div className="relative flex items-center gap-3">
-      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold ${
+      <div className={`w-10 h-10 hidden rounded-full flex items-center justify-center text-sm font-bold ${
         isSelected
           ? `bg-gradient-to-br ${gradient} text-white`
           : "bg-slate-800 text-slate-400"
