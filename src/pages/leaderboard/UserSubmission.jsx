@@ -308,7 +308,7 @@ const MatchCard = ({ submission, index, isLast }) => {
         <div className="px-6 py-3 bg-slate-950/30 border-t border-slate-800 flex justify-between items-center">
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <Clock className="w-3 h-3" />
-            <span>Submitted {new Date(submission.updated_at).toLocaleTimeString()}</span>
+            <span>Submitted {`${new Date(submission.updated_at).toLocaleDateString()} ${new Date(submission.updated_at).toLocaleTimeString()}`}</span>
           </div>
         </div>
       </div>
@@ -353,7 +353,7 @@ const EmptyState = () => {
       <p className="text-slate-400 max-w-md mx-auto mb-6">
         You haven't made any predictions yet. Start predicting matches to see your submission history here!
       </p>
-      <button onClick={()=> navigate("/events")} className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl transition-all transform hover:scale-105">
+      <button onClick={()=> navigate("/events/b68329a5-9e1b-4e1f-a239-488a3672b521")} className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl transition-all transform hover:scale-105">
         Make Your First Prediction
       </button>
     </motion.div>
