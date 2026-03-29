@@ -28,7 +28,7 @@ export const getLeaderboardRankings = async (leaderboardId) => {
 //     const data = {
 //   "leaderboard_id": "19899f9d-dcf5-4d27-a9c7-5c7949515f34",
 //   "leaderboard_name": "Global",
-//   "event_id": "b68329a5-9e1b-4e1f-a239-488a3672b521",
+//   "event_id": "916227b7-e825-4067-ae23-17385707ef32",
 //   "rows": [
 //     {
 //       "username": "testuser101",
@@ -106,7 +106,7 @@ export const getLeaderboardsByEvent = async (eventId) => {
     //   }
     // );
   // const data = {
-  // "event_id": "b68329a5-9e1b-4e1f-a239-488a3672b521",
+  // "event_id": "916227b7-e825-4067-ae23-17385707ef32",
   // "company_display_id": "KT5XG8B0",
   // "leaderboards": [
   //   {
@@ -183,7 +183,7 @@ export const getLeaderboardsByEvent = async (eventId) => {
     // console.log(username)
     try {
       // console.log(user)
-      const { data } = await api.get(`/api/v2/my-submissions/event/b68329a5-9e1b-4e1f-a239-488a3672b521/`);
+      const { data } = await api.get(`/api/v2/my-submissions/event/916227b7-e825-4067-ae23-17385707ef32/`);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message)
@@ -199,7 +199,7 @@ export const getUserSubmission = async ({username}) => {
       },
     };
     try {
-      const { data } = await api.get(`/api/v2/my-submissions/event/b68329a5-9e1b-4e1f-a239-488a3672b521/`, config);
+      const { data } = await api.get(`/api/v2/my-submissions/event/916227b7-e825-4067-ae23-17385707ef32/`, config);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message)
