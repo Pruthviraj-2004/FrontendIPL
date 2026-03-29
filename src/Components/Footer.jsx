@@ -8,7 +8,7 @@ const CTA = () => {
   const links = [
     { name: "LeaderBoard", path: "/board", icon: Trophy },
     // { name: "Register", path: "/register", icon: UserPlus },
-    { name: "Fixtures", path: "/events/b68329a5-9e1b-4e1f-a239-488a3672b521", icon: Calendar },
+    { name: "Fixtures", path: "/events/916227b7-e825-4067-ae23-17385707ef32", icon: Calendar },
     { name: "Terms", path: "/terms", icon: FileText },
     { name: "AboutUs", path: "/aboutus", icon: Users },
   ];

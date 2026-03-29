@@ -22,7 +22,7 @@ const Leaderboard = () => {
   );
 }
   // 🔹 For now hardcode IPL event id
-  const eventId = "b68329a5-9e1b-4e1f-a239-488a3672b521";
+  const eventId = "916227b7-e825-4067-ae23-17385707ef32";
 
   const [selectedLeaderboardId, setSelectedLeaderboardId] = useState(null);
 
@@ -199,8 +199,8 @@ const Leaderboard = () => {
           })}
         </div> */} 
        <LeaderboardUI 
-  eventId="b68329a5-9e1b-4e1f-a239-488a3672b521"
-  initialLeaderboardId="e04f49e5-abb9-4044-8d66-3873128991cc"
+  eventId="916227b7-e825-4067-ae23-17385707ef32"
+  initialLeaderboardId="8e4f095b-98f9-4126-992c-bb7c6f092fb8"
 />
         </div>
       </section>

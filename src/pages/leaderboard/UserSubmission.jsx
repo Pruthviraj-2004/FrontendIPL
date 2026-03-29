@@ -353,7 +353,7 @@ const EmptyState = () => {
       <p className="text-slate-400 max-w-md mx-auto mb-6">
         You haven't made any predictions yet. Start predicting matches to see your submission history here!
       </p>
-      <button onClick={()=> navigate("/events/b68329a5-9e1b-4e1f-a239-488a3672b521")} className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl transition-all transform hover:scale-105">
+      <button onClick={()=> navigate("/events/916227b7-e825-4067-ae23-17385707ef32")} className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl transition-all transform hover:scale-105">
         Make Your First Prediction
       </button>
     </motion.div>

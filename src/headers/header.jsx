@@ -74,7 +74,7 @@ const Headers = () => {
     {
       name: "Fixtures",
       type: "link",
-      href: "/events/b68329a5-9e1b-4e1f-a239-488a3672b521",
+      href: "/events/916227b7-e825-4067-ae23-17385707ef32",
       icon: <BiSolidCricketBall color="#111fbd" />,
     },
     {

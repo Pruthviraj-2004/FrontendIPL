@@ -2,7 +2,6 @@ import React from "react";
 import { Medal, TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 const LeaderboardTable = ({ users, currentUserRank }) => {
-  console.log("Rendering LeaderboardTable with users:", users);
   const getRankStyle = (rank) => {
     if (rank === 1) return "text-yellow-400 bg-yellow-400/10";
     if (rank === 2) return "text-slate-300 bg-slate-400/10";
