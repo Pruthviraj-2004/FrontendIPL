@@ -24,8 +24,8 @@ const Authform = () => {
   const dispatch = useDispatch();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ username, full_name, company_display_id, email, password, repeat_password }) => {
-      return signup({ username, full_name, company_display_id, email, password, repeat_password });
+    mutationFn: ({ username, full_name, company_display_id, password, repeat_password }) => {
+      return signup({ username, full_name, company_display_id, password, repeat_password });
     },
     onSuccess: (data) => {
       toast.success("Registration successful!", {
@@ -37,7 +37,8 @@ const Authform = () => {
       localStorage.setItem("account", JSON.stringify(data));
     },
     onError: (error) => {
-      toast.error(error.response?.data?.detail || "An error occurred during registration.", {
+      console.log(error)
+      toast.error(error?.error || "An error occurred during registration.", {
         position: "top-center",
         autoClose: 3000,
         closeButton: false,
@@ -46,8 +47,8 @@ const Authform = () => {
   });
 
   const { mutate: mutatesignin, isPending: isSigningIn } = useMutation({
-    mutationFn: ({ company_display_id, email, username, password }) => {
-      return signin({ company_display_id, email, username, password });
+    mutationFn: ({ company_display_id, username, password }) => {
+      return signin({ company_display_id, username, password });
     },
     onSuccess: (data) => {
       toast.success("Login successful!", {
@@ -103,8 +104,7 @@ const Authform = () => {
 
   const onSubmit = (data) => {
     if (variant === "REGISTER") {
-      const { username, full_name,company_display_id, email, password, repeat_password } = data;
-      console.log("Form Data:", data); // Debugging log
+      const { username, full_name,company_display_id, password, repeat_password } = data;
       if (password !== repeat_password) {
         toast.error("Passwords do not match", {
           position: "top-center",
@@ -112,7 +112,7 @@ const Authform = () => {
           closeButton: false,
         });
       } else {
-        mutate({ username, full_name, company_display_id, email, password });
+        mutate({ username, full_name, company_display_id, password });
       }
     } else {
       const { email, company_display_id, username, password } = data;
@@ -200,7 +200,7 @@ const Authform = () => {
                     control={control}
                   />
                   
-                  <Input
+                  {/* <Input
                     label="Company Display ID"
                     id="company_display_id"
                     type="text"
@@ -209,6 +209,20 @@ const Authform = () => {
                     disabled={isPending || isSigningIn}
                     variant={variant}
                     control={control}
+                  /> */}
+                  <Input
+                    label="Company Display ID"
+                    id="company_display_id"
+                    type="select"
+                    register={register}
+                    errors={errors}
+                    disabled={isPending || isSigningIn}
+                    variant={variant}
+                    control={control}
+                    options={[
+                      { label: "KT5XG8B0", value: "KT5XG8B0" },
+                      { label: "W5DDYM3D", value: "W5DDYM3D" },
+                    ]}
                   />
 
                   {variant === "REGISTER" && (
@@ -224,7 +238,7 @@ const Authform = () => {
                     />
                   )}
 
-                  <Input
+                  {/* <Input
                     label="Email"
                     id="email"
                     type="email"
@@ -233,7 +247,7 @@ const Authform = () => {
                     disabled={isPending || isSigningIn}
                     variant={variant}
                     control={control}
-                  />
+                  /> */}
 
                   <Input
                     label="Password"

@@ -33,7 +33,7 @@ const mi = {
 
 const rcb = {
   intro:
-    "Royal Challengers Bangalore (RCB) is a cricket team that has experienced its share of ups and downs, but its passionate fan base remains loyal through thick and thin. With a roster of talented players and dedicated coaching staff, RCB always enters the IPL season with a sense of optimism and determination. Despite facing challenges, the team strives to improve and make its mark on the league. Each match offers a new opportunity for RCB to showcase its skills and compete at the highest level. While success may not always come easily, the resilience and spirit of RCB continue to captivate fans and keep the team's legacy alive.",
+    "Royal Challengers Bengaluru (RCB) is a cricket team that has experienced its share of ups and downs, but its passionate fan base remains loyal through thick and thin. With a roster of talented players and dedicated coaching staff, RCB always enters the IPL season with a sense of optimism and determination. Despite facing challenges, the team strives to improve and make its mark on the league. Each match offers a new opportunity for RCB to showcase its skills and compete at the highest level. While success may not always come easily, the resilience and spirit of RCB continue to captivate fans and keep the team's legacy alive.",
   Wicketkeepers: "Anuj Rawat, Dinesh Karthik.",
 
   Batters:
@@ -87,7 +87,7 @@ const kkr = {
 
 const lsg = {
   intro:
-    "In the 2022 season, the franchise finished third in the group stage and qualified for the playoffs. They faced fourth place Royal Challengers Bangalore in the Eliminator match and were knocked out at that stage.[8] The 2023 season saw the side again finishing 3rd and losing the eliminator, this time to Mumbai Indians.",
+    "In the 2022 season, the franchise finished third in the group stage and qualified for the playoffs. They faced fourth place Royal Challengers Bengaluru in the Eliminator match and were knocked out at that stage.[8] The 2023 season saw the side again finishing 3rd and losing the eliminator, this time to Mumbai Indians.",
   Wicketkeepers: "KL Rahul † (c),Quinton de Kock †,Nicholas Pooran †",
   Batters: "Ayush Badoni ,Ashton Turner,Devdutt Padikkal",
   Bowlers:

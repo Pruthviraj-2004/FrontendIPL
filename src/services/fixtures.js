@@ -46,8 +46,9 @@ export const predictMatch = async ({
     );
     return data;
   } catch (error) {
-    if (error.response && error.response.data.error) {
-      throw new Error(error.response.data.error);
+    console.log(error?.response?.data?.detail);
+    if (error.response && error.response?.data?.detail) {
+      throw new Error(error.response?.data?.detail);
     } else if (error.message) {
       throw new Error(error.message);
     } else {

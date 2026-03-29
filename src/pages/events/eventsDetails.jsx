@@ -58,7 +58,7 @@ const EventDetailsPage = () => {
   }
   
   const event = data?.event;
-
+  console.log(data);
   const upcomingMatches = data?.upcoming_matches || [];
   const pastMatches = data?.past_matches || [];
 
