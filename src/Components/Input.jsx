@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import clsx from "clsx";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { IoEyeOutline } from "react-icons/io5";
-import { FaLock } from "react-icons/fa";
-import { MdEmail, MdError, MdLeaderboard } from "react-icons/md";
-import { IoPersonSharp } from "react-icons/io5";
-import { AnimatePresence } from "framer-motion";
 import { useWatch } from "react-hook-form";
+import { AnimatePresence, motion } from "framer-motion";
+import clsx from "clsx";
+import { IoPersonSharp, IoEyeOutline } from "react-icons/io5";
+import { FaLock, FaRegEyeSlash } from "react-icons/fa";
+import { MdEmail, MdLeaderboard } from "react-icons/md";
+import { MdError } from "react-icons/md";
+
 
 const Input = ({
   label,
@@ -18,6 +17,7 @@ const Input = ({
   errors,
   disabled,
   control,
+  options = [],
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -44,10 +44,10 @@ const Input = ({
     return true;
   };
 
-  // Icon mapping - returns null if no icon needed
+  // Icon mapping
   const getIcon = () => {
     const iconClass = "w-5 h-5 text-slate-400";
-    
+
     if (label === "Name" || label === "Username" || label === "Full Name") {
       return <IoPersonSharp className={iconClass} />;
     }
@@ -78,17 +78,17 @@ const Input = ({
       </AnimatePresence>
 
       <div className="relative my-3">
-        {/* Left Icon - only render if exists */}
+        {/* Left Icon */}
         {hasIcon && (
-          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none z-10">
             {icon}
           </div>
         )}
 
-        {/* Floating Label - position based on icon presence */}
+        {/* Floating Label */}
         <motion.label
           htmlFor={id}
-          className={clsx(
+           className={clsx(
             "absolute font-medium transition-colors duration-200 pointer-events-none",
             labelLeftPosition,
             shouldFloat
@@ -98,7 +98,7 @@ const Input = ({
             isInvalid && !shouldFloat && "text-rose-400"
           )}
           animate={{
-            y: shouldFloat ? 0 : 0, // Remove the -12 offset that was causing issues
+            y: shouldFloat ? 0 : 0, // 
             scale: shouldFloat ? 0.85 : 1,
           }}
           transition={{ duration: 0.2 }}
@@ -109,43 +109,92 @@ const Input = ({
           {label}
         </motion.label>
 
-        {/* Input Field - padding based on icon presence */}
-        <input
-          id={id}
-          type={showPassword ? "text" : type}
-          placeholder=" "
-          disabled={disabled}
-          {...register(id, {
-            required: {
-              value: true,
-              message: `${label} is required`,
-            },
-            validate: type === "password" ? validatePasswordLength : undefined,
-          })}
-          className={clsx(
-            "block w-full rounded-xl py-4 pr-4 placeholder-transparent",
-            leftPadding,
-            "bg-slate-900/80 border-2 transition-all duration-200",
-            "focus:outline-none focus:ring-0 sm:text-sm",
-            isInvalid
-              ? "border-rose-500/50 focus:border-rose-500 text-rose-100"
-              : "border-slate-700 text-white focus:border-violet-500/50 hover:border-slate-600",
-            disabled && "opacity-50 cursor-not-allowed",
-            isFocused && "bg-slate-900"
-          )}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
+        {/* Select Field */}
+        {type === "select" ? (
+          <>
+            <select
+              id={id}
+              disabled={disabled}
+              defaultValue=""
+              {...register(id, {
+                required: {
+                  value: true,
+                  message: `${label} is required`,
+                },
+              })}
+              className={clsx(
+                "block w-full rounded-xl py-4 pr-10",
+                leftPadding,
+                "bg-slate-900/80 border-2 transition-all duration-200 appearance-none",
+                "focus:outline-none focus:ring-0 sm:text-sm",
+                isInvalid
+                  ? "border-rose-500/50 focus:border-rose-500 text-rose-100"
+                  : "border-slate-700 text-white focus:border-violet-500/50 hover:border-slate-600",
+                disabled && "opacity-50 cursor-not-allowed",
+                isFocused && "bg-slate-900"
+              )}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+            >
+              <option value="" disabled hidden></option>
+              {options.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  className="bg-slate-900 text-white"
+                >
+                  {option.label}
+                </option>
+              ))}
+            </select>
 
-        {/* Password Toggle */}
-        {type === "password" && (
-          <button
-            type="button"
-            className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-300 transition-colors"
-            onClick={togglePasswordVisibility}
-          >
-            {showPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
-          </button>
+            {/* Dropdown Arrow */}
+            <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
+              ▼
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Input Field */}
+            <input
+              id={id}
+              type={type === "password" && showPassword ? "text" : type}
+              placeholder=" "
+              disabled={disabled}
+              {...register(id, {
+                required: {
+                  value: true,
+                  message: `${label} is required`,
+                },
+                validate:
+                  type === "password" ? validatePasswordLength : undefined,
+              })}
+              className={clsx(
+                "block w-full rounded-xl py-4 pr-4 placeholder-transparent",
+                leftPadding,
+                "bg-slate-900/80 border-2 transition-all duration-200",
+                "focus:outline-none focus:ring-0 sm:text-sm",
+                isInvalid
+                  ? "border-rose-500/50 focus:border-rose-500 text-rose-100"
+                  : "border-slate-700 text-white focus:border-violet-500/50 hover:border-slate-600",
+                disabled && "opacity-50 cursor-not-allowed",
+                isFocused && "bg-slate-900"
+              )}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+            />
+
+            {/* Password Toggle */}
+            {type === "password" && (
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-300 transition-colors"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <FaRegEyeSlash /> : <IoEyeOutline />}
+              </button>
+            )}
+          </>
         )}
       </div>
 

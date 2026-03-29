@@ -38,9 +38,9 @@ export const signin = async ({ company_display_id, email, username, password }) 
     return response.data;
   } catch (error) {
     console.error("Login error:", error);
-    if (error.response && error.response.data.error) {
+    if (error.response && error.response?.data?.detail) {
       console.error("Login error response:", error);
-      throw new Error(error.response.data.error);
+      throw new Error(error.response.data?.detail);
     } else if (error.message) {
   
       throw new Error(error.message);

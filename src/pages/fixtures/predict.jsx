@@ -82,7 +82,7 @@ const PredictMatch = () => {
     "Mumbai Indians": images.mi1,
     "Punjab Kings": images.pbks1,
     "Rajasthan Royals": images.rr1,
-    "Royal Challengers Bangalore": images.rcb1,
+    "Royal Challengers Bengaluru": images.rcb1,
     "Sunrisers Hyderabad": images.srh1,
     "Lucknow Super Giants": images.lsg1,
     "Gujarat Titans": images.gt1,
@@ -198,6 +198,7 @@ const isPredictionLocked = () => {
       });
     },
     onError: (e) => {
+      console.error(e);
       toast.error(e.message, {
         position: "top-center",
         style: {
@@ -289,8 +290,7 @@ const submitPrediction = () => {
   const progress = (sections.filter(s => s.value).length / sections.length) * 100;
 
   const predictionLocked = isPredictionLocked();
-  // const predictionLocked = false; // Disable locking for testing
-  console.log(teamA)
+
   return (
     <MainLayout page="predict">
       <ToastContainer/>
