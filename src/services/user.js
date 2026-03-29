@@ -16,8 +16,8 @@ export const signup = async ({ username, full_name, company_display_id, email, p
     return response.data;
   } catch (error) {
     console.error("Signup error:", error);
-    if (error.response && error.response.data.error) {
-      throw new Error(error.response.data.error);
+    if (error.response && error.response.data.detail) {
+      throw new Error(error.response.data.detail);
     } else if (error.message) {
      
       throw new Error(error.message);
