@@ -14,6 +14,7 @@ const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
   const [currentLeaderboardId, setCurrentLeaderboardId] = useState(initialLeaderboardId);
   const [loading, setLoading] = useState(false);
   const [currentUserRank, setCurrentUserRank] = useState(null);
+  const [currentUserName, setCurrentUserName] = useState(null);
   // const [error, setError] = useState(null);
 
   // Fetch rankings when leaderboard changes
@@ -72,7 +73,10 @@ const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
     user_count: data.user_count
   });
   setCurrentUserRank(data.current_user_rank);
+  setCurrentUserName(data.current_username);
 }, [data]);
+
+  
 
   if (!eventId) {
     return (
@@ -110,19 +114,19 @@ if (isError) {
       <div className="space-y-1">
         <div className="flex justify-between">
           <span>Winner Team</span>
-          <span>+4 pts</span>
+          <span>+3 pts</span>
         </div>
         <div className="flex justify-between">
           <span>Player of the Match</span>
-          <span>+3 pts</span>
+          <span>+4 pts</span>
         </div>
         <div className="flex justify-between">
           <span>Most Runs Scorer of the Match</span>
-          <span>+3 pts</span>
+          <span>+2 pts</span>
         </div>
         <div className="flex justify-between">
           <span>Most Wicket Taker of the Match</span>
-          <span>+3 pts</span>
+          <span>+2 pts</span>
         </div>
       </div>
     </div>
@@ -150,11 +154,12 @@ if (isError) {
               totalUsers={eventInfo?.user_count || leaderboardData.length}
               matchNumber={eventInfo?.match_number}
               currentUserRank={currentUserRank}
+              currentUserName={currentUserName}
             />
             
             <LeaderboardTopThree users={leaderboardData.slice(0, 3)} />
             
-            <LeaderboardTable users={leaderboardData.slice(3)} currentUserRank={currentUserRank} />
+            <LeaderboardTable users={leaderboardData.slice(3)} currentUserRank={currentUserRank} currentUserName={currentUserName} />
           </>
         )}
 
