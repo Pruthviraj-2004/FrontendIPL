@@ -1,7 +1,7 @@
 import React from "react";
 import { Medal, TrendingUp, TrendingDown, Minus } from "lucide-react";
 
-const LeaderboardTable = ({ users, currentUserRank }) => {
+const LeaderboardTable = ({ users, currentUserRank, currentUserName }) => {
   const getRankStyle = (rank) => {
     if (rank === 1) return "text-yellow-400 bg-yellow-400/10";
     if (rank === 2) return "text-slate-300 bg-slate-400/10";
@@ -37,7 +37,7 @@ const LeaderboardTable = ({ users, currentUserRank }) => {
               className={`px-4 py-3 grid grid-cols-12 gap-2 items-center border-b border-white/5 
                 last:border-none hover:bg-white/5 transition-colors
                 ${isTop3 ? "bg-gradient-to-r from-white/5 to-transparent" : ""}
-                ${currentUserRank === user.rank ? "bg-purple-700/50" : ""}`}
+                ${currentUserName === user.username ? "bg-purple-700/50" : ""}`}
             >
               {/* Rank */}
               <div className="col-span-2 flex justify-center">

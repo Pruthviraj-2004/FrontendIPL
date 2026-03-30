@@ -71,19 +71,20 @@ const statsVariants = {
 };
 
 // Helper components
-const PredictionBadge = ({ label, predicted, actual, points, isCorrect, icon: Icon }) => {
+const PredictionBadge = ({ label, predicted, actual, points, isCorrect, icon: Icon, matchStatus }) => {
+  
   const getStatusColor = () => {
-    if (actual === null || actual === undefined) return "bg-slate-800/50 border-slate-700 text-slate-400";
+    if (matchStatus !== "completed") return "bg-slate-800/50 border-slate-700 text-slate-400";
     if (isCorrect) return "bg-emerald-500/10 border-emerald-500/30 text-emerald-400";
     return "bg-rose-500/10 border-rose-500/30 text-rose-400";
   };
 
   const getStatusIcon = () => {
-    if (actual === null || actual === undefined) return <Minus className="w-4 h-4" />;
+    if (matchStatus !== "completed") return <Minus className="w-4 h-4" />;
     if (isCorrect) return <CheckCircle2 className="w-4 h-4" />;
     return <XCircle className="w-4 h-4" />;
   };
-
+  
   return (
     <div className={`relative overflow-hidden rounded-xl border backdrop-blur-sm p-3 ${getStatusColor()}`}>
       <div className="flex items-start justify-between">
@@ -271,34 +272,38 @@ const MatchCard = ({ submission, index, isLast }) => {
               <PredictionBadge
                 label="Winner"
                 predicted={submission.predicted_winner_team}
-                actual={submission.flag_winner !== null ? (submission.flag_winner ? submission.predicted_winner_team : submission.actual_winner_team) : null}
+                actual={submission.flag_winner !== false ? submission.actual_winner_team : null}                
                 points={submission.points_winner}
                 isCorrect={submission.flag_winner}
                 icon={Trophy}
+                matchStatus={submission.match_status}
               />
               <PredictionBadge
                 label="Player of Match"
                 predicted={submission.predicted_player_of_match}
-                actual={submission.flag_mom !== null ? (submission.flag_mom ? submission.predicted_player_of_match : submission.actual_player_of_match) : null}
+                actual={submission.flag_mom !== false ? submission.actual_player_of_match : null}
                 points={submission.points_mom}
                 isCorrect={submission.flag_mom}
                 icon={User}
+                matchStatus={submission.match_status}
               />
               <PredictionBadge
                 label="Most Runs"
                 predicted={submission.predicted_most_runs}
-                actual={submission.flag_mruns !== null ? (submission.flag_mruns ? submission.predicted_most_runs : submission.actual_most_runs_player) : null}
+                actual={submission.flag_mruns !== false ? submission.actual_most_runs_player : null}
                 points={submission.points_runs}
                 isCorrect={submission.flag_mruns}
                 icon={Activity}
+                matchStatus={submission.match_status}
               />
               <PredictionBadge
                 label="Most Wickets"
                 predicted={submission.predicted_most_wickets}
-                actual={submission.flag_mwickets !== null ? (submission.flag_mwickets ? submission.predicted_most_wickets : submission.actual_most_wickets_taker) : null}
+                actual={submission.flag_mwickets !== false ? submission.actual_most_wickets_taker : null}
                 points={submission.points_wickets}
                 isCorrect={submission.flag_mwickets}
                 icon={Zap}
+                matchStatus={submission.match_status}
               />
             </div>
           </motion.div>

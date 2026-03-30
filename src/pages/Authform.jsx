@@ -220,8 +220,8 @@ const Authform = () => {
                     variant={variant}
                     control={control}
                     options={[
-                      { label: "KT5XG8B0", value: "KT5XG8B0" },
-                      { label: "W5DDYM3D", value: "W5DDYM3D" },
+                      { label: "Impact Analytics", value: "56T8S1HU" },
+                      { label: "Testing", value: "W5DDYM3D" },
                     ]}
                   />
 
