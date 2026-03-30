@@ -213,16 +213,16 @@ const Authform = () => {
                   <Input
                     label="Company Display ID"
                     id="company_display_id"
-                    type="select"
+                    type="text"
                     register={register}
                     errors={errors}
                     disabled={isPending || isSigningIn}
                     variant={variant}
                     control={control}
-                    options={[
-                      { label: "Impact Analytics", value: "56T8S1HU" },
-                      { label: "Testing", value: "W5DDYM3D" },
-                    ]}
+                    // options={[
+                    //   { label: "Impact Analytics", value: "56T8S1HU" },
+                    //   { label: "Testing", value: "W5DDYM3D" },
+                    // ]}
                   />
 
                   {variant === "REGISTER" && (
