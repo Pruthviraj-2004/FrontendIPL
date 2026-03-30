@@ -76,7 +76,6 @@ const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
   setCurrentUserName(data.current_username);
 }, [data]);
 
-  
 
   if (!eventId) {
     return (
