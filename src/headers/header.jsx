@@ -45,7 +45,6 @@ const Headers = () => {
     },
     onSuccess: (data) => {
       toast.success("Logout successful")
-      console.log("Logout successful");
     },
     onError: (error) => {
       toast.error(error.message);

@@ -37,7 +37,6 @@ const Authform = () => {
       localStorage.setItem("account", JSON.stringify(data));
     },
     onError: (error) => {
-      console.log(error)
       toast.error(error?.error || "An error occurred during registration.", {
         position: "top-center",
         autoClose: 3000,

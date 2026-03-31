@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import Headers from "../headers/header";
 import CTA from "./Footer";
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 const MainLayout = ({ children, page }) => {
   const topRef = useRef(null);
   useEffect(() => {

@@ -9,9 +9,6 @@ import { images } from "../../constants";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import HeroSection from "./Hero";
-import News from "./News";
-import Card from './Card'
-import Quote from "./Quote";
 import HowItWorks from "./HowItWorks";
 import FeaturedEvents from "./FeaturedEvents";
 import AboutPredictivePlay from "./About";
@@ -41,10 +38,10 @@ const additionalRules = [
 ];
 
 const Points = [
-  { id: 1, text: "Winner Team - 4 Base Points..." },
-  { id: 2, text: "Player of the Match - 3 Base Points." },
-  { id: 3, text: "Most Runs Scorer of the Match - 3 Base Points." },
-  { id: 4, text: "Most Wicket Taker of the Match - 3 Base Points." },
+  { id: 1, text: "Winner Team - 3 Base Points..." },
+  { id: 2, text: "Player of the Match - 4 Base Points." },
+  { id: 3, text: "Most Runs Scorer of the Match - 2 Base Points." },
+  { id: 4, text: "Most Wicket Taker of the Match - 2 Base Points." },
   // { id: 5, text: "Bonus weeks with 2x and 3x Bonus Points." },
 
   { id: 5, text: "In case of players with same runs then Strike Rate is taken under consideration." },

@@ -56,7 +56,6 @@ api.interceptors.response.use(
 
     try {
       const res = await api.post("/api/v2/refresh/");
-      console.log("Token refreshed successfully");
       isRefreshing = false;
       onTokenRefreshed();
 

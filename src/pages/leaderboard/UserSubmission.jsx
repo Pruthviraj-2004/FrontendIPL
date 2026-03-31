@@ -374,8 +374,7 @@ const UserSubmission = () => {
     queryFn: () => getUserSubmission({ username: userState?.userInfo?.user?.username }),
     queryKey: ["usersubmissions"],
   });
-
-
+  
   const cardRefs = useRef([]);
   const submissions = data?.submissions || [];
   

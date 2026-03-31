@@ -28,7 +28,6 @@ const EventDetailsPage = () => {
       });
     },
   });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -58,7 +57,6 @@ const EventDetailsPage = () => {
   }
   
   const event = data?.event;
-  console.log(data);
   const upcomingMatches = data?.upcoming_matches || [];
   const pastMatches = data?.past_matches || [];
 
