@@ -3,10 +3,12 @@ import LeaderboardSelector from "./LeaderboardSelector";
 import LeaderboardHeader from "./LeaderboardHeader";
 import LeaderboardTopThree from "./LeaderboardTopThree";
 import LeaderboardTable from "./LeaderboardTable";
-import { Info } from "lucide-react";
+import { Info, Sparkles } from "lucide-react";
 import { getLeaderboardRankings } from "../../services/leaderboard";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import MainLayout from "../../Components/MainLayout";
+import { motion } from "framer-motion";
 
 const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -86,7 +88,18 @@ const LeaderboardUI = ({ eventId, initialLeaderboardId }) => {
     );
   }
 
-  if (isLoading) return <Loader2 className="w-4 h-4 animate-spin" />;
+   if (isLoading) {
+     return (
+         <div className="min-h-screen flex items-center justify-center">
+           <motion.div
+             animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+           >
+             <Sparkles className="w-12 h-12 text-violet-500" />
+           </motion.div>
+         </div>
+     );
+   }
 
 if (isError) {
   console.error(error);

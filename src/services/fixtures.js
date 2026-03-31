@@ -15,7 +15,6 @@ export const getFixtures = async () => {
   } catch (error) {
     if (error.response && error.response.data.message)
       throw new Error(error.response.data.message);
-    console.log(error);
     throw new Error(error.message);
   }
 };
@@ -46,7 +45,6 @@ export const predictMatch = async ({
     );
     return data;
   } catch (error) {
-    console.log(error?.response?.data?.detail);
     if (error.response && error.response?.data?.detail) {
       throw new Error(error.response?.data?.detail);
     } else if (error.message) {
@@ -68,7 +66,6 @@ export const getMatchDetails = async (parsedMatchId) => {
     } catch (error) {
       if (error.response && error.response.data.message)
         throw new Error(error.response.data.message);
-      console.log(error);
       throw new Error(error.message);
     }
   };
@@ -84,7 +81,6 @@ export const getMatchDetails = async (parsedMatchId) => {
     } catch (error) {
       if (error.response && error.response.data.message)
         throw new Error(error.response.data.message);
-      console.log(error);
       throw new Error(error.message);
     }
   };

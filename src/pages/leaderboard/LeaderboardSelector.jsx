@@ -59,7 +59,6 @@ const LeaderboardSelector = ({
     lb => lb.leaderboard_id === currentLeaderboardId
   );
 
-
   const handleSelect = (leaderboard) => {
     onSelect(leaderboard);
     setIsOpen(false);

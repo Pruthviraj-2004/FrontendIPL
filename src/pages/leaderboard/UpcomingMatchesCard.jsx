@@ -4,7 +4,6 @@ import Card from '../Homepage/Card';
 
 const UpcomingMatchesCard = ({ matches }) => {
   if (!matches || matches.length === 0) return null;
-  console.log("UpcomingMatchesCard matches:", matches);
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
       weekday: 'short',

@@ -125,7 +125,6 @@ export const getLeaderboardsByEvent = async (eventId) => {
   //   }]}
    
   const response = await api.get(`/api/v2/leaderboard/list/by-event/${eventId}/`)
-    // console.log("Fetched leaderboards:", data);
     return response.data;
   } catch (error) {
     console.error("Leaderboard list error:", error);
@@ -188,7 +187,6 @@ export const getLeaderboardsByEvent = async (eventId) => {
     } catch (error) {
       if (error.response && error.response.data.message)
         throw new Error(error.response.data.message);
-      console.log(error);
       throw new Error(error.message);
     }
   };
@@ -204,7 +202,6 @@ export const getUserSubmission = async ({username}) => {
     } catch (error) {
       if (error.response && error.response.data.message)
         throw new Error(error.response.data.message);
-      console.log(error);
       throw new Error(error.message);
     }
   };

@@ -32,7 +32,7 @@ const TodaysFixtures = ({ matches }) => {
   if (todayMatches.length === 0) return null;
 
   return (
-    <section className="w-full">
+    <section className="w-full pt-6 lg:pt-0">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Header */}

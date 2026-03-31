@@ -72,7 +72,20 @@ const Leaderboard = () => {
     }
   
 
-
+    if (loadingRankings || loadingLeaderboards) {
+      return (
+        <MainLayout>
+          <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+            <motion.div
+              animate={{ rotate: 360, scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            >
+              <Sparkles className="w-12 h-12 text-violet-500" />
+            </motion.div>
+          </div>
+        </MainLayout>
+      );
+    }
 
 
   return (
@@ -200,7 +213,7 @@ const Leaderboard = () => {
         </div> */} 
        <LeaderboardUI 
   eventId="916227b7-e825-4067-ae23-17385707ef32"
-  initialLeaderboardId="8e4f095b-98f9-4126-992c-bb7c6f092fb8"
+  initialLeaderboardId="6bdf3345-a209-4952-95ff-b4b5c52ff131"
 />
         </div>
       </section>
