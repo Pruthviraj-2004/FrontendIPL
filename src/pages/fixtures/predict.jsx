@@ -145,35 +145,48 @@ const PredictMatch = () => {
   const teamB = data?.teams?.[1];
 
   // Extract actual results from data
-  const actualResults = data?.actual_results || {};
-  const isResultDeclared = actualResults?.is_result_declared || false;
-  
-  // Get actual winner team ID
-  const actualWinnerId = actualResults?.winner_team_id;
-  
-  // Get actual player IDs (from arrays)
-  const actualMomIds = actualResults?.player_of_match?.map(p => p.player_id) || [];
-  const actualRunsIds = actualResults?.most_runs_players?.map(p => p.player_id) || [];
-  const actualWicketsIds = actualResults?.most_wickets_players?.map(p => p.player_id) || [];
+// Replace your current actual results extraction with this:
+const actualResults = data?.actual_results || {};
+const isResultDeclared = actualResults?.is_result_declared || false;
+
+// Get actual winner team ID
+const actualWinnerId = actualResults?.winner_team_id;
+
+// Get actual player IDs (from arrays) - FIXED: Use correct property names
+const actualMomIds = actualResults?.player_of_match?.map(p => p.player_id) || [];
+const actualRunsIds = actualResults?.most_runs_players?.map(p => p.player_id) || [];
+const actualWicketsIds = actualResults?.most_wickets_players?.map(p => p.player_id) || [];
+
+// Calculate correctness flags based on actual results vs predictions
+// This is needed if your backend doesn't provide flag_winner etc.
+const submission = data?.submission || {};
+const predictedWinnerId = submission?.predicted_winner_team_id;
+const predictedMomId = submission?.predicted_player_of_match_id;
+const predictedRunsId = submission?.predicted_most_runs_player_id;
+const predictedWicketsId = submission?.predicted_most_wickets_taker_id;
+
+// Calculate correct flags if not provided by backend, otherwise use backend flags
+const correctFlags = {
+  winner: isResultDeclared ? actualWinnerId === predictedWinnerId : (submission?.flag_winner || false),
+  mom: isResultDeclared ? actualMomIds.includes(predictedMomId) : (submission?.flag_mom || false),
+  runs: isResultDeclared ? actualRunsIds.includes(predictedRunsId) : (submission?.flag_mruns || false),
+  wickets: isResultDeclared ? actualWicketsIds.includes(predictedWicketsId) : (submission?.flag_mwickets || false)
+};
+
+// Points calculation
+const points = {
+  winner: correctFlags.winner ? (submission?.points_winner || 3) : 0,
+  mom: correctFlags.mom ? (submission?.points_mom || 3) : 0,
+  runs: correctFlags.runs ? (submission?.points_runs || 3) : 0,
+  wickets: correctFlags.wickets ? (submission?.points_wickets || 2) : 0,
+  total: (correctFlags.winner ? (submission?.points_winner || 3) : 0) +
+         (correctFlags.mom ? (submission?.points_mom || 3) : 0) +
+         (correctFlags.runs ? (submission?.points_runs || 3) : 0) +
+         (correctFlags.wickets ? (submission?.points_wickets || 2) : 0),
+  max: submission?.max_points || 11
+};
 
   // Points from submission
-  const submission = data?.submission || {};
-  const points = {
-    winner: submission?.points_winner || 0,
-    mom: submission?.points_mom || 0,
-    runs: submission?.points_runs || 0,
-    wickets: submission?.points_wickets || 0,
-    total: submission?.total_points || 0,
-    max: submission?.max_points || 11
-  };
-
-  // Flags for correct predictions
-  const correctFlags = {
-    winner: submission?.flag_winner || false,
-    mom: submission?.flag_mom || false,
-    runs: submission?.flag_mruns || false,
-    wickets: submission?.flag_mwickets || false
-  };
 
   const players = [
     ...(data?.mom_players || []),
@@ -229,7 +242,7 @@ const PredictMatch = () => {
     setPredictionDone(data?.submission?.is_submitted || false);
   }, [data]);
 
-
+   
   const submitPrediction = () => {
     if (predictionLocked) {
       toast.error("Predictions locked after 7 PM IST on match day", {
@@ -663,7 +676,7 @@ const WinnerSection = ({
   points 
 }) => {
   const actualWinner = [teamA, teamB].find(t => t?.team_id === actualWinnerId);
-  
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-6">
@@ -721,7 +734,7 @@ const WinnerSection = ({
               whileHover={!predictionLocked && !predictionDone && !isResultDeclared ? { scale: 1.02, y: -5 } : {}}
               whileTap={!predictionLocked && !predictionDone && !isResultDeclared ? { scale: 0.98 } : {}}
               onClick={() => {
-                if (!predictionLocked && !predictionDone && !isResultDeclared) {
+                if (!predictionLocked && !isResultDeclared) {
                   setWinner(team?.team_id);
                   setTimeout(onNext, 300);
                 }
@@ -933,7 +946,7 @@ const PlayerSection = ({
                 player={player}
                 isSelected={selected === player.player_id}
                 isActualWinner={actualPlayerIds.includes(player.player_id)}
-                onClick={() => !predictionDone && !predictionLocked && !isResultDeclared && onSelect(player.player_id)}
+                onClick={() => !predictionLocked && !isResultDeclared && onSelect(player.player_id)}
                 gradient={gradient}
                 predictionDone={predictionDone}
                 predictionLocked={predictionLocked}
@@ -969,7 +982,7 @@ const PlayerSection = ({
                 player={player}
                 isSelected={selected === player.player_id}
                 isActualWinner={actualPlayerIds.includes(player.player_id)}
-                onClick={() => !predictionLocked && !predictionDone && !isResultDeclared && onSelect(player.player_id)}
+                onClick={() => !predictionDone && !isResultDeclared && onSelect(player.player_id)}
                 gradient={gradient}
                 predictionDone={predictionDone}
                 predictionLocked={predictionLocked || predictionDone}
