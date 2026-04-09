@@ -54,7 +54,7 @@ export const signin = async ({ company_display_id, email, username, password }) 
 export const signout = async ({ username, password1 }) => {
   try {
     const response = await axios.post(
-      "https://practicehost1.pythonanywhere.com/ipl2/logout_user/"
+      "https://predictiveplaybackendpractice.pythonanywhere.com/api/v2/logout/",
       // "http://localhost:8000/ipl2/logout_user/",
     );
     return response.data;
