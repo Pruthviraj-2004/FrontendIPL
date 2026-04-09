@@ -41,9 +41,10 @@ const Headers = () => {
   };
   const { mutate: mutatesignout, isLoading: isLoadingg } = useMutation({
     mutationFn: ({}) => {
-      return signout({});
+      return dispatch(logout());;
     },
     onSuccess: (data) => {
+      console.log("Signout successful:", data);
       toast.success("Logout successful")
     },
     onError: (error) => {
@@ -52,9 +53,11 @@ const Headers = () => {
     },
   });
   const logoutHandler = () => {
-    dispatch(logout());
+ 
     mutatesignout({});
-    navigate("/");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
   const isSmallScreen = useMediaQuery("(max-width: 768px)");
   const NavItemInfo = [
